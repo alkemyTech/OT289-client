@@ -8,6 +8,7 @@ import { headerLinks }  from '../../data/headerLinks'
 export default function Header() {
 
   return (
+    <>
     <div className="header">
       <div className="logo">
         <img src="/images/logo.png" alt='SOMOS MAS' />
@@ -15,6 +16,10 @@ export default function Header() {
       <NavBar />
       <BurguerIcon />
       </div>
+      <div className='hidden'>
+        a
+      </div>
+      </>
   )
 }
 
@@ -42,7 +47,7 @@ function BurguerIcon() {
    <div className='burguer-menu' onClick={() => setOpenMenu(!openMenu)}> 
     {!openMenu ? <List size={36}/> : <X size={36}/>}
    </div>
-   {openMenu && <BurguerMenu setOpenMenu={setOpenMenu}/>}
+   {openMenu && <BurguerMenu />}
    </div>
   )
 }
