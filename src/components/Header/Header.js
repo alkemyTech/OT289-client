@@ -1,7 +1,7 @@
 import './Header.css'
 import React, { useState } from 'react'
 import { List, X  } from 'react-bootstrap-icons'
-import { Link, BrowserRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { headerLinks }  from '../../data/headerLinks'
 
 
