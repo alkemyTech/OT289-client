@@ -1,0 +1,1 @@
+export const headerLinks = ['Nosotros', 'Novedades', 'Testimonios', 'Contacto', 'Contribuye']

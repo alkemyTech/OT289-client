@@ -2,11 +2,12 @@ import React from 'react';
 import logo from './logo.svg';
 import Header from './components/Header/Header'
 import { Counter } from './features/counter/Counter';
+import {BrowserRouter} from 'react-router-dom';
 import './App.css';
 
 function App() {
   return (
-      <>
+      <BrowserRouter>
       <Header/>
       <div className="App">
       <header className="App-header">
@@ -55,7 +56,7 @@ function App() {
         </span>
       </header>
     </div>
-    </>
+    </BrowserRouter>
   );
 }
 
