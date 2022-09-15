@@ -1,0 +1,151 @@
+.header {
+    background-color: #F1F1F1;
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+
+}
+
+.logo {
+  width: 140px;
+  height: 100%; 
+}
+
+.logo img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    width: 64%;
+    
+}
+
+nav button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.1s ;
+ 
+    padding-bottom: 30px;
+    padding-top:32px;
+}
+
+.home-button {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+nav button:hover {
+    border-bottom: 3px solid #9AC9FB;
+}
+
+
+.account {
+    position: relative;
+    width: 30%;
+}
+
+.register, 
+.login {
+    margin: 7px 15px 7px 15px;
+    border-radius: 10px;
+    margin-top: 23px;
+    padding: 10px;
+
+}
+
+.register {
+    border: 1px solid #DB5752;
+    background-color: #DB5752;
+    color: white;
+    transition: all 0.2s ease;
+}
+
+.register:hover {
+    background-color: #ca0000;
+    border: 1px solid #ca0000 !important;
+}
+
+.login {
+    border: 1px solid #9AC9FB;
+    transition: all 0.2s ease
+}
+
+.login:hover {
+    background-color: #9AC9FB;
+    color: white;
+    border-bottom: none !important;
+}
+
+.burguer-container {
+    position: relative;
+}
+
+.burguer-menu {
+    display:none;
+}
+
+.burguer-list {
+    position: absolute;
+    background-color: #F1F1F1;
+    border: 0px 0px 1px 1px solid rgba(0,0,0,0.5);
+    border-radius: 10px 0px 0px 10px;
+    padding: 10px;
+    width: 150px;
+    right: 0px;
+    top: 66px;
+    z-index: 1;
+}
+
+.burguer-list li {
+    list-style: none;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.burguer-register {
+    color: #DB5752;
+}
+
+.burguer-login {
+    color: #9AC9FB;
+}
+
+.burguer-list a {
+    text-decoration: none;
+}
+
+@media (max-width: 1050px) {
+    .register, 
+    .login {
+        padding: 5px;
+        margin-top: 28px;
+    }
+
+    nav{
+        width: 80%;
+    }
+}
+
+@media (max-width: 767px) {
+    nav {
+        display: none;
+    }
+    .burguer-menu {
+        display: block;
+        margin-top: 22px;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+}
+

@@ -1,11 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
+import Header from './components/Header/Header'
 import { Counter } from './features/counter/Counter';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
+      <>
+      <Header/>
+      <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
@@ -52,6 +55,7 @@ function App() {
         </span>
       </header>
     </div>
+    </>
   );
 }
 
