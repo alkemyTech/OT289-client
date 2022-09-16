@@ -25,7 +25,7 @@ function NavBar() {
   return (
 
       <nav>
-        {headerLinks.map((button,index) => index === 0 ? <Link to='/'><button key={button} className='home-button'>{button}</button></Link> : <Link to={button}><button key={button}>{button}</button></Link> )}
+        {headerLinks.map((button,index) => index === 0 ? <Link to='/' key={button}><button key={button}  className='home-button'>{button}</button></Link> : <Link to={button} key={button}><button key={button}>{button}</button></Link> )}
         <div className='account'>
           <Link to='Login'><button className='login'>Log in</button></Link>
           <Link to='Registrarse'><button className='register'>Registrate</button></Link>
@@ -56,7 +56,7 @@ function BurguerMenu({ setOpenMenu, openMenu }) {
     <ul className='burguer-list'>
       <Link to='Login'><li className='burguer-login' onClick={() => setOpenMenu(!openMenu)}>Login</li></Link>
       <Link to='Registrarse'><li className='burguer-register' onClick={() => setOpenMenu(!openMenu)}>Registrate</li></Link>
-      {headerLinks.map((button,index) => index === 0 ? <Link to='/'><li key={button} className='burguer-link' onClick={() => setOpenMenu(!openMenu)}>{button}</li></Link> :<Link to={button}><li key={button} className='burguer-link' onClick={() => setOpenMenu(!openMenu)}>{button}</li></Link>)}
+      {headerLinks.map((button,index) => index === 0 ? <Link to='/' key={button}><li key={button} className='burguer-link' onClick={() => setOpenMenu(!openMenu)}>{button}</li></Link> :<Link to={button} key={button}><li key={button} className='burguer-link' onClick={() => setOpenMenu(!openMenu)}>{button}</li></Link>)}
     </ul>
 
   )
