@@ -30,6 +30,7 @@ const RegisterForm = () => {
 
     const onSubmit = (values) => {
         //Saving in state for later use
+        console.log(values)
         setData(values)
     }
 
@@ -52,7 +53,7 @@ const RegisterForm = () => {
                         <Field type="email" name="email" placeholder="email" required />
                         {errors.email && touched.email && <ErrorMessage message={errors.email} />}
 
-                        <Field name="password" placeholder="contraseña" required />
+                        <Field name="password" type="password" placeholder="contraseña" required />
                         {errors.password && touched.password && <ErrorMessage message={errors.password} />}
 
                         <Field type="submit" name="submit" value="Crear cuenta" className={styles.button} />
