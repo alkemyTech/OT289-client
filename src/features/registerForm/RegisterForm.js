@@ -30,7 +30,6 @@ const RegisterForm = () => {
 
     const onSubmit = (values) => {
         //Saving in state for later use
-        console.log(values)
         setData(values)
     }
 
