@@ -2,16 +2,35 @@ import "./ScreenProfile.css";
 import React from "react";
 import { useState } from "react";
 
-const defaultImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXstoDmXI3ZQs0akG-W8gsy108JHocWn4C-g6ILL5R7oS-22j7CQ2NSMS40zMxe3bOGjA&usqp=CAU"
+const defaultImg =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXstoDmXI3ZQs0akG-W8gsy108JHocWn4C-g6ILL5R7oS-22j7CQ2NSMS40zMxe3bOGjA&usqp=CAU";
 
-const ScreenProfile = ({name="Unknown", familyName="Unknown", email="Unknown", img=defaultImg }) => {
+const ScreenProfile = ({ name = "Unknown", familyName = "Unknown", email = "Unknown", img = defaultImg }) => {
   const [userInfo, setUserInfo] = useState({
     name: name,
     familyName: familyName,
     email: email,
-    img: img
-  })
-  
+    img: img,
+  });
+
+  const [edit, setEdit] = useState(true);
+
+  const handleEdit = () => {
+    setEdit(false);
+  };
+
+  const handleApply = () => {
+    setEdit(true);
+  };
+
+  const handleInputChange = (e) => {
+    e.preventDefault()
+    setUserInfo({
+      ...userInfo,
+      [e.target.name]: e.target.value
+    })
+  };
+
   return (
     <div className="container">
       <div className="body-container">
@@ -27,7 +46,7 @@ const ScreenProfile = ({name="Unknown", familyName="Unknown", email="Unknown", i
                 height="150"
               />
               <div className="info-profile">
-                <h4 className="name-profile">{`${name} ${familyName}`}</h4>
+                <h4 className="name-profile">{`${userInfo.name} ${userInfo.familyName}`}</h4>
               </div>
             </div>
           </div>
@@ -39,26 +58,42 @@ const ScreenProfile = ({name="Unknown", familyName="Unknown", email="Unknown", i
                 <div className="title-div">
                   <h6 className="title">FirstName </h6>
                 </div>
-                <div className="info-div">{userInfo.name}</div>
+                {edit ? (
+                  <div className="info-div">{userInfo.name}</div>
+                ) : (
+                  <input className="input" type="text" name="name" onChange={(e) => handleInputChange(e)}/>
+                )}
               </div>
 
               <div className="data-container">
                 <div className="title-div">
                   <h6 className="title">FamilyName </h6>
                 </div>
-                <div className="info-div">{userInfo.familyName}</div>
+                {edit ? (
+                  <div className="info-div">{userInfo.familyName}</div>
+                ) : (
+                  <input className="input" type="text" name="familyName" onChange={(e) => handleInputChange(e)}/>
+                )}
               </div>
 
               <div className="data-container">
                 <div className="title-div">
                   <h6 className="title">Email </h6>
                 </div>
-                <div className="info-div">{userInfo.email}</div>
+                {edit ? (
+                  <div className="info-div">{userInfo.email}</div>
+                ) : (
+                  <input className="input" type="email" name="email" onChange={(e) => handleInputChange(e)}/>
+                )}
               </div>
 
               <div className="buttons-div">
-                <button className="button">Edit</button>
-                <button className="button">Apply</button>
+                <button onClick={(e) => handleEdit(e)} className="button">
+                  Edit
+                </button>
+                <button onClick={(e) => handleApply(e)} className="button">
+                  Apply
+                </button>
               </div>
 
             </div>
