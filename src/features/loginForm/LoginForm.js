@@ -27,7 +27,7 @@ const LoginForm = () => {
 
     const ErrorMessage = ({ message }) => {
         return (
-            <small className={styles.error}>{message}</small>
+            <small className="errorMessage">{message}</small>
         )
     }
 
@@ -44,15 +44,15 @@ const LoginForm = () => {
             >
 
                 {({ errors, touched }) => (
-                    <Form className={styles.loginForm}>
+                    <Form className="loginForm">
 
-                        <Field type="email" name="email" placeholder="email" required />
+                        <Field type="email" name="email" placeholder="email"/>
                         {errors.email && touched.email && <ErrorMessage message={errors.email} />}
 
-                        <Field name="password" placeholder="contraseña" required />
+                        <Field type="password" name="password" placeholder="contraseña"/>
                         {errors.password && touched.password && <ErrorMessage message={errors.password} />}
 
-                        <Field type="submit" name="submit" value="Entrar" className={styles.button} />
+                        <Field type="submit" name="submit" value="Entrar" className="loginButton" />
 
                     </Form>
                 )}

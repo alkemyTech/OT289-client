@@ -15,21 +15,21 @@
     border: 0;
 }
 
-.button {
+.loginButton {
     border: 0;
     cursor: pointer;
 }
 
-.button:hover {
+.loginButton:hover {
     background-color: DodgerBlue;
     color: white;
 }
 
-.button:active {
+.loginButton:active {
     background-color: dimgray;
 }
 
-.error {
+.errorMessage {
     font-size: 12px;
     margin-bottom: 4px;
     color: crimson;
