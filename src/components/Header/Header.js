@@ -16,9 +16,7 @@ export default function Header() {
       <NavBar />
       <BurguerIcon />
       </div>
-      <div className='hidden'>
-        a
-      </div>
+      <div className='hidden'></div>
       </>
   )
 }
@@ -27,8 +25,7 @@ function NavBar() {
   return (
 
       <nav>
-      <Link to='/'><button className='home-button'>Inicio</button></Link>
-        {headerLinks.map(button => <Link to={button}><button key={button}>{button}</button></Link>)}
+        {headerLinks.map((button,index) => index === 0 ? <Link to='/'><button key={button} className='home-button'>{button}</button></Link> : <Link to={button}><button key={button}>{button}</button></Link> )}
         <div className='account'>
           <Link to='Login'><button className='login'>Log in</button></Link>
           <Link to='Registrarse'><button className='register'>Registrate</button></Link>
@@ -47,19 +44,19 @@ function BurguerIcon() {
    <div className='burguer-menu' onClick={() => setOpenMenu(!openMenu)}> 
     {!openMenu ? <List size={36}/> : <X size={36}/>}
    </div>
-   {openMenu && <BurguerMenu />}
+   {openMenu && <BurguerMenu setOpenMenu={setOpenMenu} openMenu={openMenu}/>}
    </div>
   )
 }
 
-function BurguerMenu() {
+function BurguerMenu({ setOpenMenu, openMenu }) {
 
   return(
 
     <ul className='burguer-list'>
-      <Link to='Login'><li className='burguer-login'>Login</li></Link>
-      <Link to='Registrarse'><li className='burguer-register'>Registrate</li></Link>
-      {headerLinks.map(button => <Link to={button}><li key={button} className='burguer-link'>{button}</li></Link>)}
+      <Link to='Login'><li className='burguer-login' onClick={() => setOpenMenu(!openMenu)}>Login</li></Link>
+      <Link to='Registrarse'><li className='burguer-register' onClick={() => setOpenMenu(!openMenu)}>Registrate</li></Link>
+      {headerLinks.map((button,index) => index === 0 ? <Link to='/'><li key={button} className='burguer-link' onClick={() => setOpenMenu(!openMenu)}>{button}</li></Link> :<Link to={button}><li key={button} className='burguer-link' onClick={() => setOpenMenu(!openMenu)}>{button}</li></Link>)}
     </ul>
 
   )
