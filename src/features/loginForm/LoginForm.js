@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
 
-import styles from "./LoginForm.module.css"
+import "./LoginForm.css"
 
 const LoginForm = () => {
 
