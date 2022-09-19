@@ -23,6 +23,15 @@ const ScreenProfile = ({ name = "Unknown", familyName = "Unknown", email = "Unkn
     setEdit(true);
   };
 
+  const handleDelete = () => {
+    setUserInfo({
+      name: "Unknown",
+      familyName: "Unknown",
+      email: "Unknown",
+      img: defaultImg,
+    });
+  }
+
   const handleInputChange = (e) => {
     e.preventDefault()
     setUserInfo({
@@ -93,6 +102,9 @@ const ScreenProfile = ({ name = "Unknown", familyName = "Unknown", email = "Unkn
                 </button>
                 <button onClick={(e) => handleApply(e)} className="button">
                   Apply
+                </button>
+                <button onClick={(e) => handleDelete(e)} className="button">
+                  Delete
                 </button>
               </div>
 
