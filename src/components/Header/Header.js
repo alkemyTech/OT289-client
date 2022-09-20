@@ -25,7 +25,7 @@ function NavBar() {
   return (
 
       <nav>
-        {headerLinks.map((button) => <Link to={button} key={button}><button key={button}>{button}</button></Link> )}
+        {headerLinks.map((button) => <Link to={button.link} key={button.name}><button key={button.name}>{button.name}</button></Link> )}
         <div className='account'>
           <Link to='Login'><button className='login'>Log in</button></Link>
           <Link to='Registrarse'><button className='register'>Registrate</button></Link>
