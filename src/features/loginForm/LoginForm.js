@@ -14,15 +14,17 @@ const LoginForm = () => {
 
     const loginSchema = Yup.object().shape({
         email: Yup.string().required("Debe ingresar un email").matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, {message: "El email es invalido"})
-            .test('checkEmail', 'Este email no esta registrado', async (value) =>{
-                // return postServices.checkEmail({email:value}).emailExist
-                return true
-            }),
+            // .test('checkEmail', 'Este email no esta registrado', async (value) =>{
+            //     return postServices.checkEmail({email:value}).emailExist
+            // })
+            ,
         password: Yup.string().required("Debe ingresar una contraseña").min(6, 'La contraseña es muy corta')
-            .test('checkPassword', 'La contraseña es incorrecta', async (value) =>{
+            .test('checkPassword', 'La contraseña es incorrecta', async (value, {parent:{email}}) =>{
                 // return postServices.checkPassword({password:value}).passwordCorrect
+                console.log(email)
                 return true
-            }),
+            })
+            ,
     });
 
     const ErrorMessage = ({ message }) => {
