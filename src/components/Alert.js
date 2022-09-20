@@ -8,6 +8,10 @@ export function alertInfo(mensaje){
     Swal.fire("Información!", mensaje, "info");
 }
 
-export function alertError (){
-    Swal.fire("Error!", "Disculpe hubo un error, intente nuevamente!", "error");
+export function alertError (mensaje){
+    Swal.fire({
+        title: "Disculpa Hubo un Error",
+        icon: "error",        
+        text: mensaje
+      });
 }
