@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-
+import {alertConfirmation, alertInfo, alertError  } from './Alert.js';
 function Home() {
     return (
         <div>
