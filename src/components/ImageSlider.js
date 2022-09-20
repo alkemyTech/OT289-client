@@ -5,7 +5,7 @@ const ImageSlider = ({ slides }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const containerStyles = {
-        width: '500px',
+        width: '75%',
         height: '280px',
         margin: '0 auto',
     };
@@ -62,45 +62,61 @@ const ImageSlider = ({ slides }) => {
         setCurrentIndex(newIndex);
     };
     const goToSlide = slideIndex => {
-        setCurrentIndex(slideIndex)
+        setCurrentIndex(slideIndex);
+    };
+
+    const handleSubmit = (event) => {
+        alert("Editing done.");
+        event.preventDefaul();
     };
 
     return (
-        <div style={containerStyles}>
+        <form onSubmit={handleSubmit}>
 
-            <div style={editFormStyles}>
+            <div style={containerStyles}>
 
-                <h1>Edit Home Form</h1>
+                <div style={editFormStyles}>
 
-                <textarea
-                    required
-                    minLength="20"
-                    cols="60"
-                    rows="6"
-                />
+                    <h1>Edit Home Form</h1>
 
-                <div style={leftArrowStyles} onClick={goToPrevious}>⇦</div>
-                <div style={rightArrowStyles} onClick={goToNext}>⇨</div>
-                <div style={slideStyles}></div>
-                <div style={dotsContainerStyles}>
-                    {slides.map((slide, slideIndex) => (
-                        <div
-                            key={slideIndex}
-                            style={dotStyles}
-                            onClick={() => goToSlide(slideIndex)}
-                        >
-                            ●
-                        </div>
-                    ))}
+                    <textarea
+                        name="textarea"
+                        required
+                        minLength="20"
+                        cols="30"
+                        rows="6"
+                    />
+
+                    <div style={leftArrowStyles} onClick={goToPrevious}>⇦</div>
+                    <div style={rightArrowStyles} onClick={goToNext}>⇨</div>
+
+                    <div
+                        style={slideStyles}
+                        name="slide"
+                    >
+                    </div>
+
+                    <div style={dotsContainerStyles}>
+                        {slides.map((slide, slideIndex) => (
+                            <div
+                                key={slideIndex}
+                                style={dotStyles}
+                                onClick={() => goToSlide(slideIndex)}
+                            >
+                                ●
+                            </div>
+                        ))}
+                    </div>
+
+                    <p>{slides[currentIndex].title}</p>
+
+                    <input type="submit" value="Enviar" />
+
                 </div>
-
-                <p>{slides[currentIndex].title}</p>
-
-                <input type="submit" value="Enviar" />
 
             </div>
 
-        </div>
+        </form>
     )
 };
 
