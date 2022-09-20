@@ -1,1 +1,1 @@
-export const headerLinks = ['Inicio', 'Nosotros', 'Novedades', 'Testimonios', 'Contacto', 'Contribuye']
+export const headerLinks = ['Nosotros', 'Novedades', 'Testimonios', 'Contacto', 'Contribuye']

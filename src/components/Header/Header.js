@@ -11,7 +11,7 @@ export default function Header() {
     <>
     <div className="header">
       <div className="logo">
-        <img src="/images/logo.png" alt='SOMOS MAS' />
+      <Link to='/'><img src="/images/logo.png" alt='SOMOS MAS' /></Link>
       </div>
       <NavBar />
       <BurguerIcon />
@@ -25,7 +25,7 @@ function NavBar() {
   return (
 
       <nav>
-        {headerLinks.map((button,index) => index === 0 ? <Link to='/' key={button}><button key={button}  className='home-button'>{button}</button></Link> : <Link to={button} key={button}><button key={button}>{button}</button></Link> )}
+        {headerLinks.map((button) => <Link to={button} key={button}><button key={button}>{button}</button></Link> )}
         <div className='account'>
           <Link to='Login'><button className='login'>Log in</button></Link>
           <Link to='Registrarse'><button className='register'>Registrate</button></Link>
