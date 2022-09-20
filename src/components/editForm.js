@@ -12,12 +12,14 @@ function editForm() {
     return (
         <form>
             <div>
-                    <textarea
-                        id="textArea"
-                        placeholder="Modificar texto de bienvenida..."
-                        rows="10"
-                        cols="80" />
-                
+                <textarea
+                    id="textArea"
+                    name="textArea"
+                    placeholder="Modificar texto de bienvenida..."
+                    rows="10"
+                    cols="80"
+                    minLength="20"
+                    required />
             </div>
             <Carousel className="main-slide"
                 autoPlay={true}
