@@ -1,0 +1,73 @@
+.container {
+    display: flex;
+    background-color: #222;
+    min-width: 250px;
+}
+
+.container a {
+    color: #9AC9FB;
+}
+
+.container a:hover {
+    color: #FAFA88;
+}
+
+.container h3 {
+    margin: 0 0 4px 0;
+    font-size: 22px;
+    text-align: center;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-grow: 1;
+    color: white;
+    padding: 16px;
+}
+
+.logoContainer {
+    background-color: rgb(241, 241, 241);
+}
+
+.logo {
+    max-height: 150px;
+}
+
+.webLinks {
+    background-color: #333;
+}
+
+.socialLinks {
+    background-color: #222;
+}
+
+.icon {
+    margin-right: 8px;
+}
+
+.socialLink {
+    display: flex;
+    align-items: center;
+}
+
+.webLinks ul, .socialLinks ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.webLinks li, .socialLinks li {
+    margin: 8px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column-reverse;
+    }
+    .webLinks {
+        order: 1;
+    }
+}
