@@ -28,7 +28,7 @@
     line-height: 1.8rem;
 }
 
-.button {
+.main-button {
     font-size: 1.6rem;
     font-weight: 600;
     padding: 0.8rem 1.5rem;
@@ -36,12 +36,14 @@
     border: none;
     border-radius: 10px;
     background-color: coral;
+    cursor: pointer;
 }
 
 .news {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     padding: 1rem;
     margin-left: 2rem;
     margin-right: 2rem;
+    grid-gap: 1.5rem;
 }
