@@ -44,7 +44,6 @@ const Slider = ({ images }) => {
             showStatus={false}
             swipeable
             emulateTouch
-            animationHandler='fade'
             renderArrowPrev={arrowPrev}
             renderArrowNext={arrowNext}
             dynamicHeight={false}
