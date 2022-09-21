@@ -1,16 +1,24 @@
 import Swal from 'sweetalert2';
 
-export function alertConfirmation(){
-    Swal.fire("Confirmación!", "Operación exitosa!", "success");
-}
-
-export function alertInfo(mensaje){
-    Swal.fire("Información!", mensaje, "info");
-}
-
-export function alertError (mensaje){
+export function alertConfirmation(titulo, mensaje){
     Swal.fire({
-        title: "Disculpa Hubo un Error",
+        title: titulo,
+        icon: "sucess",        
+        text: mensaje
+      });
+}
+
+export function alertInfo(titulo, mensaje){
+    Swal.fire({
+        title: titulo,
+        icon: "info",        
+        text: mensaje
+      });
+}
+
+export function alertError (titulo, mensaje){
+    Swal.fire({
+        title: titulo,
         icon: "error",        
         text: mensaje
       });
