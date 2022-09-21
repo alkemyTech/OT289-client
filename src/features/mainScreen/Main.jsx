@@ -5,7 +5,7 @@ import s from "./Main.module.css";
 
 const defaultText = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. At quas explicabo, sit animi deleniti dicta? Deleniti veritatis est temporibus voluptates nesciunt hic, deserunt facere delectus voluptatum, consequatur, quos maiores quam! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi nisi, nemo asperiores ad.";
 
-const defaultTitle = "HOLA BIENVENIDX";
+const defaultTitle = "Hola! Bienvenidx";
 
 const defaultImg = [
   {
