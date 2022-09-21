@@ -1,18 +1,18 @@
 import React from 'react'
-import './NewsletterCard.css'
+import s from './NewsletterCard.module.css'
 
 const NewsletterCard = ({ img, text }) => {
   return (
-    <div className='card-container'>
-        <div className='img-container'>
-            <img className='new-img' src={img} alt="Not found" width="150" height="150"/>
+    <div className={s.card_container}>
+        <div className={s.img_container}>
+            <img className={s.new_img} src={img} alt="Not found" width="150" height="150"/>
         </div>
-        <div className='info-container'>
-            <div className='preview-container'>
-                <p className='new-text'>{text}</p>
+        <div className={s.info_container}>
+            <div className={s.preview_container}>
+                <p className={s.new_text}>{text}</p>
             </div>
-            <div className='new-button-card'>
-                <button className='new-button'>Ver Novedad</button>
+            <div className={s.new_button_card}>
+                <button className={s.new_button}>Ver Novedad</button>
             </div>
         </div>
     </div>

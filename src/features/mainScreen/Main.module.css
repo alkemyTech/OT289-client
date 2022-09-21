@@ -1,4 +1,4 @@
-.body-container {
+.body_container {
     background-color: rgb(251 251 251);
 }
 
@@ -10,7 +10,7 @@
     column-gap: 1rem;
 }
 
-.welcome-div {
+.welcome_div {
     flex: 0 0 40%;
     display: flex;
     flex-direction: column;
@@ -23,12 +23,12 @@
     font-size: 35px;
 }
 
-.welcome-text {
+.welcome_text {
     text-align: initial;
     line-height: 1.8rem;
 }
 
-.main-button {
+.main_button {
     font-size: 1.6rem;
     font-weight: 600;
     padding: 0.8rem 1.5rem;

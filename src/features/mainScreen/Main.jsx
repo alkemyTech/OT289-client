@@ -1,7 +1,7 @@
 import React from "react";
 import Slider from "../slider/Slider";
 import NewsletterCard from "./NewsletterCard";
-import "./Main.css";
+import s from "./Main.module.css";
 
 const defaultText = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. At quas explicabo, sit animi deleniti dicta? Deleniti veritatis est temporibus voluptates nesciunt hic, deserunt facere delectus voluptatum, consequatur, quos maiores quam! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi nisi, nemo asperiores ad.";
 
@@ -43,20 +43,20 @@ const defaultNews = [
 
 const Main = ({ text = defaultText, title = defaultTitle, img = defaultImg, newsletter= defaultNews }) => {
   return (
-    <div className="body-container">
-      <div className="hero">
-        <div className="welcome-div">
-          <h2 className="title">{title}</h2>
-          <p className="welcome-text">{text}</p>
+    <div className={s.body_container}>
+      <div className={s.hero}>
+        <div className={s.welcome_div}>
+          <h2 className={s.title}>{title}</h2>
+          <p className={s.welcome_text}>{text}</p>
           <div>
-            <button className="main-button">Contactanos</button>
+            <button className={s.main_button}>Contactanos</button>
           </div>
         </div>
-        <div className="slider-div">
+        <div className={s.slider_div}>
           <Slider images={img} />
         </div>
       </div>
-      <div className="news">
+      <div className={s.news}>
         {
           newsletter.map(n => (<NewsletterCard img={n.img} text={n.text}/>))
         }
