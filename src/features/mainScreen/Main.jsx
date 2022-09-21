@@ -56,6 +56,9 @@ const Main = ({ text = defaultText, title = defaultTitle, img = defaultImg, news
           <Slider images={img} />
         </div>
       </div>
+      <div className={s.newsletter_title_container}>
+        <h2 className={s.newsletter_title}>Ùltimas Novedades</h2>
+      </div>
       <div className={s.news}>
         {
           newsletter.map(n => (<NewsletterCard img={n.img} text={n.text}/>))

@@ -48,10 +48,26 @@
     border: 1px solid coral;
 }
 
+.slider_div {
+    padding-right: 2rem;
+}
+
+.newsletter_title_container {
+    padding: 1rem 3rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.newsletter_title {
+    text-align: initial;
+    margin: 0;
+    font-size: 35px;
+}
+
 .news {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    padding: 1rem;
+    padding: 1rem 3rem;
     margin-left: 2rem;
     margin-right: 2rem;
     grid-gap: 1.5rem;
