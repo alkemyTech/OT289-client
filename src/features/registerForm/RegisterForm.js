@@ -1,24 +1,27 @@
 import React, { useState } from "react"
+import { Navigate } from "react-router-dom"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
+import { ToastContainer, toast } from "react-toastify"
+import authService from '../apiServices/authService'
+
 
 //styles
 import styles from "./RegisterForm.module.css"
 
 const RegisterForm = () => {
-    //State
-    const [data, setData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: ''
-    })
+
+  const [redirect, setRedirect] = useState(false)
 
     //Formik validation schema using Yup
     const SignupSchema = Yup.object().shape({
         firstName: Yup.string().required('Requerido'),
         lastName: Yup.string().required('Requerido'),
-        email: Yup.string().email('Email inválido').required('Requerido'),
+        email: Yup.string().email('Email inválido').required('Requerido')
+            // .test('checkEmail', 'Este email no esta registrado', async (email) =>{
+            //     return !authService.checkEmail({email}).emailExist                     // codigo para vaildar si existe ese email
+            // })
+            ,
         password: Yup.string().min(6, 'Contraseña muy corta').required('Requerido')
     })
 
@@ -28,18 +31,31 @@ const RegisterForm = () => {
         )
     }
 
-    const onSubmit = (values) => {
-        //Saving in state for later use
-        setData(values)
+    const onSubmit = async (values) => {
+        let response = await authService.register(values)
+        if (response.status !== 200){
+            toast.error( '⛔  ' + response.meta.error.msg , {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }else{
+            setRedirect(true)
+        }
+
     }
 
     return (
         <>
             <Formik
-                initialValues={data}
+                initialValues={{firstName: '', lastName: '', email: '', password: ''}}
                 onSubmit={onSubmit}
                 validationSchema={SignupSchema}
-            >
+            >                
                 {({ errors, touched }) => (
                     <Form className={styles.registerForm}>
 
@@ -60,6 +76,8 @@ const RegisterForm = () => {
                     </Form>
                 )}
             </Formik>
+            <ToastContainer/>
+            {redirect && ( <Navigate to="/login" replace={true} />)}
         </>
     )
 }
