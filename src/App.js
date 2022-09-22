@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import ScreenContact from './features/screencontac/ScreenContac';
+
 import Home from './components/Home';
 import News from './components/News';
 import About from './components/About';
