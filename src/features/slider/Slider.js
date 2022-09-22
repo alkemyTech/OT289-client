@@ -28,7 +28,7 @@ const Slider = ({ images }) => {
     const Slide = ({ image }) => {
         return (
             <div>
-                <img src={image.imageUrl} alt={image.text} />
+                <img className={styles.imgCarousel} src={image.imageUrl} alt={image.text} />
                 <p className={styles.legend}>{image.text}</p>
             </div>
         )
