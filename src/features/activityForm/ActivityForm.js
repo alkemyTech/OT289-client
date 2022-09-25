@@ -53,13 +53,18 @@ const ActivityForm = ({ data }) => {
         )
     }
 
-    const handleSubmit = async (values) => {
+    const handleSubmit = async (values, { resetForm }) => {
         const endpointUrl = SERVER_BASE_URL + '/Actividades' + (currentData?.id ? `/${currentData.id}` : '')
         //If data is received, it MUST have the id
         console.log(values, action, endpointUrl)
 
         try {
             await axios[action](endpointUrl, values)
+
+            //if it's a new activity, reset form after saving it
+            if (action === 'post') {
+                resetForm()
+            }
 
             //Show confirmation message
             const alertTitle = `Actividad ${action === 'post' ? 'creada!' : 'actualizada!'}`
@@ -86,8 +91,8 @@ const ActivityForm = ({ data }) => {
                     <Field name='content' component={CustomCKEditorField} />
                     {errors.content && touched.content && <ErrorMessage message={errors.content} />}
 
-                    <Field type='submit' name='submit' value='Guardar Actividad' className={styles.button} />
-                    
+                    <Field type='submit' name='submit' value={`${action === 'post' ? 'Crear' : 'Actualizar'} Actividad`} className={styles.button} />
+
                 </Form>
             )}
         </Formik>
