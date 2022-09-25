@@ -5,8 +5,14 @@ import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import PropTypes from 'prop-types'
 
+//Alerts
+import { alertConfirmation, alertError } from '../alert/Alert'
+
 //styles
 import styles from './ActivityForm.module.css'
+
+//Axios (REPLACE IT WITH 'HTTP PETITIONS SERVICES' (OT289-32) WHEN AVAILABLE?)
+import axios from 'axios'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 const MIN_NAME = 10
@@ -14,7 +20,8 @@ const MAX_NAME = 50
 const MIN_CONTENT = 50
 
 const ActivityForm = ({ data }) => {
-    const [action] = useState(data ? 'PATCH' : 'POST')
+    const [ currentData ] = useState(data || {name: '', content: ''})
+    const [ action ] = useState(data?.id ? 'patch' : 'post')
 
     //Formik validation schema using Yup
     const activitySchema = Yup.object().shape({
@@ -38,8 +45,8 @@ const ActivityForm = ({ data }) => {
                     editor={ ClassicEditor }
                     data={field.value}
                     onChange={( event, editor ) => {
-                        const data = editor.getData()
-                        form.setFieldValue(field.name, data)
+                        const contentData = editor.getData()
+                        form.setFieldValue(field.name, contentData)
                     }}
                 />
             </div>
@@ -47,16 +54,26 @@ const ActivityForm = ({ data }) => {
     }
 
     const handleSubmit = async (values) => {
-        const endpointUrl = SERVER_BASE_URL + '/Actividades' + (data?.id ? `/${data.id}` : '')
-        //Update here with axios calls when endpoint for activities is implement
-        //Send data based on 'action' state: POST or PATCH
+        const endpointUrl = SERVER_BASE_URL + '/Actividades' + (currentData?.id ? `/${currentData.id}` : '')
         //If data is received, it MUST have the id
         console.log(values, action, endpointUrl)
+
+        try {
+            await axios[action](endpointUrl, values)
+
+            //Show confirmation message
+            const alertTitle = `Actividad ${action === 'post' ? 'creada!' : 'actualizada!'}`
+            const alertMessage = `La actividad fue ${action === 'post' ? 'creada' : 'actualizada'} correctamente.`
+            alertConfirmation(alertTitle, alertMessage)
+        } catch (error) {
+            //Received error must be a string
+            alertError('Ups, hubo un error', error)
+        }
     }
 
     return (
         <Formik
-            initialValues={data || {name: '', content: ''}}
+            initialValues={currentData}
             onSubmit={handleSubmit}
             validationSchema={activitySchema}
         >
