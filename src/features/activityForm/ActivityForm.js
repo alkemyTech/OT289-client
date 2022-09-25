@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import PropTypes from "prop-types"
+import PropTypes from 'prop-types'
 
 //styles
 import styles from './ActivityForm.module.css'
@@ -14,12 +14,12 @@ const MAX_NAME = 50
 const MIN_CONTENT = 50
 
 const ActivityForm = ({ data }) => {
-    const [action] = useState(data ? 'PATCH' : 'POST');
+    const [action] = useState(data ? 'PATCH' : 'POST')
 
     //Formik validation schema using Yup
     const activitySchema = Yup.object().shape({
         name: Yup.string().min(MIN_NAME, 'Nombre muy corto').max(MAX_NAME, 'Nombre muy largo').required('Requerido'),
-        content: Yup.string().min(MIN_CONTENT, `Contenido muy corto`).required('Requerido')
+        content: Yup.string().min(MIN_CONTENT, 'Contenido muy corto').required('Requerido')
     })
 
     const ErrorMessage = ({ message }) => {
@@ -29,11 +29,11 @@ const ActivityForm = ({ data }) => {
     }
 
     //CKEditor5
-    const CustomCKEditorField = ({field, form}) => {
+    const CustomCKEditorField = ({ field, form }) => {
         return (
             <div className={styles.ckEditor}>
                 <CKEditor
-                    config={{placeholder: "Escribe el contenido aquí..."}}
+                    config={{placeholder: 'Escribe el contenido aquí...'}}
                     name={field.name}
                     editor={ ClassicEditor }
                     data={field.value}
@@ -61,15 +61,15 @@ const ActivityForm = ({ data }) => {
             validationSchema={activitySchema}
         >
             {({ errors, touched }) => (
-                <Form className={styles.registerForm}>
+                <Form className={styles.activityForm}>
 
-                    <Field name="name" placeholder="Nombre de la actividad" required />
+                    <Field name='name' placeholder='Nombre de la actividad' required />
                     {errors.name && touched.name && <ErrorMessage message={errors.name} />}
 
-                    <Field name="content" component={CustomCKEditorField} />
+                    <Field name='content' component={CustomCKEditorField} />
                     {errors.content && touched.content && <ErrorMessage message={errors.content} />}
 
-                    <Field type="submit" name="submit" value="Guardar Actividad" className={styles.button} />
+                    <Field type='submit' name='submit' value='Guardar Actividad' className={styles.button} />
                     
                 </Form>
             )}
