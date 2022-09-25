@@ -9,11 +9,19 @@ export const userSlice = createSlice({
           const decodedToken = jwtDecode(action.payload)
           state.id = decodedToken.id
           state.email = decodedToken.email
+          state.firstName = decodedToken.firstName
+          state.lastName = decodedToken.lastName
+          state.image = decodedToken.image
+          state.roleId = decodedToken.roleId
           state.token = action.payload
         }, 
         logout: (state) => {
             delete state.id
             delete state.email
+            delete state.firstName
+            delete state.lastName
+            delete state.image
+            delete state.roleId
             delete state.token
         },
         refresh: (state) => {
@@ -22,6 +30,10 @@ export const userSlice = createSlice({
                 const decodedToken = jwtDecode(token)
                 state.id = decodedToken.id
                 state.email = decodedToken.email
+                state.firstName = decodedToken.firstName
+                state.lastName = decodedToken.lastName
+                state.image = decodedToken.image
+                state.roleId = decodedToken.roleId
                 state.token = token
             }
         }
