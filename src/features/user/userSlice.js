@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import jwtDecode from "jwt-decode";
+import axios from 'axios'
+import { BASE_PATH } from '../../utils/constants'
 
 export const userSlice = createSlice({
     name: "user",
     initialState : {},
     reducers: {
-        login: (state, action) => {
-          const decodedToken = jwtDecode(action.payload)
+        login: (state, action) => { // action.payload es el token que se pasa como parametro en string
+        
+            axios.get
+          
+        const decodedToken = jwtDecode(action.payload)
           state.id = decodedToken.id
           state.email = decodedToken.email
           state.firstName = decodedToken.firstName
