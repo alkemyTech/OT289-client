@@ -6,18 +6,28 @@ export const userSlice = createSlice({
     name: "user",
     initialState : {},
     reducers: {
-        login: (state, action) => { // action.payload es el token que se pasa como parametro en string
+        login: (state, action) => { 
+            let user;
+            const token = action.payload
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${token}` 
+                }
+            }
+            
+            axios.get(`${BASE_PATH}/auth/me`, config)
+                .then(data => user = data)
+                    .catch(error => console.log(error))
         
-            axios.get
-          
-        const decodedToken = jwtDecode(action.payload)
-          state.id = decodedToken.id
-          state.email = decodedToken.email
-          state.firstName = decodedToken.firstName
-          state.lastName = decodedToken.lastName
-          state.image = decodedToken.image
-          state.roleId = decodedToken.roleId
-          state.token = action.payload
+          if (user) {
+            state.id = user.data.id
+            state.email = user.data.email
+            state.firstName = user.data.firstName
+            state.lastName = user.data.lastName
+            state.image = user.data.image
+            state.roleId = user.data.roleId
+            state.token = action.payload
+          }
         }, 
         logout: (state) => {
             delete state.id
@@ -31,14 +41,27 @@ export const userSlice = createSlice({
         refresh: (state) => {
             const token = localStorage.getItem('token')
             if (token) {
-                const decodedToken = jwtDecode(token)
-                state.id = decodedToken.id
-                state.email = decodedToken.email
-                state.firstName = decodedToken.firstName
-                state.lastName = decodedToken.lastName
-                state.image = decodedToken.image
-                state.roleId = decodedToken.roleId
-                state.token = token
+                let user;
+                const token = action.payload
+                const config = {
+                    headers: {
+                        "Authorization": `Bearer ${token}` 
+                    }
+                }
+                
+                axios.get(`${BASE_PATH}/auth/me`, config)
+                    .then(data => user = data)
+                        .catch(error => console.log(error))
+
+                if (user) {
+                    state.id = user.data.id
+                    state.email = user.data.email
+                    state.firstName = user.data.firstName
+                    state.lastName = user.data.lastName
+                    state.image = user.data.image
+                    state.roleId = user.data.roleId
+                    state.token = token
+                }
             }
         }
 
