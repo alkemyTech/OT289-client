@@ -20,12 +20,12 @@ export const userSlice = createSlice({
                     .catch(error => console.log(error))
         
           if (user) {
-            state.id = user.data.id
-            state.email = user.data.email
-            state.firstName = user.data.firstName
-            state.lastName = user.data.lastName
-            state.image = user.data.image
-            state.roleId = user.data.roleId
+            state.id = user.id
+            state.email = user.payload.email
+            state.firstName = user.payload.firstName
+            state.lastName = user.payload.lastName
+            state.image = user.payload.image
+            state.roleId = user.payload.roleId
             state.token = action.payload
           }
         }, 
@@ -54,12 +54,12 @@ export const userSlice = createSlice({
                         .catch(error => console.log(error))
 
                 if (user) {
-                    state.id = user.data.id
-                    state.email = user.data.email
-                    state.firstName = user.data.firstName
-                    state.lastName = user.data.lastName
-                    state.image = user.data.image
-                    state.roleId = user.data.roleId
+                    state.id = user.payload.id
+                    state.email = user.payload.email
+                    state.firstName = user.payload.firstName
+                    state.lastName = user.payload.lastName
+                    state.image = user.payload.image
+                    state.roleId = user.roleId
                     state.token = token
                 }
             }
