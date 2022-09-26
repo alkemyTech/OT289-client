@@ -20,7 +20,7 @@ export const userSlice = createSlice({
                     .catch(error => console.log(error))
         
           if (user) {
-            state.id = user.id
+            state.id = user.payload.id
             state.email = user.payload.email
             state.firstName = user.payload.firstName
             state.lastName = user.payload.lastName
