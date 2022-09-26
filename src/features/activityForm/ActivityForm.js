@@ -55,8 +55,6 @@ const ActivityForm = ({ data }) => {
 
     const handleSubmit = async (values, { resetForm }) => {
         const endpointUrl = SERVER_BASE_URL + '/Actividades' + (currentData?.id ? `/${currentData.id}` : '')
-        //If data is received, it MUST have the id
-        console.log(values, action, endpointUrl)
 
         try {
             await axios[action](endpointUrl, values)
