@@ -1,9 +1,15 @@
 import React from 'react';
 import './App.css';
-import EditForm from './components/EditForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import ScreenContact from './features/screencontac/ScreenContac';
+import Header from './components/Header/Header';
+import Footer from './features/Footer/Footer';
+import Main from './features/mainScreen/Main'
+import Login from './features/loginForm/LoginForm'
+import Register from './features/registerForm/RegisterForm';
+import Contact from './features/screencontac/ScreenContac'
+
+import BackOffice from './features/backOffice/BackOffice';
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -11,13 +17,35 @@ function App() {
 
   return (
     <div className="App">
-      <EditForm />
       <Routes>
-        <Route path="/contac" element={<ScreenContact />} />
+        <Route path="/*" element={<MainSPA />} />
+        <Route path="/backOffice/*" element={<BackOffice />} />
       </Routes>
     </div>
     
   );
 }
+
+function MainSPA() {
+
+  return (
+    <div className="App">
+
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/registrarse" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/contacto" element={<Contact />} />
+      </Routes>
+
+      <Footer />
+
+    </div>
+    
+  );
+}
+
 
 export default App;
