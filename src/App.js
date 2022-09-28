@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import EditForm from './components/EditForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import BackOffice from './features/backOffice/BackOffice';
 
 import ScreenContact from './features/screencontac/ScreenContac';
 
@@ -11,9 +11,9 @@ function App() {
 
   return (
     <div className="App">
-      <EditForm />
       <Routes>
         <Route path="/contac" element={<ScreenContact />} />
+        <Route path="/backOffice/*" element={<BackOffice />} />
       </Routes>
     </div>
   );
