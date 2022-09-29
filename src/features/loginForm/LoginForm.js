@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
+import { useDispatch } from 'react-redux'
+import { login } from '../user/userSlice'
 
 import "./LoginForm.css"
 
@@ -10,6 +12,8 @@ const LoginForm = () => {
         email: '',
         password: ''
     })
+
+    const dispatch = useDispatch()
 
 
     const loginSchema = Yup.object().shape({
@@ -32,7 +36,9 @@ const LoginForm = () => {
     }
 
     const onSubmit = (values) => {
+        const token = '' // aca va a ir el valor del token cuando este arreglado la funcion de login y te devuelta uno
         setData(values)
+        dispatch(login(token)) // esto pasa el token al action de login de redux y lo ejecuta
     }
 
     return (
