@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import PropTypes from 'prop-types'
 
-//Alerts
+//Components
 import { alertConfirmation, alertError } from '../alert/Alert'
+import ErrorMessage from '../errorMessage/ErrorMessage'
 
 //styles
 import styles from './ActivityForm.module.css'
@@ -20,20 +21,14 @@ const MAX_NAME = 50
 const MIN_CONTENT = 50
 
 const ActivityForm = ({ data }) => {
-    const [ currentData ] = useState(data || {name: '', content: ''})
-    const [ action ] = useState(data?.id ? 'patch' : 'post')
+    const action = data?.id ? 'patch' : 'post'
+    const currentData = data || {name: '', content: ''}
 
     //Formik validation schema using Yup
     const activitySchema = Yup.object().shape({
         name: Yup.string().min(MIN_NAME, 'Nombre muy corto').max(MAX_NAME, 'Nombre muy largo').required('Requerido'),
         content: Yup.string().min(MIN_CONTENT, 'Contenido muy corto').required('Requerido')
     })
-
-    const ErrorMessage = ({ message }) => {
-        return (
-            <small className={styles.error}>{message}</small>
-        )
-    }
 
     //CKEditor5
     const CustomCKEditorField = ({ field, form }) => {
