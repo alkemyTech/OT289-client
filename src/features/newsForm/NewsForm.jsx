@@ -76,8 +76,8 @@ const NewsForm = ({ data }) => {
       }
 
       //Show confirmation message
-      const alertTitle = `Actividad ${action === "post" ? "creada!" : "actualizada!"}`;
-      const alertMessage = `La actividad fue ${action === "post" ? "creada" : "actualizada"} correctamente.`;
+      const alertTitle = `Novedad ${action === "post" ? "creada!" : "actualizada!"}`;
+      const alertMessage = `La novedad fue ${action === "post" ? "creada" : "actualizada"} correctamente.`;
       alertConfirmation(alertTitle, alertMessage);
     } catch (error) {
       //Received error must be a string
@@ -108,7 +108,7 @@ const NewsForm = ({ data }) => {
           <Field
             type="submit"
             name="submit"
-            value={`${action === "post" ? "Crear" : "Actualizar"} Actividad`}
+            value={`${action === "post" ? "Crear" : "Actualizar"} Novedad`}
             className={s.button}
           />
         </Form>
