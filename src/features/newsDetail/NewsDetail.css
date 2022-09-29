@@ -1,0 +1,47 @@
+*{
+    box-sizing: border-box;
+}
+
+.newsHeader{
+    height:200px;
+    background: no-repeat center center;
+    background-color: #6c757d;
+    background-attachment: scroll;
+    position: relative;
+    background-size: cover;
+}
+
+.newsHeadingContainer{
+    text-align: left;
+}
+
+
+.newsTitle{
+    color:white;
+    font-weight: 600;
+}
+
+.newsDate{
+    color:white;
+}
+
+.newsBody{
+    margin: 25px 15px;
+}
+
+.newsContent{
+    text-align: left;
+    white-space: pre-line;
+}
+
+
+@media (min-width: 600px) {
+    .newsHeader{
+        height:500px;
+
+    }
+    .newsBody{
+        margin: 50px 15px;
+    }
+}
+  
