@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ScreenContact from './features/screencontac/ScreenContac';
 import Activities from './features/activities/Activities';
+import UsersTable from './features/usersTable/UsersTable';
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -16,8 +17,10 @@ function App() {
       <Routes>
         <Route path="/contac" element={<ScreenContact />} />
         <Route path="/backoffice/activities" element={<Activities />} />
+        <Route path="/backoffice/users" element={<UsersTable />} />
       </Routes>
     </div>
+    
   );
 }
 
