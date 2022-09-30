@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { Navigate } from "react-router-dom"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
+import { useDispatch } from 'react-redux'
+import { login } from '../user/userSlice'
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import authService from '../apiServices/authService'
@@ -11,6 +13,8 @@ import "./LoginForm.css"
 const LoginForm = () => {
 
   const [redirect, setRedirect] = useState(false)
+
+  const dispatch = useDispatch()
 
     const loginSchema = Yup.object().shape({
             email: Yup.string().required("Debe ingresar un email").matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, {message: "El email es invalido"})
@@ -45,7 +49,9 @@ const LoginForm = () => {
             let res = await authService.login(values)
             console.log(res)
             if(res.data.token){
-                localStorage.setItem('token', JSON.stringify(res.data.token));
+                const token = res.data.token
+                localStorage.setItem('token', JSON.stringify(token));
+                dispatch(login(token)) 
                 setRedirect(true)
             }
         } catch (err) {
