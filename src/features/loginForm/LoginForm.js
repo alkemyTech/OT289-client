@@ -12,7 +12,7 @@ const LoginForm = () => {
 
   const [redirect, setRedirect] = useState(false)
 
-    const loginSchema = Yup.object().shape({
+    /*const loginSchema = Yup.object().shape({
             email: Yup.string().required("Debe ingresar un email").matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, {message: "El email es invalido"})
             .test('checkEmail', 'Este email no esta registrado', async (value) =>{
                 let email = value ? value : ''
@@ -32,7 +32,7 @@ const LoginForm = () => {
                     }
                     return true
                 }),
-    });
+    });*/ // Hace un fetch cada vez que tocas una tecla y el tema de que las validaciones las hace el controlador de login tipo seria 3 fetch para loguearte aparte que se tendrian que crear los controladores
 
     const ErrorMessage = ({ message }) => {
         return (
@@ -43,7 +43,7 @@ const LoginForm = () => {
     const onSubmit = async (values) => {
         try {
             let res = await authService.login(values)
-            console.log(res)
+            console.log(res.data)
             if(res.data.token){
                 localStorage.setItem('token', JSON.stringify(res.data.token));
                 setRedirect(true)
@@ -66,12 +66,21 @@ const LoginForm = () => {
         }
     }
 
+    function validationSchema() {
+        return {
+            email: Yup.string().email('Tiene que ser un email valido').required('El email es requerido'),
+            password: Yup.string().required('Se requiere un email')
+        }
+    }
+
     return (
         <>
             <Formik
                 initialValues={{email: '', password: ''}}
+                validateOnChange= {false}
+                validateOnBlur= {false}
                 onSubmit={onSubmit}
-                validationSchema={loginSchema}
+                validationSchema={Yup.object(validationSchema())}
             >
                 {({ errors, touched }) => (
                     <Form className="loginForm">
