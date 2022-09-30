@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import EditForm from './features/editForm/EditForm';
+import LoginForm from './features/loginForm/LoginForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ScreenContact from './features/screencontac/ScreenContac';
@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      <EditForm />
+      <LoginForm />
       <Routes>
         <Route path="/contac" element={<ScreenContact />} />
         <Route path="/backoffice/users" element={<UsersTable />} />

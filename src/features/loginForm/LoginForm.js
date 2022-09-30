@@ -1,37 +1,28 @@
 import React, { useState } from "react"
-import { Navigate } from "react-router-dom"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
-import { ToastContainer, toast } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css';
-import authService from '../apiServices/authService'
 
 import "./LoginForm.css"
 
 const LoginForm = () => {
 
-  const [redirect, setRedirect] = useState(false)
+    const [data, setData] = useState({
+        email: '',
+        password: ''
+    })
+
 
     const loginSchema = Yup.object().shape({
-            email: Yup.string().required("Debe ingresar un email").matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, {message: "El email es invalido"})
-            .test('checkEmail', 'Este email no esta registrado', async (value) =>{
-                let email = value ? value : ''
-                let response = await authService.checkEmail({email})
-                if(response.status === 200){
-                    return response.data.emailExist                 // codigo para vaildar si existe ese email
-                }
-                return true
-            }),
-            password: Yup.string().required("Debe ingresar una contraseña").min(6, 'La contraseña es muy corta')
-                .test('checkPassword', 'El email o contraseña no coinciden', async (password, {parent:{email}}) =>{
-                    let emailValue = email ? email : ''
-                    let passwordValue = password ? password : ''
-                    let response = await authService.checkPassword({email: emailValue, password:passwordValue})
-                    if(response.status === 200){
-                        return response.data.passwordCorrect        // codigo para vaildar si coinciden email y contraseña
-                    }
-                    return true
-                }),
+        email: Yup.string().required("Debe ingresar un email").matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, {message: "El email es invalido"})
+            // .test('checkEmail', 'Este email no esta registrado', async (value) =>{
+            //     return postServices.checkEmail({email:value}).emailExist                     // codigo para vaildar si existe ese email
+            // })
+            ,
+        password: Yup.string().required("Debe ingresar una contraseña").min(6, 'La contraseña es muy corta')
+            // .test('checkPassword', 'La contraseña es incorrecta', async (password, {parent:{email}}) =>{
+            //     return postServices.checkPassword({ email , password }).passwordCorrect      // codigo para vaildar si coinciden usuario y contraseña
+            // })
+            ,
     });
 
     const ErrorMessage = ({ message }) => {
@@ -40,39 +31,18 @@ const LoginForm = () => {
         )
     }
 
-    const onSubmit = async (values) => {
-        try {
-            let res = await authService.login(values)
-            console.log(res)
-            if(res.data.token){
-                localStorage.setItem('token', JSON.stringify(res.data.token));
-                setRedirect(true)
-            }
-        } catch (err) {
-            if(err.response.data.errors){
-                err.response.data.errors.forEach(error =>{
-                    toast.error( error.msg , {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                })
-            }
-            console.log(err.response)
-        }
+    const onSubmit = (values) => {
+        setData(values)
     }
 
     return (
         <>
             <Formik
-                initialValues={{email: '', password: ''}}
+                initialValues={data}
                 onSubmit={onSubmit}
                 validationSchema={loginSchema}
             >
+
                 {({ errors, touched }) => (
                     <Form className="loginForm">
 
@@ -86,9 +56,8 @@ const LoginForm = () => {
 
                     </Form>
                 )}
+                
             </Formik>
-            <ToastContainer/>
-            {redirect && ( <Navigate to="/" replace={true} />)}
         </>
     )
 }
