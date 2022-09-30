@@ -95,6 +95,10 @@ const NewsItem = ({item})=> {
 
     }
 
+    const handleDelete = () => {
+        console.log('tenes el delete')
+    }
+
 
     return (
         <div className="p-3 m-2 bg-light rounded">
@@ -154,7 +158,8 @@ const NewsItem = ({item})=> {
                                     </div>
 
                                     <Field type="submit" name="submit" value="Guardar" className="float-right" onClick={() => {setEdit(false)}} />
-                            
+                                    {item.name == '' ?  null : <Field type="button" name="delete" value="Eliminar" className="float-right" onClick={handleDelete} /> }
+                                    
                                 </div>
                             </div>
                         </Collapse>
