@@ -10,37 +10,36 @@ let items = [{
     name:"Nombre",
     content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
     category:1,
-    type:1
 },{
     name:"Nombre",
     content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
     category:3,
-    type:3
+   
 },{
     name:"Nombre",
     content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
     category:2,
-    type:2
+    
 },{
     name:"Nombre",
     content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
     category:3,
-    type:3
+    
 },{
     name:"Nombre",
     content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
     category:5,
-    type:5
+    
 },{
     name:"Nombre",
     content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
     category:2,
-    type:2
+    
 },{
     name:"Nombre",
     content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
     category:1,
-    type:1
+    
 }]
 
 let categories = [
@@ -53,11 +52,21 @@ let categories = [
 ]
 
 const NewsPanel = ()=> {
+    
+    const newItem = {
+        name: '',
+        content: '',
+        category: 1,
+    }
+
     return (
         <div className="w-100">
             <h1 className="panelTitle">Noticias</h1>
             <div>
-
+                <h2>Crear noticia</h2>
+                <NewsItem item={newItem} />
+                <br></br>
+                <h2>Modificar noticias</h2>
                 {items.map((item, index)=>{
                         return <NewsItem key={index} item={item}/>
                 })}
@@ -91,6 +100,8 @@ const NewsItem = ({item})=> {
         <div className="p-3 m-2 bg-light rounded">
             <Formik
                 initialValues={item}
+                validateOnChange = {false}
+                validateOnBlur = {false}
                 onSubmit={onSubmit}
                 validationSchema={newsSchema}
             >
@@ -101,7 +112,7 @@ const NewsItem = ({item})=> {
                         <div className="d-flex justify-content-between">
                             <div className="d-flex justify-content-between w-100">
                                 <div className="flex-fill">
-                                    <Field type="text" name="name"  placeholder="nombre" className="formEdit w-100 text-start" disabled={!edit}/>
+                                    <Field type="text" name="name"  placeholder="Nombre" className="formEdit w-100 text-start" disabled={!edit}/>
                                     {errors.name && touched.name && <ErrorMessage message={errors.name} />}
                                 </div>
                                 <div>
@@ -110,7 +121,7 @@ const NewsItem = ({item})=> {
                                         return <option key={index} 
                                             className= "" 
                                             value={category.id} 
-                                            selected={category.id ? category.id === item.accountId ? true : false : false}>
+                                            selected={category.id ? category.id === item.categoryId ? true : false : false}>
                                                 {category.name}
                                             </option>
                                     })}
@@ -134,11 +145,11 @@ const NewsItem = ({item})=> {
                                                 <label for="image">
                                                     <Image className="h1 m-0"/>
                                                 </label>
-                                                <Field type="file" name="image" id="image" placeholder="nombre" className="formEdit d-none"  accept="image/png, image/jpg, image/gif, image/jpeg" disabled={!edit} />
+                                                <Field type="file" name="image" id="image" placeholder="Imagen" className="formEdit d-none"  accept="image/png, image/jpg, image/gif, image/jpeg" disabled={!edit} />
                                             </div>
                                         </div>
                                         <div className="col-md-10">            
-                                            <Field as="textarea" rows="3" name="content"  placeholder="contraseña" className= "formEdit w-100" disabled={!edit}/>
+                                            <Field as="textarea" rows="3" name="content"  placeholder="contenido" className= "formEdit w-100" disabled={!edit}/>
                                         </div>
                                     </div>
 
