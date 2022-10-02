@@ -39,7 +39,7 @@ const RegisterForm = () => {
         try {
             let res = await authService.register(values)
             if(res.status === 200){
-                setRedirect(true)
+                //setRedirect(true) Todavia no esta creada la pagina de login, solo el componente asi que trata de ir a la ruta infinitamente
             }
         } catch (err) {
             err.response.data.errors.forEach(error =>{
@@ -56,11 +56,12 @@ const RegisterForm = () => {
         }
     }
 
-
     return (
         <>
             <Formik
                 initialValues={{firstName: '', lastName: '', email: '', password: ''}}
+                validateOnBlur = {false}
+                validateOnChange = {false}
                 onSubmit={onSubmit}
                 validationSchema={SignupSchema}
             >                

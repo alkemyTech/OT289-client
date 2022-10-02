@@ -2,19 +2,22 @@ import React, { useState } from "react"
 import { Navigate } from "react-router-dom"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
-import { useDispatch } from 'react-redux'
-import { login } from '../user/userSlice'
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import authService from '../apiServices/authService'
+import { customFetch } from '../../services/fetch'
+import { BASE_PATH } from '../../utils/constants'
+import { useDispatch } from 'react-redux'
+import { login } from '../user/userSlice'
 
 import "./LoginForm.css"
 
 const LoginForm = () => {
 
   const [redirect, setRedirect] = useState(false)
+  const dispatch = useDispatch()
 
-    /*const loginSchema = Yup.object().shape({
+    const loginSchema = Yup.object().shape({
             email: Yup.string().required("Debe ingresar un email").matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, {message: "El email es invalido"})
             .test('checkEmail', 'Este email no esta registrado', async (value) =>{
                 let email = value ? value : ''
@@ -34,7 +37,7 @@ const LoginForm = () => {
                     }
                     return true
                 }),
-    });*/ // Hace un fetch cada vez que tocas una tecla y el tema de que las validaciones las hace el controlador de login tipo seria 3 fetch para loguearte aparte que se tendrian que crear los controladores
+    }) // Hace un fetch cada vez que tocas una tecla y el tema de que las validaciones las hace el controlador de login tipo seria 3 fetch para loguearte aparte que se tendrian que crear los controladores
 
     const ErrorMessage = ({ message }) => {
         return (
@@ -42,15 +45,52 @@ const LoginForm = () => {
         )
     }
 
+    const getUserData = async () => {
+        try {
+            const url = `${BASE_PATH}/auth/me`
+            const properties = {
+                method: 'get'
+            }
+            const result = await customFetch(url, properties)
+            return result.data.payload
+        } catch (err) {
+            if(err.response.data.errors){
+                err.response.data.errors.forEach(error =>{
+                    toast.error( error.msg , {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                })
+            }
+            console.log(err.response)
+        }
+    }
+
     const onSubmit = async (values) => {
         try {
             let res = await authService.login(values)
-            console.log(res.data)
             if(res.data.token){
                 const token = res.data.token
                 localStorage.setItem('token', JSON.stringify(token));
-                dispatch(login(token)) 
-                setRedirect(true)
+                const userData = await getUserData()
+
+                const user = {
+                    id: userData.id,
+                    firstName: userData.firstName,
+                    lastName: userData.lastName,
+                    email: userData.email,
+                    image: userData.image,
+                    roleId: userData.roleId,
+                    token: token
+                }
+
+                dispatch(login(user))
+                //setRedirect(true) // los redirect se estan rompiendo
             }
         } catch (err) {
             if(err.response.data.errors){
@@ -70,12 +110,6 @@ const LoginForm = () => {
         }
     }
 
-    function validationSchema() {
-        return {
-            email: Yup.string().email('Tiene que ser un email valido').required('El email es requerido'),
-            password: Yup.string().required('Se requiere un email')
-        }
-    }
 
     return (
         <>
@@ -84,7 +118,7 @@ const LoginForm = () => {
                 validateOnChange= {false}
                 validateOnBlur= {false}
                 onSubmit={onSubmit}
-                validationSchema={Yup.object(validationSchema())}
+                validationSchema={loginSchema}
             >
                 {({ errors, touched }) => (
                     <Form className="loginForm">

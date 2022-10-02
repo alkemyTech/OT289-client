@@ -7,27 +7,13 @@ export const userSlice = createSlice({
     initialState : {},
     reducers: {
         login: (state, action) => { 
-            let user;
-            const token = action.payload
-            const config = {
-                headers: {
-                    "Authorization": `Bearer ${token}` 
-                }
-            }
-            
-            axios.get(`${BASE_PATH}/auth/me`, config)
-                .then(data => user = data)
-                    .catch(error => console.log(error))
-        
-          if (user) {
-            state.id = user.payload.id
-            state.email = user.payload.email
-            state.firstName = user.payload.firstName
-            state.lastName = user.payload.lastName
-            state.image = user.payload.image
-            state.roleId = user.payload.roleId
-            state.token = action.payload
-          }
+            state.id = action.payload.id
+            state.email = action.payload.email
+            state.firstName = action.payload.firstName
+            state.lastName = action.payload.lastName
+            state.image = action.payload.image
+            state.roleId = action.payload.roleId
+            state.token = action.payload.token
         }, 
         logout: (state) => {
             delete state.id
@@ -38,7 +24,7 @@ export const userSlice = createSlice({
             delete state.roleId
             delete state.token
         },
-        refresh: (state) => {
+        refresh: (state, action) => {
             const token = localStorage.getItem('token')
             if (token) {
                 let user;
