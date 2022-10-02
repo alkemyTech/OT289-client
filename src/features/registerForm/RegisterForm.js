@@ -86,7 +86,7 @@ const RegisterForm = () => {
                     }
     
                     dispatch(login(user))
-                    //setRedirect(true) // los redirect se estan rompiendo  
+                    setRedirect(true) // los redirect se estan rompiendo  
             }
         } catch (err) {
             err.response.data.errors.forEach(error =>{
@@ -133,7 +133,7 @@ const RegisterForm = () => {
                 )}
             </Formik>
             <ToastContainer/>
-            {redirect && ( <Navigate to="/login" replace={true} />)}
+            {redirect && ( <Navigate to="/" replace={true} />)}
         </>
     )
 }
