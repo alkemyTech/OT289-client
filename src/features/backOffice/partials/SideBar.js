@@ -4,6 +4,8 @@ import {Link, useLocation } from 'react-router-dom';
 
 import { PersonLinesFill, Newspaper, JournalText, BookmarkStar, ChatLeftHeart, Easel2, PersonCircle, Building, People } from 'react-bootstrap-icons';
 
+let adminLabel = 1
+
 
 const Sidebar = ()=> {
 
