@@ -1,6 +1,9 @@
 import React from "react"
+import { Routes, Route } from 'react-router-dom';
+
 import SideBar from './partials/SideBar'
-import Content from './partials/Content'
+import NewsPanel from './partials/NewsPanel'
+
 import './BackOffice.css'
 
 const BackOffice = () => {
@@ -8,9 +11,12 @@ const BackOffice = () => {
     return (
         <main className="d-flex">
             <SideBar/>
-            <Content/>
+            <Routes>
+                <Route path="/news" element={<NewsPanel />} />
+            </Routes>
         </main>
     )
+
 }
 
 export default BackOffice

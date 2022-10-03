@@ -38,7 +38,7 @@ export const userSlice = createSlice({
             delete state.roleId
             delete state.token
         },
-        refresh: (state) => {
+        refresh: (state, action) => {
             const token = localStorage.getItem('token')
             if (token) {
                 let user;
