@@ -7,15 +7,16 @@ import ScreenContact from './features/screencontac/ScreenContac';
 import UsersTable from './features/usersTable/UsersTable';
 
 import { Routes, Route } from 'react-router-dom';
+import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 
 function App() {
 
   return (
     <div className="App">
-      <EditForm />
       <Routes>
         <Route path="/contac" element={<ScreenContact />} />
         <Route path="/backoffice/users" element={<UsersTable />} />
+        <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
       </Routes>
     </div>
     
