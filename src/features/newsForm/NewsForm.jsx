@@ -17,7 +17,7 @@ const MAX_NAME = 50;
 const MIN_CONTENT = 20;
 
 //Formik validation schema using Yup
-const activitySchema = Yup.object().shape({
+const newSchema = Yup.object().shape({
   name: Yup
     .string()
     .max(MAX_NAME, "Nombre muy largo")
@@ -89,7 +89,7 @@ const NewsForm = ({ data }) => {
     <Formik
       initialValues={currentData}
       onSubmit={handleSubmit}
-      validationSchema={activitySchema}
+      validationSchema={newSchema}
     >
       {({ errors, touched }) => (
         <Form className={s.activityForm}>
