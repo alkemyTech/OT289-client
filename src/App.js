@@ -12,9 +12,11 @@ import Contact from './features/screencontac/ScreenContac'
 import BackOffice from './features/backOffice/BackOffice';
 
 import { Routes, Route } from 'react-router-dom';
+import RegisterForm from './features/registerForm/RegisterForm'
+import {useSelector} from 'react-redux'
+
 
 function App() {
-
   return (
     <div className="App">
       <Routes>
