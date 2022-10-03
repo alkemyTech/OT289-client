@@ -92,11 +92,11 @@ const NewsItem = ({item})=> {
     }
 
     const onSubmit = (values) => {
-
+        console.log('aca iria el cambio')
     }
 
-    const handleDelete = () => {
-        console.log('tenes el delete')
+    const handleDelete = (values) => {
+        console.log('aca iria el delete')
     }
 
 
