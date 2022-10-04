@@ -1,5 +1,5 @@
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:3000/users/auth'
+axios.defaults.baseURL = 'http://localhost:3001/users/auth'
 
 const authService = {
     checkEmail: async (data) => {

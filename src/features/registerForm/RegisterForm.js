@@ -4,6 +4,10 @@ import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
 import { ToastContainer, toast } from "react-toastify"
 import authService from '../apiServices/authService'
+import { customFetch } from '../../services/fetch'
+import { BASE_PATH } from '../../utils/constants'
+import { useDispatch } from 'react-redux'
+import { login } from '../user/userSlice'
 
 
 //styles
@@ -12,6 +16,8 @@ import styles from "./RegisterForm.module.css"
 const RegisterForm = () => {
 
   const [redirect, setRedirect] = useState(false)
+
+  const dispatch = useDispatch()
 
     //Formik validation schema using Yup
     const SignupSchema = Yup.object().shape({
@@ -35,11 +41,52 @@ const RegisterForm = () => {
         )
     }
 
+    const getUserData = async () => {
+        try {
+            const url = `${BASE_PATH}/auth/me`
+            const properties = {
+                method: 'get'
+            }
+            const result = await customFetch(url, properties)
+            return result.data.payload
+        } catch (err) {
+            if(err.response.data.errors){
+                err.response.data.errors.forEach(error =>{
+                    toast.error( error.msg , {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                })
+            }
+            console.log(err.response)
+        }
+    }
+
     const onSubmit = async (values) => {
         try {
             let res = await authService.register(values)
             if(res.status === 200){
-                setRedirect(true)
+                    const token = res.data.token
+                    localStorage.setItem('token', JSON.stringify(token));
+                    const userData = await getUserData()
+    
+                    const user = {
+                        id: userData.id,
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        email: userData.email,
+                        image: userData.image,
+                        roleId: userData.roleId,
+                        token: token
+                    }
+    
+                    dispatch(login(user))
+                    setRedirect(true) // los redirect se estan rompiendo  
             }
         } catch (err) {
             err.response.data.errors.forEach(error =>{
@@ -56,11 +103,12 @@ const RegisterForm = () => {
         }
     }
 
-
     return (
         <>
             <Formik
                 initialValues={{firstName: '', lastName: '', email: '', password: ''}}
+                validateOnBlur = {false}
+                validateOnChange = {false}
                 onSubmit={onSubmit}
                 validationSchema={SignupSchema}
             >                
@@ -85,7 +133,7 @@ const RegisterForm = () => {
                 )}
             </Formik>
             <ToastContainer/>
-            {redirect && ( <Navigate to="/login" replace={true} />)}
+            {redirect && ( <Navigate to="/" replace={true} />)}
         </>
     )
 }
