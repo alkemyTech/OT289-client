@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 export function alertConfirmation(titulo, mensaje){
     Swal.fire({
         title: titulo,
-        icon: "sucess",        
+        icon: "success",        
         text: mensaje
       });
 }

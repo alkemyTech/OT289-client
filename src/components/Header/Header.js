@@ -1,8 +1,9 @@
 import './Header.css'
 import React, { useState } from 'react'
 import { List, X  } from 'react-bootstrap-icons'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { headerLinks }  from '../../data/headerLinks'
+
 
 
 export default function Header() {
@@ -22,10 +23,13 @@ export default function Header() {
 }
 
 function NavBar() {
+
+  let location = useLocation()
+
   return (
 
       <nav>
-        {headerLinks.map(button => <Link to={button.link} key={button.link}><button key={button.link}>{button.name}</button></Link> )}
+        {headerLinks.map(button => <Link to={button.link} key={button.link}><button key={button.link} className={`${location.pathname === button.link ? 'active' : '' }`}>{button.name}</button></Link> )}
         <div className='account'>
           <Link to='Login'><button className='login'>Log in</button></Link>
           <Link to='Registrarse'><button className='register'>Registrate</button></Link>
@@ -51,12 +55,14 @@ function BurguerIcon() {
 
 function BurguerMenu({ setOpenMenu, openMenu }) {
 
+  let location = useLocation()
+
   return(
 
     <ul className='burguer-list'>
       <Link to='Login'><li className='burguer-login' onClick={() => setOpenMenu(!openMenu)}>Login</li></Link>
       <Link to='Registrarse'><li className='burguer-register' onClick={() => setOpenMenu(!openMenu)}>Registrate</li></Link>
-      {headerLinks.map(button => <Link to={button.link} key={button.link}><li key={button.link} className='burguer-link' onClick={() => setOpenMenu(!openMenu)}>{button.name}</li></Link>)}
+      {headerLinks.map(button => <Link to={button.link} key={button.link}><li key={button.link} className={`${location.pathname === button.link ? 'active' : '' }`} onClick={() => setOpenMenu(!openMenu)}>{button.name}</li></Link>)}
     </ul>
 
   )

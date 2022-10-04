@@ -1,43 +1,66 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import BackOffice from './features/backOffice/BackOffice';
-import NewsPanel from './features/backOffice/partials/NewsPanel'
 
 import ScreenContact from './features/screencontac/ScreenContac';
 import Activities from './features/activities/Activities';
+import ScreenNews from './features/screenNews/screenNews';
 import UsersTable from './features/usersTable/UsersTable';
+import Header from './components/Header/Header';
+import Footer from './features/Footer/Footer';
+import Main from './features/mainScreen/Main'
+import Login from './features/loginForm/LoginForm'
+import Register from './features/registerForm/RegisterForm';
+import Contact from './features/screencontac/ScreenContac'
+
+import BackOffice from './features/backOffice/BackOffice';
+
 
 import { Routes, Route } from 'react-router-dom';
+import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 import RegisterForm from './features/registerForm/RegisterForm'
 import {useSelector} from 'react-redux'
+import UsersTable from './features/usersTable/UsersTable'
 
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path='/register' element={<RegisterForm />} />
         <Route path="/contac" element={<ScreenContact />} />
         <Route path="/backoffice/activities" element={<Activities />} />
+        <Route path="/news" element={<ScreenNews/>} />
+        <Route path="/backoffice/users" element={<UsersTable />} />     
+        <Route path="/*" element={<MainSPA />} />
         <Route path="/backOffice/*" element={<BackOffice />} />
-        <Route exact path='/backoffice/news' element={<NewsPanel />} />
         <Route path="/backoffice/users" element={<UsersTable />} />
-        <Route exact path='/' element={<HomePage />}/>
+        <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
       </Routes>
     </div>
     
   );
 }
-function HomePage() {
-  const user = useSelector(state => state.user)
+
+function MainSPA() {
+
   return (
-    <>
-    <h1>En teoria esta es la home</h1>
-    <h1>el usuario creado es: {user.firstName}</h1>
-    <h1>su email esta es: {user.email}</h1>
-    <h1>y su token es: {user.token}</h1>
-    </>
-  )
+    <div className="App">
+
+      <Header />
+
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/registrarse" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/contacto" element={<Contact />} />
+      </Routes>
+
+      <Footer />
+
+    </div>
+    
+  );
 }
+
+
 export default App;
