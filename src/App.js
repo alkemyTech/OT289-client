@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ScreenContact from './features/screencontac/ScreenContac';
+import Activities from './features/activities/Activities';
 import ScreenNews from './features/screenNews/screenNews';
 import UsersTable from './features/usersTable/UsersTable';
 import Header from './components/Header/Header';
@@ -27,6 +28,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/contac" element={<ScreenContact />} />
+        <Route path="/backoffice/activities" element={<Activities />} />
         <Route path="/news" element={<ScreenNews/>} />
         <Route path="/backoffice/users" element={<UsersTable />} />     
         <Route path="/*" element={<MainSPA />} />
