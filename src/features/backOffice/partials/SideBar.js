@@ -1,8 +1,16 @@
 import React from "react"
-import { Newspaper, JournalText, BookmarkStar, ChatLeftHeart, Easel2, PersonCircle, Building, People } from 'react-bootstrap-icons';
+import {useSelector} from 'react-redux'
+import {Link, useLocation } from 'react-router-dom';
+
+import { PersonLinesFill, Newspaper, JournalText, BookmarkStar, ChatLeftHeart, Easel2, PersonCircle, Building, People } from 'react-bootstrap-icons';
+
+let adminLabel = 1
 
 
 const Sidebar = ()=> {
+
+    let location = useLocation();
+    const userState = useSelector(state => state.user)
 
     return (
 
@@ -12,52 +20,57 @@ const Sidebar = ()=> {
             </a>
             <hr></hr>
             <ul className="nav nav-pills flex-column">
-                <li className="sidebarItem">
-                    <button className={"sidebarButton user-select-none sidebarButtonSelected"} >
+                <li className="sidebarItem" >
+                    <Link to="editProfile" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/editProfile' ? 'sidebarButtonSelected' : ''}`}>
+                        <PersonLinesFill className="sidebarIcon"/><span className="sidebarText">Editar Perfil</span>
+                    </Link>
+                </li>
+                <li className={`sidebarItem ${userState.role === 1 ? '' : 'd-none'}`}>
+                    <Link to="news" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/news' ? 'sidebarButtonSelected' : ''}`}>
                         <Newspaper className="sidebarIcon"/><span className="sidebarText">Novedades</span>
-                    </button>
+                    </Link>
                 </li>
-                <li className="sidebarItem">
-                    <button className="sidebarButton user-select-none">
+                <li className={`sidebarItem ${userState.role === 1 ? '' : 'd-none'}`}>
+                    <Link to="activities" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/activities' ? 'sidebarButtonSelected' : ''}`}>
                         <JournalText className="sidebarIcon"/><span className="sidebarText">Actividades</span>          
-                    </button>
+                    </Link>
                 </li>
-                <li className="sidebarItem">
-                    <button className="sidebarButton user-select-none">
+                <li className={`sidebarItem ${userState.role === 1 ? '' : 'd-none'}`}>
+                    <Link to="categories" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/categories' ? 'sidebarButtonSelected' : ''}`}>
                         <BookmarkStar className="sidebarIcon"/><span className="sidebarText">Categorias</span>
-                    </button>
+                    </Link>
                 </li>
-                <li className="sidebarItem">
-                    <button className="sidebarButton user-select-none">
+                <li className={`sidebarItem ${userState.role === 1 ? '' : 'd-none'}`}>
+                    <Link to="testimonials" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/testimonials' ? 'sidebarButtonSelected' : ''}`}>
                         <ChatLeftHeart className="sidebarIcon"/><span className="sidebarText">Testimonios</span>
-                    </button>
+                    </Link>
                 </li>
-                <li className="sidebarItem">
-                    <button className="sidebarButton user-select-none">
+                <li className={`sidebarItem ${userState.role === 1 ? '' : 'd-none'}`}>
+                    <Link to="slides" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/slides' ? 'sidebarButtonSelected' : ''}`}>
                         <Easel2 className="sidebarIcon"/><span className="sidebarText">Slides</span>
-                    </button>
+                    </Link>
                 </li>
-                <li className="sidebarItem">
-                    <button className="sidebarButton user-select-none">
+                <li className={`sidebarItem ${userState.role === 1 ? '' : 'd-none'}`}>
+                    <Link to="users" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/users' ? 'sidebarButtonSelected' : ''}`}>
                         <PersonCircle className="sidebarIcon"/><span className="sidebarText">Usuarios</span>
-                    </button>
+                    </Link>
                 </li>
-                <li className="sidebarItem">
-                    <button className="sidebarButton user-select-none">
+                <li className={`sidebarItem ${userState.role === 1 ? '' : 'd-none'}`}>
+                    <Link to="organization" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/organization' ? 'sidebarButtonSelected' : ''}`}>
                         <Building className="sidebarIcon"/><span className="sidebarText">Organizacion</span>
-                    </button>
+                    </Link>
                 </li>      
-                <li className="sidebarItem">
-                    <button className="sidebarButton user-select-none">
+                <li className={`sidebarItem ${userState.role === 1 ? '' : 'd-none'}`}>
+                    <Link to="members" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/members' ? 'sidebarButtonSelected' : ''}`}>
                         <People className="sidebarIcon"/><span className="sidebarText">Miembros</span>
-                    </button>
+                    </Link>
                 </li>      
 
                 
             </ul>
             <hr></hr>
             <div>
-                <button className="sidebarLogoutButton">Cerrar sesión</button>
+                <button className="sidebarLogoutButton">Cerrar Sesion</button>
             </div>
         </div>
 

@@ -54,6 +54,10 @@ nav button:hover {
     border-bottom: 3px solid #9AC9FB;
 }
 
+.active{
+    border-bottom: 3px solid #71b0f3;
+}
+
 
 .account {
     position: relative;
