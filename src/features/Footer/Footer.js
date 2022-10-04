@@ -41,15 +41,15 @@ const links = [
 
 const Footer = () => {
 
-    const [data, setData] = useState({})
+    const [socialLinks, setSocialLinks] = useState([])
 
     useEffect(() => {
         fetch('http://localhost:3001/organizations/1/public')
             .then(response => response.json())
-            .then(data => setData(data.socialLinks))
+            .then(data => setSocialLinks(data.socialLinks))
     }, []);
 
-    console.log(data)
+    console.log(socialLinks)
 
     const Logo = () => {
         return (
@@ -97,9 +97,9 @@ const Footer = () => {
         return (
             <div className={`${styles.box} ${styles.socialLinks}`}>
                 <h3>Nuestras redes</h3>
-                {data.length > 0 && (
+                {socialLinks.length > 0 && (
                     <ul>
-                        {data.map((social, index) => {
+                        {socialLinks.map((social, index) => {
                             return (
                                 <li key={`social-${index}`}>
                                     <a href={social.url} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
