@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react';
 
 //Social Icons
 import { Facebook, Instagram, Twitter } from 'react-bootstrap-icons'
@@ -23,7 +24,7 @@ const links = [
     }
 ]
 
-const socialLinks = [
+/* const socialLinks = [
     {
         name: 'Instagram',
         url: 'https://instagram.com'
@@ -36,9 +37,20 @@ const socialLinks = [
         name: 'Twitter',
         url: 'https://twitter.com'
     }
-]
+] */
 
 const Footer = () => {
+
+    const [data, setData] = useState({})
+
+    useEffect(() => {
+        fetch('http://localhost:3001/organizations/1/public')
+            .then(response => response.json())
+            .then(data => setData(data.socialLinks))
+    }, []);
+
+    console.log(data)
+
     const Logo = () => {
         return (
             <div className={`${styles.box} ${styles.logoContainer}`}>
@@ -68,16 +80,16 @@ const Footer = () => {
 
     //Social media icon
     //Add more if needed (first import it from 'react-bootstrap-icons')
-    const SocialIcon = ({socialName, size}) => {
-        switch(socialName) {
+    const SocialIcon = ({ socialName, size }) => {
+        switch (socialName) {
             case 'Facebook':
                 return <Facebook size={size} className={styles.icon} />
             case 'Instagram':
                 return <Instagram size={size} className={styles.icon} />
             case 'Twitter':
                 return <Twitter size={size} className={styles.icon} />
-            default: 
-            return null
+            default:
+                return null
         }
     }
 
@@ -85,9 +97,9 @@ const Footer = () => {
         return (
             <div className={`${styles.box} ${styles.socialLinks}`}>
                 <h3>Nuestras redes</h3>
-                {socialLinks.length > 0 && (
+                {data.length > 0 && (
                     <ul>
-                        {socialLinks.map((social, index) => {
+                        {data.map((social, index) => {
                             return (
                                 <li key={`social-${index}`}>
                                     <a href={social.url} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
