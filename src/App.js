@@ -16,8 +16,10 @@ import BackOffice from './features/backOffice/BackOffice';
 
 
 import { Routes, Route } from 'react-router-dom';
+import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 import RegisterForm from './features/registerForm/RegisterForm'
 import {useSelector} from 'react-redux'
+import UsersTable from './features/usersTable/UsersTable'
 
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
         <Route path="/backoffice/users" element={<UsersTable />} />     
         <Route path="/*" element={<MainSPA />} />
         <Route path="/backOffice/*" element={<BackOffice />} />
+        <Route path="/backoffice/users" element={<UsersTable />} />
+        <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
       </Routes>
     </div>
     
