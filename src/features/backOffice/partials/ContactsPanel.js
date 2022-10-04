@@ -1,37 +1,50 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import '../BackOffice.css'
-
-const contacts = [
-    {
-       name: 'Marcos',
-       phone: 1183274317,
-       email: 'marcos@gmail.com',
-       message: 'hola buenos dias venden pan aca?', 
-    },{
-        name: 'mauricio',
-        phone: 1143827350,
-        email: 'elmaurisepusounemailargo@gmail.com',
-        message: 'que onda'
-    },{
-        name: 'harry potter',
-        phone: 42853820,
-        email: 'elsucioharry@gmail.com',
-        message: 'expeliermus'
-    },{
-        name: 'queseyo',
-        phone: 1123958427,
-        email: 'nosemeocurrenada@gmail.com',
-        message: 'nose que poner aca ya pero este lo hago medio largo para ver como queda'
-    }
-]
+import { customFetch } from "../../../services/fetch"
+import { BASE_PATH } from '../../../utils/constants'
+import { ToastContainer, toast } from "react-toastify"
 
 const ContactsPanel = () => {
+    
+    const [contactsMessages, setContactsMessages] = useState([])
+
+    const getContacts =  () => {
+        const url = `${BASE_PATH}/contacts`
+        const properties = {
+            method: 'get'
+        }
+        try {
+            const result = customFetch(url, properties)
+            return result
+        } catch (error) {
+            toast.error( error.msg , {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+        }
+    }
+
+    useEffect(() => {
+       getContacts()
+        .then(messages => {
+            setContactsMessages(messages.data)
+        })
+    }, [])
+
   return (
     <>
     <h1>Contactos a la pagina</h1>
-    {contacts.map(contact => {
+    {contactsMessages.map(contact => {
         return (
-            <Contact contact={contact}/>
+            <>
+            <Contact contact={contact} key={contact.email}/>
+            <ToastContainer />
+            </>
         )
     })}
     </>
