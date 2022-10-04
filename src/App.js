@@ -2,6 +2,9 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import ScreenContact from './features/screencontac/ScreenContac';
+import ScreenNews from './features/screenNews/screenNews';
+import UsersTable from './features/usersTable/UsersTable';
 import Header from './components/Header/Header';
 import Footer from './features/Footer/Footer';
 import Main from './features/mainScreen/Main'
@@ -21,6 +24,9 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/contac" element={<ScreenContact />} />
+        <Route path="/news" element={<ScreenNews/>} />
+        <Route path="/backoffice/users" element={<UsersTable />} />     
         <Route path="/*" element={<MainSPA />} />
         <Route path="/backOffice/*" element={<BackOffice />} />
       </Routes>
