@@ -1,46 +1,10 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import { CaretDown, Image } from 'react-bootstrap-icons';
 import Collapse from 'react-bootstrap/Collapse';
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
-
-
-
-let items = [{
-    name:"Nombre",
-    content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
-    category:1,
-},{
-    name:"Nombre",
-    content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
-    category:3,
-   
-},{
-    name:"Nombre",
-    content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
-    category:2,
-    
-},{
-    name:"Nombre",
-    content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
-    category:3,
-    
-},{
-    name:"Nombre",
-    content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
-    category:5,
-    
-},{
-    name:"Nombre",
-    content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
-    category:2,
-    
-},{
-    name:"Nombre",
-    content:"Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.",
-    category:1,
-    
-}]
+import publicService from "../../../services/publicService"
+import { InputGroup } from "react-bootstrap";
 
 let categories = [
     {id:1, name:"category 1"},
@@ -52,7 +16,18 @@ let categories = [
 ]
 
 const NewsPanel = ()=> {
-    
+
+    const [news, setNews] = useState([])
+
+    const getNews = async () => {
+        let response = await publicService.newsList()
+        setNews(response.data)
+    }
+
+    useEffect(()=>{
+        getNews()
+    },[])
+
     const newItem = {
         name: '',
         content: '',
@@ -67,8 +42,8 @@ const NewsPanel = ()=> {
                 <NewsItem item={newItem} />
                 <br></br>
                 <h2>Modificar noticias</h2>
-                {items.map((item, index)=>{
-                        return <NewsItem key={index} item={item}/>
+                {news.map((item, index)=>{
+                    return <NewsItem key={index} item={item} />
                 })}
 
             </div>
@@ -78,8 +53,9 @@ const NewsPanel = ()=> {
 
 const NewsItem = ({item})=> {
 
+    const id = item.id
     const [open, setOpen] = useState(false);
-    const [edit, setEdit] = useState(false)
+    const [edit, setEdit] = useState(false);
 
     const newsSchema = Yup.object().shape({
        
@@ -96,9 +72,8 @@ const NewsItem = ({item})=> {
     }
 
     const handleDelete = (values) => {
-        console.log('aca iria el delete')
+        console.log('aca iria el cambio')
     }
-
 
     return (
         <div className="p-3 m-2 bg-light rounded">
@@ -123,7 +98,6 @@ const NewsItem = ({item})=> {
                                     <Field as="select" name="category" disabled={!edit} className="formEdit">
                                     {categories.map((category, index)=>{
                                         return <option key={index} 
-                                            className= "" 
                                             value={category.id} 
                                             selected={category.id ? category.id === item.categoryId ? true : false : false}>
                                                 {category.name}
@@ -149,7 +123,7 @@ const NewsItem = ({item})=> {
                                                 <label for="image">
                                                     <Image className="h1 m-0"/>
                                                 </label>
-                                                <Field type="file" name="image" id="image" placeholder="Imagen" className="formEdit d-none"  accept="image/png, image/jpg, image/gif, image/jpeg" disabled={!edit} />
+                                                <input type="file" name="image" id="image" placeholder="Imagen" className="formEdit d-none" accept="image/png, image/jpg, image/gif, image/jpeg" disabled={!edit} ></input>
                                             </div>
                                         </div>
                                         <div className="col-md-10">            
@@ -173,5 +147,6 @@ const NewsItem = ({item})=> {
     );
 }
 
+NewsItem.defaultProps = {defaultNews: []}
 
 export default NewsPanel

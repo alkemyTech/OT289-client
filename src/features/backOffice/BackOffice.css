@@ -78,6 +78,30 @@
     color:white
 }
 
+.contact-container {
+    display:flex;
+    margin: 10px;
+    border-bottom: 1px solid lightgrey
+}
+
+.contact-phone,
+.contact-name {
+    display:block;
+    text-align: left;
+    width: 15%;
+}
+
+.contact-email {
+    display:block;
+    width: 27%;
+    text-align: left;
+}
+
+.contact-message{
+    display:block;
+    width: 43%;
+    text-align: left
+}
 
 
 .panelTitle{
