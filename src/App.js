@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      {  <EditForm /> }
+     {<EditForm />}
       <Routes>
         <Route path="/contac" element={<ScreenContact />} />
         <Route path="/news" element={<ScreenNews/>} />
