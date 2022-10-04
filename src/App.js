@@ -17,7 +17,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route exact path='/register' element={<RegisterForm />} />
-        <Route path="/contac" element={<ScreenContact />} />
+        <Route path="/contact" element={<ScreenContact />} />
         <Route path="/backOffice/*" element={<BackOffice />} />
         <Route exact path='/backoffice/news' element={<NewsPanel />} />
         <Route path="/backoffice/users" element={<UsersTable />} />
