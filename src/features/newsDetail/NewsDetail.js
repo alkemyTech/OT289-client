@@ -6,14 +6,13 @@ const NewsDetail = ({defaultNews}) => {
 
     const [news, setNews] = useState(defaultNews)
 
-    async function newsRequestHandler(){
+    const getNews = async (values) => {
         let response = await publicService.newsDetail(1)
-        console.log(response.data)
         setNews(response.data)
     }
 
     useEffect(()=>{
-        newsRequestHandler()
+        getNews()
     },[])
 
     return (
@@ -29,16 +28,16 @@ NewsDetail.defaultProps = {defaultNews:
 }
 
 
-const Header = ({title, datetime}) => {
+const Header = ({title, datetime, image}) => {
 
     const date = new Date(datetime);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-    let imageUrl = "http://localhost:3001/images/blog-img-03.jpg"
+    let imageUrl = "http://localhost:3001/images/news/"
 
     return (
         
-        <header className="newsHeader d-flex align-items-center" style={{backgroundImage: 'url('+imageUrl+')'}}>
+        <header className="newsHeader d-flex align-items-center" style={{backgroundImage: 'url(' + imageUrl+ image + ')'}}>
         
             <div className="container">
                 <div className="row">
