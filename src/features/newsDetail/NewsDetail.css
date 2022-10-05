@@ -19,10 +19,12 @@
 .newsTitle{
     color:white;
     font-weight: 600;
+    text-shadow: 0 0 10px grey;
 }
 
 .newsDate{
     color:white;
+    text-shadow: 0 0 5px grey;
 }
 
 .newsBody{

@@ -14,6 +14,7 @@
 
 .sidebarButton{
     all:unset;
+    display: block;
     box-sizing: border-box;
     padding: 10px 15px;
     text-decoration: none;
@@ -75,4 +76,49 @@
 .sidebarLogoutButton:hover{
     background-color: darkslategray;
     color:white
+}
+
+.contact-container {
+    display:flex;
+    margin: 10px;
+    border-bottom: 1px solid lightgrey
+}
+
+.contact-phone,
+.contact-name {
+    display:block;
+    text-align: left;
+    width: 15%;
+}
+
+.contact-email {
+    display:block;
+    width: 27%;
+    text-align: left;
+}
+
+.contact-message{
+    display:block;
+    width: 43%;
+    text-align: left
+}
+
+
+.panelTitle{
+    padding: 30px 0 0 50px;
+}
+
+
+.checkInput {
+    clear: left;
+}
+  
+.form-switch.form-switch-sm {
+    margin-bottom: 0.5rem; /* JUST FOR STYLING PURPOSE */
+}
+  
+.form-switch.form-switch-sm .checkInput {
+    height: 1rem;
+    width: calc(1rem + 0.75rem);
+    border-radius: 2rem;
 }

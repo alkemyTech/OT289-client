@@ -1,25 +1,38 @@
 import React, { useState } from "react"
+import { Navigate } from "react-router-dom"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
+import { ToastContainer, toast } from "react-toastify"
+import authService from '../apiServices/authService'
+import { customFetch } from '../../services/fetch'
+import { BASE_PATH } from '../../utils/constants'
+import { useDispatch } from 'react-redux'
+import { login } from '../user/userSlice'
+
 
 //styles
 import styles from "./RegisterForm.module.css"
 
 const RegisterForm = () => {
-    //State
-    const [data, setData] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: ''
-    })
+
+  const [redirect, setRedirect] = useState(false)
+
+  const dispatch = useDispatch()
 
     //Formik validation schema using Yup
     const SignupSchema = Yup.object().shape({
         firstName: Yup.string().required('Requerido'),
         lastName: Yup.string().required('Requerido'),
-        email: Yup.string().email('Email inválido').required('Requerido'),
-        password: Yup.string().min(6, 'Contraseña muy corta').required('Requerido')
+        email: Yup.string().required('Requerido').email('Email inválido')
+            .test('checkEmail', 'Este email ya esta registrado', async (value) =>{
+                let email = value ? value : ''
+                let response = await authService.checkEmail({email})
+                if(response.status === 200){
+                    return !response.data.emailExist                // codigo para vaildar si existe ese email
+                }
+                return true
+            }),
+        password: Yup.string().required('Requerido').min(6, 'Contraseña muy corta')
     })
 
     const ErrorMessage = ({ message }) => {
@@ -28,31 +41,90 @@ const RegisterForm = () => {
         )
     }
 
-    const onSubmit = (values) => {
-        //Saving in state for later use
-        setData(values)
+    const getUserData = async () => {
+        try {
+            const url = `${BASE_PATH}/auth/me`
+            const properties = {
+                method: 'get'
+            }
+            const result = await customFetch(url, properties)
+            return result.data.payload
+        } catch (err) {
+            if(err.response.data.errors){
+                err.response.data.errors.forEach(error =>{
+                    toast.error( error.msg , {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                })
+            }
+            console.log(err.response)
+        }
+    }
+
+    const onSubmit = async (values) => {
+        try {
+            let res = await authService.register(values)
+            if(res.status === 200){
+                    const token = res.data.token
+                    localStorage.setItem('token', JSON.stringify(token));
+                    const userData = await getUserData()
+    
+                    const user = {
+                        id: userData.id,
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        email: userData.email,
+                        image: userData.image,
+                        roleId: userData.roleId,
+                        token: token
+                    }
+    
+                    dispatch(login(user))
+                    setRedirect(true) // los redirect se estan rompiendo  
+            }
+        } catch (err) {
+            err.response.data.errors.forEach(error =>{
+                toast.error( error.msg , {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+        }
     }
 
     return (
         <>
             <Formik
-                initialValues={data}
+                initialValues={{firstName: '', lastName: '', email: '', password: ''}}
+                validateOnBlur = {false}
+                validateOnChange = {false}
                 onSubmit={onSubmit}
                 validationSchema={SignupSchema}
-            >
+            >                
                 {({ errors, touched }) => (
                     <Form className={styles.registerForm}>
 
-                        <Field name="firstName" placeholder="nombre" required />
+                        <Field name="firstName" placeholder="nombre"/>
                         {errors.firstName && touched.firstName && <ErrorMessage message={errors.firstName} />}
 
-                        <Field name="lastName" placeholder="apellido" required />
+                        <Field name="lastName" placeholder="apellido"/>
                         {errors.lastName && touched.lastName && <ErrorMessage message={errors.lastName} />}
 
-                        <Field type="email" name="email" placeholder="email" required />
+                        <Field type="email" name="email" placeholder="email"/>
                         {errors.email && touched.email && <ErrorMessage message={errors.email} />}
 
-                        <Field name="password" type="password" placeholder="contraseña" required />
+                        <Field name="password" type="password" placeholder="contraseña"/>
                         {errors.password && touched.password && <ErrorMessage message={errors.password} />}
 
                         <Field type="submit" name="submit" value="Crear cuenta" className={styles.button} />
@@ -60,6 +132,8 @@ const RegisterForm = () => {
                     </Form>
                 )}
             </Formik>
+            <ToastContainer/>
+            {redirect && ( <Navigate to="/" replace={true} />)}
         </>
     )
 }
