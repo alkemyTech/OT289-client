@@ -1,13 +1,15 @@
 import React, {useState,useEffect} from "react"
 import "./NewsDetail.css"
 import publicService from "../../services/publicService"
+import { useParams } from "react-router-dom"
 
 const NewsDetail = ({defaultNews}) => {
 
     const [news, setNews] = useState(defaultNews)
+    const params = useParams()
 
     const getNews = async (values) => {
-        let response = await publicService.newsDetail(1)
+        let response = await publicService.newsDetail(params.id)
         setNews(response.data)
     }
 
@@ -17,8 +19,16 @@ const NewsDetail = ({defaultNews}) => {
 
     return (
         <>
-            <Header title={news.name} datetime={news.createdAt} image={news.image}/>
-            <Content content={news.content}/>
+        {news.id == undefined &&
+            <h1 className="text-center">Datos No encontrados</h1>
+        }
+
+        {news.id != undefined &&
+            <React.Fragment>
+                <Header title={news.name} datetime={news.createdAt} image={news.image}/>
+                <Content content={news.content}/>
+            </React.Fragment>
+        }
         </>
     )
 }
@@ -33,7 +43,7 @@ const Header = ({title, datetime, image}) => {
     const date = new Date(datetime);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-    let imageUrl = "http://localhost:3001/images/news/"
+    let imageUrl = "http://localhost:3000/images/"
 
     return (
         

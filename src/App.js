@@ -20,8 +20,8 @@ import { Routes, Route } from 'react-router-dom';
 import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 import RegisterForm from './features/registerForm/RegisterForm'
 import {useSelector} from 'react-redux'
-import UsersTable from './features/usersTable/UsersTable'
 
+import NewsDetail from './features/newsDetail/NewsDetail'
 
 function App() {
   return (
@@ -35,6 +35,7 @@ function App() {
         <Route path="/backOffice/*" element={<BackOffice />} />
         <Route path="/backoffice/users" element={<UsersTable />} />
         <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
+        <Route path='/news/:id' element={<NewsDetail />} />
       </Routes>
     </div>
     
