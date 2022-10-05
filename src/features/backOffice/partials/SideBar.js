@@ -1,8 +1,11 @@
 import React from "react"
 import {useSelector} from 'react-redux'
-import {Link, useLocation } from 'react-router-dom';
+import {Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { PersonLinesFill, Newspaper, JournalText, BookmarkStar, ChatLeftHeart, Easel2, PersonCircle, Building, People } from 'react-bootstrap-icons';
+import { useDispatch } from 'react-redux'
+import { logout } from '../../user/userSlice'
+
 
 let adminLabel = 1
 
@@ -11,6 +14,14 @@ const Sidebar = ()=> {
 
     let location = useLocation();
     const userState = useSelector(state => state.user)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const singOff = () => {            
+        localStorage.removeItem('token')
+        dispatch(logout())        
+        navigate('/')
+    }
 
     return (
 
@@ -70,12 +81,15 @@ const Sidebar = ()=> {
             </ul>
             <hr></hr>
             <div>
-                <button className="sidebarLogoutButton">Cerrar Sesion</button>
+                <button className="sidebarLogoutButton" onClick={singOff} >Cerrar Sesion</button>
             </div>
         </div>
 
         
     );
-};
+
+    
+}
+
 
 export default Sidebar;

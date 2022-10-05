@@ -20,7 +20,7 @@ import { Routes, Route } from 'react-router-dom';
 import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 import RegisterForm from './features/registerForm/RegisterForm'
 import {useSelector} from 'react-redux'
-import UsersTable from './features/usersTable/UsersTable'
+
 
 
 function App() {
