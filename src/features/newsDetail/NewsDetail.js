@@ -33,6 +33,7 @@ const NewsDetail = ({defaultNews}) => {
     )
 }
 
+
 NewsDetail.defaultProps = {defaultNews:
     {title:'',content:'',createdAt:new Date().toISOString()}
 }
@@ -43,7 +44,8 @@ const Header = ({title, datetime, image}) => {
     const date = new Date(datetime);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-    let imageUrl = "http://localhost:3000/images/"
+
+    let imageUrl = "http://localhost:3001/images/news/"
 
     return (
         
