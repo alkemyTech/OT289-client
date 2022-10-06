@@ -17,7 +17,7 @@ const Sidebar = ()=> {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const singOff = () => {            
+    const signOff = () => {            
         localStorage.removeItem('token')
         dispatch(logout())        
         navigate('/')
@@ -81,7 +81,7 @@ const Sidebar = ()=> {
             </ul>
             <hr></hr>
             <div>
-                <button className="sidebarLogoutButton" onClick={singOff} >Cerrar Sesion</button>
+                <button className="sidebarLogoutButton" onClick={signOff} >Cerrar Sesion</button>
             </div>
         </div>
 
