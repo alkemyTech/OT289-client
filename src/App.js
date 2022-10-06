@@ -20,6 +20,7 @@ import { Routes, Route } from 'react-router-dom';
 import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 import RegisterForm from './features/registerForm/RegisterForm'
 import {useSelector} from 'react-redux'
+import ActivityPage from './features/activityPage/ActivityPage';
 
 
 
@@ -53,6 +54,7 @@ function MainSPA() {
         <Route path="/registrarse" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contacto" element={<Contact />} />
+        <Route path='/actividades/:id' element={<ActivityPage />} />
       </Routes>
 
       <Footer />
