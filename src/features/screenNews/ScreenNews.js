@@ -8,8 +8,6 @@ import styles from './ScreenNews.module.css'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
-//TODO: add 'id' to endpoint GET 'news'
-//Change Card styles
 const ScreenNews = () => {
     const [ news, setNews ] = useState(null)
 
@@ -30,17 +28,20 @@ const ScreenNews = () => {
         return window.location.href = '/novedades/' + id
     }
 
-    const NewsCard = ({ item }) => {
+    const NewsCard = ({ item, index }) => {
         const { id, name, image } = item
+
+        const cardStyle = {
+            width: index % 3 === 0 ? '100%' : '50%'
+        }
+
         return (
-            <div className={styles.card}>
-                <Card>            
-                    <Card.Img variant="top" src={image} className={styles.image} />
-                    <Card.Body>
-                        <Card.Title>{name}</Card.Title>
-                        <Button onClick={() => redirectToDetailsPage(id)} variant="primary">Ver Detalle</Button>
-                    </Card.Body>
-                </Card>
+            <div className={styles.card} style={cardStyle}>
+                <Card.Img variant="top" src={image} className={styles.image} />
+                <Card.Body>
+                    <h2 className={styles.title}>{name}</h2>
+                    <Button onClick={() => redirectToDetailsPage(id)} variant="outline-primary">Ver Detalle</Button>
+                </Card.Body>
             </div>
         )
     }
@@ -48,7 +49,7 @@ const ScreenNews = () => {
     const NewsList = () => {
         return (
             <CardGroup>
-                {news.map((item, index)=> <NewsCard key={index} item={item} /> )}
+                {news.map((item, index)=> <NewsCard key={index} item={item} index={index} /> )}
             </CardGroup>
         )
     }

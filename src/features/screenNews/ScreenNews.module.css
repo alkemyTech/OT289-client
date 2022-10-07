@@ -1,23 +1,48 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-self: center;
+    justify-content: center;
     max-width: 1250px;
-    margin: 0 auto;
-}
-
-.card{
-    border-radius: 5px;
-    margin: 8px 4px;
     width: 100%;
+    margin: 8px auto;
+    padding: 12px;
+    background-color: #F1F1F1;
 }
 
-h1 {
-    margin-top: 20px;
-    text-align: center;
+.card {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: #fff;
+    margin: 8px auto;
+    padding: 8px 8px 16px 8px;
+    transform: scale(0.98);
+    transition: all .3s ease-in-out;
 }
 
 .image {
+    border-radius: 0;
     max-height: 450px;
     object-fit: cover;
+    opacity: 0.95;
+	transition: all .3s ease-in-out;
+}
+
+.title {
+    font-size: 24px;
+    margin: 8px 0;
+}
+
+.card:hover {
+    transform: scale(1);
+}
+
+.image:hover {
+    opacity: 1;
+}
+
+@media (max-width: 780px) {
+    .card {
+        width: 100% !important;
+    }
 }
