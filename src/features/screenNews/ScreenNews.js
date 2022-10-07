@@ -35,7 +35,7 @@ const ScreenNews = () => {
         return (
             <div className={styles.card}>
                 <Card>            
-                    <Card.Img variant="top" src={image} />
+                    <Card.Img variant="top" src={image} className={styles.image} />
                     <Card.Body>
                         <Card.Title>{name}</Card.Title>
                         <Button onClick={() => redirectToDetailsPage(id)} variant="primary">Ver Detalle</Button>
@@ -59,22 +59,22 @@ const ScreenNews = () => {
 
     if (!news) {
         return (
-            <>
+            <div className={styles.container}>
                 <h1>Listado de Novedades</h1>
                 <p>Cargando...</p>
-            </>
+            </div>
         )
     }
 
     return (
-        <>
+        <div className={styles.container}>
             <h1>Listado de Novedades</h1>
             {news.length === 0 ?
                 <p>No se encontraron novedades.</p>
             :
                 <NewsList />
             }
-        </>
+        </div>
     )
 }
 
