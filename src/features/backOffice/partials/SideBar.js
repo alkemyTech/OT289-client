@@ -27,11 +27,6 @@ const Sidebar = ()=> {
                         <PersonLinesFill className="sidebarIcon"/><span className="sidebarText">Editar Perfil</span>
                     </Link>
                 </li>
-                <li className="sidebarItem">
-                    <Link to="news" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/news' ? 'sidebarButtonSelected' : ''}`}>
-                        <Newspaper className="sidebarIcon"/><span className="sidebarText">Novedades</span>
-                    </Link>
-                </li>
                 <li className={`sidebarItem ${userState.roleId === 1 ? '' : 'd-none'}`}>
                     <Link to="news" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/news' ? 'sidebarButtonSelected' : ''}`}>
                         <Newspaper className="sidebarIcon"/><span className="sidebarText">Novedades</span>
@@ -77,9 +72,7 @@ const Sidebar = ()=> {
             </ul>
             <hr></hr>
             <div>
-                <Link to="/" className={`sidebarLogoutButton user-select-none ${location.pathname === '/backOffice/members' ? 'sidebarButtonSelected' : ''}`}>
-                    <span className="sidebarText">Cerrar Sesion</span>
-                </Link>
+                <span className="sidebarText">Cerrar Sesion</span>
             </div>
         </div>
 

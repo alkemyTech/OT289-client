@@ -33,7 +33,6 @@ function NavBar() {
         <div className='account'>
           <Link to='login'><button className='login'>Log in</button></Link>
           <Link to='registrarse'><button className='register'>Registrate</button></Link>
-          <Link to='backOffice'><button className='register'>Back Office</button></Link>
         </div>
       </nav>
 
