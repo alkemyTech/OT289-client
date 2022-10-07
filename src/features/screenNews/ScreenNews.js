@@ -1,10 +1,8 @@
-import React, {Component} from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
-import axios from 'axios'
 import styles from './screennews.module.css'
-
 
 //test data (replace with receiving data from public endpoint when available) 
    const getNews = [
@@ -45,35 +43,35 @@ import styles from './screennews.module.css'
       
 
  
-const screenN = () => {
+const ScreenNews = () => {
+    const [ news, setNews ] = useState(null)
 
-    return(
-        <React.Fragment>
+    return (
+        <>
             <h1>Listado de Novedades</h1>
-      
-        <CardGroup>
-              
-        {(getNews.length > 0) &&   
-          
-          getNews.map((b, i)=> {
-            return (
-                <div className= {styles.card} >
-                <Card key={i} >            
-                <Card.Img variant="top" src={"images/"+b.image} />
-                <Card.Body>
-                <Card.Title>{b.name}</Card.Title>
-                <Button onClick={() => getNewId(b.id)} variant="primary">Ver Detalle</Button>{' '}        
-                </Card.Body>
-            </Card></div>     
-            )     
-         })
-        }
-     
-    </CardGroup>  
-    </React.Fragment>
- 
+
+            {}
+            <CardGroup>
+    
+                {(getNews.length > 0) &&   
+                
+                getNews.map((b, i)=> {
+                    return (
+                        <div className= {styles.card} >
+                        <Card key={i} >            
+                        <Card.Img variant="top" src={"images/"+b.image} />
+                        <Card.Body>
+                        <Card.Title>{b.name}</Card.Title>
+                        <Button onClick={() => getNewId(b.id)} variant="primary">Ver Detalle</Button>{' '}        
+                        </Card.Body>
+                    </Card></div>     
+                    )     
+                })
+                }
+            
+            </CardGroup>  
+        </>
     )
 }
- 
 
-export default screenN;
+export default ScreenNews
