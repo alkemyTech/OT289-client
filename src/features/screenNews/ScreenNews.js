@@ -1,75 +1,79 @@
-import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import CardGroup from 'react-bootstrap/CardGroup';
-import styles from './screennews.module.css'
+import React, { useState, useEffect } from 'react'
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+import CardGroup from 'react-bootstrap/CardGroup'
+import { customFetch } from '../../services/fetch'
 
-//test data (replace with receiving data from public endpoint when available) 
-   const getNews = [
-        {
-            id: 1,
-            name: 'Novedad 1',
-            image:'explore-01.jpg',
-            createdAt: '2022-09-14 00:38:35'
-        },
-        {   
-            id: 2,
-            name: 'Novedad 2',
-            image:'explore-02.jpg',
-            createdAt: '2022-09-15 00:38:35'
-        },
-        {
-            id: 3,
-            name: 'Novedad 3',
-            image:'explore-03.jpg',
-            createdAt: '2022-09-16 00:38:35'
-        },
-    
-        {
-            id: 4,
-            name: 'Novedad 4',
-            image:'explore-04.jpg',
-            createdAt: '2022-09-17 00:38:35'
-        },
-        
-    
-    ];
-         
-    
-   const getNewId = (id) => {
-       return window.location.href = "/news/"+id;
-     }
-    
-      
+import styles from './ScreenNews.module.css'
 
- 
+const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
+
+//TODO: add 'id' to endpoint GET 'news'
+//Change Card styles
 const ScreenNews = () => {
     const [ news, setNews ] = useState(null)
+
+    const getNews = async () => {
+        try {
+            const url = `${SERVER_BASE_URL}/news`
+            const properties = {
+                method: 'get'
+            }
+            const res = await customFetch(url, properties)
+            setNews(res.data)
+        } catch (error) {
+            console.log('Error getting news: ', error)
+        }
+    }
+
+    const redirectToDetailsPage = (id) => {
+        return window.location.href = '/novedades/' + id
+    }
+
+    const NewsCard = ({ item }) => {
+        const { id, name, image } = item
+        return (
+            <div className={styles.card}>
+                <Card>            
+                    <Card.Img variant="top" src={image} />
+                    <Card.Body>
+                        <Card.Title>{name}</Card.Title>
+                        <Button onClick={() => redirectToDetailsPage(id)} variant="primary">Ver Detalle</Button>
+                    </Card.Body>
+                </Card>
+            </div>
+        )
+    }
+
+    const NewsList = () => {
+        return (
+            <CardGroup>
+                {news.map((item, index)=> <NewsCard key={index} item={item} /> )}
+            </CardGroup>
+        )
+    }
+
+    useEffect(() => {
+        getNews()
+    },[])
+
+    if (!news) {
+        return (
+            <>
+                <h1>Listado de Novedades</h1>
+                <p>Cargando...</p>
+            </>
+        )
+    }
 
     return (
         <>
             <h1>Listado de Novedades</h1>
-
-            {}
-            <CardGroup>
-    
-                {(getNews.length > 0) &&   
-                
-                getNews.map((b, i)=> {
-                    return (
-                        <div className= {styles.card} >
-                        <Card key={i} >            
-                        <Card.Img variant="top" src={"images/"+b.image} />
-                        <Card.Body>
-                        <Card.Title>{b.name}</Card.Title>
-                        <Button onClick={() => getNewId(b.id)} variant="primary">Ver Detalle</Button>{' '}        
-                        </Card.Body>
-                    </Card></div>     
-                    )     
-                })
-                }
-            
-            </CardGroup>  
+            {news.length === 0 ?
+                <p>No se encontraron novedades.</p>
+            :
+                <NewsList />
+            }
         </>
     )
 }
