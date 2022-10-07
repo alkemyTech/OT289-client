@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import ScreenContact from './features/screencontac/ScreenContac';
 import Activities from './features/activities/Activities';
-import ScreenNews from './features/screenNews/screenNews';
+import ScreenNews from './features/screenNews/ScreenNews';
 import UsersTable from './features/usersTable/UsersTable';
 import Header from './components/Header/Header';
 import Footer from './features/Footer/Footer';
@@ -18,10 +18,7 @@ import BackOffice from './features/backOffice/BackOffice';
 
 import { Routes, Route } from 'react-router-dom';
 import ContactsPanel from './features/backOffice/partials/ContactsPanel';
-import RegisterForm from './features/registerForm/RegisterForm'
-import {useSelector} from 'react-redux'
 import ActivityPage from './features/activityPage/ActivityPage';
-import UsersTable from './features/usersTable/UsersTable'
 
 
 function App() {
@@ -30,7 +27,6 @@ function App() {
       <Routes>
         <Route path="/contac" element={<ScreenContact />} />
         <Route path="/backoffice/activities" element={<Activities />} />
-        <Route path="/news" element={<ScreenNews/>} />
         <Route path="/backoffice/users" element={<UsersTable />} />     
         <Route path="/*" element={<MainSPA />} />
         <Route path="/backOffice/*" element={<BackOffice />} />
@@ -45,8 +41,7 @@ function App() {
 function MainSPA() {
 
   return (
-    <div className="App">
-
+    <>
       <Header />
 
       <Routes>
@@ -55,12 +50,11 @@ function MainSPA() {
         <Route path="/login" element={<Login />} />
         <Route path="/contacto" element={<Contact />} />
         <Route path='/actividades/:id' element={<ActivityPage />} />
+        <Route path="/novedades" element={<ScreenNews />} />
       </Routes>
 
       <Footer />
-
-    </div>
-    
+    </>
   );
 }
 
