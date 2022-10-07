@@ -6,7 +6,7 @@ export const userSlice = createSlice({
     name: "user",
     initialState : {},
     reducers: {
-        login: (state, action) => { 
+        login: (state, action) => {
             state.id = action.payload.id
             state.email = action.payload.email
             state.firstName = action.payload.firstName

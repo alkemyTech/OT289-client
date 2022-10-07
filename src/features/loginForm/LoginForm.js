@@ -90,7 +90,7 @@ const LoginForm = () => {
                 }
 
                 dispatch(login(user))
-                //setRedirect(true) // los redirect se estan rompiendo
+                setRedirect(true)
             }
         } catch (err) {
             if(err.response.data.errors){

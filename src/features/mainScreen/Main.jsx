@@ -61,7 +61,7 @@ const Main = ({ text = defaultText, title = defaultTitle, img = defaultImg, news
       </div>
       <div className={s.news}>
         {
-          newsletter.map(n => (<NewsletterCard img={n.img} text={n.text}/>))
+          newsletter.map((n,i) => (<NewsletterCard img={n.img} key={i} text={n.text}/>))
         }
       </div>
     </div>

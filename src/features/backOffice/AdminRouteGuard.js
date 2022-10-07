@@ -6,7 +6,7 @@ const AdminRouteGuard = ({ element: Component, ...rest }) => {
     const userState = useSelector(state => state.user)
 
     function isAdmin() {
-        if(userState.role === 1){
+        if(userState.roleId === 1){
             return true
         }
         return false

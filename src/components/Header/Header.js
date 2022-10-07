@@ -31,8 +31,9 @@ function NavBar() {
       <nav>
         {headerLinks.map(button => <Link to={button.link} key={button.link}><button key={button.link} className={`${location.pathname === button.link ? 'active' : '' }`}>{button.name}</button></Link> )}
         <div className='account'>
-          <Link to='Login'><button className='login'>Log in</button></Link>
-          <Link to='Registrarse'><button className='register'>Registrate</button></Link>
+          <Link to='login'><button className='login'>Log in</button></Link>
+          <Link to='registrarse'><button className='register'>Registrate</button></Link>
+          <Link to='backOffice'><button className='register'>Back Office</button></Link>
         </div>
       </nav>
 
@@ -60,8 +61,8 @@ function BurguerMenu({ setOpenMenu, openMenu }) {
   return(
 
     <ul className='burguer-list'>
-      <Link to='Login'><li className='burguer-login' onClick={() => setOpenMenu(!openMenu)}>Login</li></Link>
-      <Link to='Registrarse'><li className='burguer-register' onClick={() => setOpenMenu(!openMenu)}>Registrate</li></Link>
+      <Link to='login'><li className='burguer-login' onClick={() => setOpenMenu(!openMenu)}>Login</li></Link>
+      <Link to='registrarse'><li className='burguer-register' onClick={() => setOpenMenu(!openMenu)}>Registrate</li></Link>
       {headerLinks.map(button => <Link to={button.link} key={button.link}><li key={button.link} className={`${location.pathname === button.link ? 'active' : '' }`} onClick={() => setOpenMenu(!openMenu)}>{button.name}</li></Link>)}
     </ul>
 

@@ -4,11 +4,6 @@ import * as yup from "yup";
 import "./ScreenContac.css";
 
 const FormCont = () => {
-  const [data] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
 
   //Formik and yup
   const vDataContac = yup.object().shape({

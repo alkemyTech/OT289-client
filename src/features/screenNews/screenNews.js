@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React from 'react'
+import {Link} from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
-import axios from 'axios'
 import styles from './screennews.module.css'
 
 
@@ -38,9 +38,9 @@ import styles from './screennews.module.css'
     ];
          
     
-   const getNewId = (id) => {
-       return window.location.href = "/news/"+id;
-     }
+//    const getNewId = (id) => {
+//        return window.location.href = "/novedades/"+id;
+//      }
     
       
 
@@ -62,8 +62,8 @@ const screenN = () => {
                 <Card.Img variant="top" src={"images/"+b.image} />
                 <Card.Body>
                 <Card.Title>{b.name}</Card.Title>
-                <Button onClick={() => getNewId(b.id)} variant="primary">Ver Detalle</Button>{' '}        
-                </Card.Body>
+                <Link to={`/novedades/${b.id}`}  className="btn btn-primary">Ver Detalle</Link>
+                </Card.Body>|
             </Card></div>     
             )     
          })

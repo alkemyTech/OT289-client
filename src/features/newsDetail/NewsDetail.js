@@ -33,7 +33,7 @@ const Header = ({title, datetime, image}) => {
     const date = new Date(datetime);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
-    let imageUrl = "http://localhost:3001/images/news/"
+    let imageUrl = "http://localhost:3001/images/news"
 
     return (
         
