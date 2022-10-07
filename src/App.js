@@ -19,6 +19,7 @@ import BackOffice from './features/backOffice/BackOffice';
 import { Routes, Route } from 'react-router-dom';
 import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 import ActivityPage from './features/activityPage/ActivityPage';
+import NewsDetail from './features/newsDetail/NewsDetail';
 
 
 function App() {
@@ -51,6 +52,7 @@ function MainSPA() {
         <Route path="/contacto" element={<Contact />} />
         <Route path='/actividades/:id' element={<ActivityPage />} />
         <Route path="/novedades" element={<ScreenNews />} />
+        <Route path="/novedades/:id" element={<NewsDetail />} />
       </Routes>
 
       <Footer />
