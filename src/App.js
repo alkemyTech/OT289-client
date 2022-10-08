@@ -21,7 +21,6 @@ import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 import ActivityPage from './features/activityPage/ActivityPage';
 import NewsDetail from './features/newsDetail/NewsDetail';
 
-
 function App() {
   return (
     <div className="App">
@@ -33,6 +32,7 @@ function App() {
         <Route path="/backOffice/*" element={<BackOffice />} />
         <Route path="/backoffice/users" element={<UsersTable />} />
         <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
+        <Route path='/news/:id' element={<NewsDetail />} />
       </Routes>
     </div>
     
