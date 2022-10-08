@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import CardGroup from 'react-bootstrap/CardGroup'
 import { customFetch } from '../../services/fetch'
+import { Link } from 'react-router-dom'
+import Loader from '../loader/Loader'
 
 import styles from './ScreenNews.module.css'
 
@@ -19,7 +21,7 @@ const ScreenNews = () => {
             }
 
             const res = await customFetch(url, properties)
-            setNews(res.data)
+            setNews(res.data.reverse())
         } catch (error) {
             console.log('Error getting news: ', error)
         }
@@ -34,10 +36,15 @@ const ScreenNews = () => {
 
         return (
             <div className={styles.card} style={cardStyle}>
-                <Card.Img variant="top" src={image} className={styles.image} />
+                <Link to={`/novedades/${id}`}>
+                    <Card.Img variant="top" src={image} className={styles.image} />
+                </Link>
+
                 <Card.Body>
-                    <h2 className={styles.title}>{name}</h2>
-                    <Button href={`/novedades/${id}`} variant="outline-primary">Ver Detalle</Button>
+                    <h2>
+                        <Link to={`/novedades/${id}`} className={styles.title}>{name}</Link>
+                    </h2>
+                    <Button href={`/novedades/${id}`} variant="outline-primary" className={styles.button}>Ver Detalle</Button>
                 </Card.Body>
             </div>
         )
@@ -59,6 +66,7 @@ const ScreenNews = () => {
         return (
             <div className={styles.container}>
                 <h1>Listado de Novedades</h1>
+                <Loader />
                 <p>Cargando...</p>
             </div>
         )
