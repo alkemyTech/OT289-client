@@ -32,7 +32,6 @@ function App() {
         <Route path="/backOffice/*" element={<BackOffice />} />
         <Route path="/backoffice/users" element={<UsersTable />} />
         <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
-        <Route path='/news/:id' element={<NewsDetail />} />
       </Routes>
     </div>
     
