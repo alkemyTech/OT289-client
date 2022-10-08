@@ -50,7 +50,7 @@ export const userSlice = createSlice({
                 }
             }
         }
-
+        
     }
 })
 
