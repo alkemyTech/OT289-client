@@ -50,6 +50,13 @@
 .button {
     display: flex;
     align-self: center;
+    border-color: #9AC9FB;
+    background-color: #fff;
+}
+
+.button:hover {
+    border-color: #DB5752 !important;
+    background-color: #DB5752 !important;
 }
 
 @media (min-width: 600px) {

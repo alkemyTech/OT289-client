@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button'
 import './NewsDetail.css'
 import { customFetch } from '../../services/fetch'
 import { useParams } from 'react-router-dom'
+import Loader from '../loader/Loader'
+import parse from 'html-react-parser'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
@@ -51,7 +53,7 @@ const NewsDetail = () => {
             <div className="newsBody">
                 <div className="row">
                     <div className="col-md-10 col-lg-8 mx-auto newsContent">
-                        {content}
+                        {parse(content)}
                     </div>
                 </div>
             </div>
@@ -71,6 +73,7 @@ const NewsDetail = () => {
     if (!news) {
         return (
             <div className='mainContainer'>
+                <Loader />
                 <h1>Cargando novedad</h1>
             </div>
         )
