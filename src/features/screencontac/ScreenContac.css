@@ -60,3 +60,38 @@ font-family: Arial, Helvetica, sans-serif;
 .text{
     color: #FF0000;
 }
+
+.founders-div {
+    display:flex;
+    justify-content: space-around;
+    margin: 15px;
+    padding: 10px;
+}
+
+.founders-card {
+    width: 49%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: lightgrey;
+    text-align:center;
+}
+
+.members-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.members-card {
+    margin: 15px;
+    padding: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+}
+
+.member-name {
+    text-decoration: underline;
+}
+
+.member-job{
+    font-weight: bold;
+}
