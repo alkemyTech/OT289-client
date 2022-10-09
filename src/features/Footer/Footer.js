@@ -118,8 +118,8 @@ const Footer = () => {
     return (
         <div className={styles.container}>
             <Logo />
-            <WebLinks />
             <SocialLinks />
+            <WebLinks />
         </div>
     )
 }
