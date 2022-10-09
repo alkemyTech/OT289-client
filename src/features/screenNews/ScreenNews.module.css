@@ -11,6 +11,7 @@
 
 .card {
     display: flex;
+    width: 33%;
     flex-grow: 1;
     flex-direction: column;
     background-color: #fff;
@@ -57,8 +58,18 @@
     opacity: 1;
 }
 
-@media (max-width: 780px) {
+.card:first-child {
+    width: 100%;
+}
+
+@media (max-width: 1050px) {
     .card {
-        width: 100% !important;
+        width: 50%;
+    }
+}
+
+@media (max-width: 680px) {
+    .card {
+        width: 100%;
     }
 }

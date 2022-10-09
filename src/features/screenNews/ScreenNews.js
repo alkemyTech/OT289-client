@@ -27,15 +27,11 @@ const ScreenNews = () => {
         }
     }
 
-    const NewsCard = ({ item, index }) => {
+    const NewsCard = ({ item }) => {
         const { id, name, image } = item
 
-        const cardStyle = {
-            width: index % 3 === 0 ? '100%' : '50%'
-        }
-
         return (
-            <div className={styles.card} style={cardStyle}>
+            <div className={styles.card}>
                 <Link to={`/novedades/${id}`}>
                     <Card.Img variant="top" src={image} className={styles.image} />
                 </Link>
@@ -53,7 +49,7 @@ const ScreenNews = () => {
     const NewsList = () => {
         return (
             <CardGroup>
-                {news.map((item, index)=> <NewsCard key={index} item={item} index={index} /> )}
+                {news.map((item, index)=> <NewsCard key={index} item={item} /> )}
             </CardGroup>
         )
     }
