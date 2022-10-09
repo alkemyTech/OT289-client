@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react';
 
 //Social Icons
 import { Facebook, Instagram, Twitter } from 'react-bootstrap-icons'
@@ -23,7 +24,7 @@ const links = [
     }
 ]
 
-const socialLinks = [
+/* const socialLinks = [
     {
         name: 'Instagram',
         url: 'https://instagram.com'
@@ -36,9 +37,20 @@ const socialLinks = [
         name: 'Twitter',
         url: 'https://twitter.com'
     }
-]
+] */
 
 const Footer = () => {
+
+    const [socialLinks, setSocialLinks] = useState([])
+
+    useEffect(() => {
+        fetch('http://localhost:3001/organizations/1/public')
+            .then(response => response.json())
+            .then(data => setSocialLinks(data.socialLinks))
+    }, []);
+
+    console.log(socialLinks)
+
     const Logo = () => {
         return (
             <div className={`${styles.box} ${styles.logoContainer}`}>
@@ -68,16 +80,16 @@ const Footer = () => {
 
     //Social media icon
     //Add more if needed (first import it from 'react-bootstrap-icons')
-    const SocialIcon = ({socialName, size}) => {
-        switch(socialName) {
+    const SocialIcon = ({ socialName, size }) => {
+        switch (socialName) {
             case 'Facebook':
                 return <Facebook size={size} className={styles.icon} />
             case 'Instagram':
                 return <Instagram size={size} className={styles.icon} />
             case 'Twitter':
                 return <Twitter size={size} className={styles.icon} />
-            default: 
-            return null
+            default:
+                return null
         }
     }
 

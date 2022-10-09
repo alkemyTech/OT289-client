@@ -1,0 +1,15 @@
+.activity-container{
+    border: 1px solid #bfbfbf;
+    padding: 10px;
+    margin: 25px;
+    border-radius: 10px;
+    background-color: #f7f7f7;
+    text-align: left
+}
+
+h1 {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #bfbfbf
+
+
+}
