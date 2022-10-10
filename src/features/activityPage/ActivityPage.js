@@ -41,8 +41,6 @@ const ActivityPage = () => {
             })
     }, [])
 
-    console.log(activity)
-
   return (
     <>
     {nullActivity ? <ActivityNotFound /> : null}

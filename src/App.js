@@ -12,6 +12,7 @@ import Main from './features/mainScreen/Main'
 import Login from './features/loginForm/LoginForm'
 import Register from './features/registerForm/RegisterForm';
 import Contact from './features/screencontac/ScreenContac'
+import ActivityMain from './features/activityMain/ActivityMain'
 
 import BackOffice from './features/backOffice/BackOffice';
 
@@ -56,7 +57,8 @@ function MainSPA() {
         <Route path="/registrarse" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contacto" element={<Contact />} />
-        <Route path='/actividades/:id' element={<ActivityPage />} />
+        <Route exact path='/actividades' element={<ActivityMain />} />
+        <Route exact path='/actividades/:id' element={<ActivityPage />} />
       </Routes>
 
       <Footer />
