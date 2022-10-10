@@ -7,9 +7,28 @@
     text-align: left
 }
 
-h1 {
+.activity-name-id {
     padding-bottom: 10px;
     border-bottom: 1px solid #bfbfbf
+}
 
+.activity-btn-cont {
+    text-align: center;
+    width: 150px;
+    margin: 0 auto;
+}
 
+.activity-button-id {
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid #666666;
+    background-color: #E6E6E6;
+    transition: all 0.2s
+}
+
+.activity-button-id:hover {
+    background-color: #666666;
+    color: #EDEDED;
+    transition: all 0.2s
 }
