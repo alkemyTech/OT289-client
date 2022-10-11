@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/contac" element={<ScreenContact />} />
+        <Route path="/contact" element={<ScreenContact />} />
         <Route path="/backoffice/activities" element={<Activities />} />
         <Route path="/news" element={<ScreenNews/>} />
         <Route path="/backoffice/users" element={<UsersTable />} />     

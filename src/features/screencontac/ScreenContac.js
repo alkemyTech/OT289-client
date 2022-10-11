@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
+import { alertConfirmation, alertError } from "../alert/Alert";
+import axios from "axios";
 import "./ScreenContac.css";
 
+const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
+
 const FormCont = () => {
-  const [data] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
 
   //Formik and yup
   const vDataContac = yup.object().shape({
@@ -20,6 +19,25 @@ const FormCont = () => {
       .max(250, "250 caracteres permitidos")
       .required("Requerido"),
   });
+
+  const handleSubmit = async (values, { resetForm }) => {
+    const url = `${SERVER_BASE_URL}/contacts`
+    const properties = {
+      method: 'post',
+      data: values
+    }
+    try {
+      await axios(url, properties)
+      
+      const alertTitle = 'Consulta Enviada'
+      const alertMessage = 'Su consulta fue enviada correctamente'
+      
+      resetForm()
+      alertConfirmation(alertTitle, alertMessage)
+    } catch (error) {
+      alertError('Ups, hubo un error', error)
+    }
+  }
 
   return (
     <>
@@ -37,10 +55,11 @@ const FormCont = () => {
             <Formik
               initialValues={{ name: "", email: "", message: "" }}
               validationSchema={vDataContac}
-              onSubmit={async (values) => {
-                await new Promise((resolve) => setTimeout(resolve, 500));
-                alert(JSON.stringify(values, null, 2));
-              }}
+              // onSubmit={async (values) => {
+              //   await new Promise((resolve) => setTimeout(resolve, 500));
+              //   alert(JSON.stringify(values, null, 2));
+              // }}
+              onSubmit={handleSubmit}
             >
               {({ errors, touched }) => (
                 <Form>
