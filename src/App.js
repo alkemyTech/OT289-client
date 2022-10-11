@@ -16,19 +16,28 @@ import Contact from './features/screencontac/ScreenContac'
 import BackOffice from './features/backOffice/BackOffice';
 
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 import RegisterForm from './features/registerForm/RegisterForm'
 import {useSelector} from 'react-redux'
 import ActivityPage from './features/activityPage/ActivityPage';
-
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import NewsDetail from './features/newsDetail/NewsDetail'
 
 function App() {
+  const location = useLocation();
   return (
-    <div className="App">
-      <Routes>
+    <div className="App">    
+      
+      <TransitionGroup component={null}>
+      
+      <CSSTransition
+      key={location.key}
+      timeout={750}
+      classNames="fade"
+      >       
+      <Routes location={location}>
         <Route path="/contac" element={<ScreenContact />} />
         <Route path="/backoffice/activities" element={<Activities />} />
         <Route path="/news" element={<ScreenNews/>} />
@@ -39,6 +48,11 @@ function App() {
         <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
         <Route path='/news/:id' element={<NewsDetail />} />
       </Routes>
+      
+      </CSSTransition>
+      
+      </TransitionGroup>      
+     
     </div>
     
   );
