@@ -23,6 +23,7 @@ import {useSelector} from 'react-redux'
 import ActivityPage from './features/activityPage/ActivityPage';
 
 
+
 import NewsDetail from './features/newsDetail/NewsDetail'
 
 function App() {
