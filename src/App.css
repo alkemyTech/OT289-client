@@ -1,3 +1,35 @@
+/* BETTER STYLES: task 103*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* h1-h6 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+/* Colors */
+:root {
+  --primary-color: #333;
+  --secondary-color: #111;
+}
+/* END BETTER STYLES */
+
 .App {
   text-align: center;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
 
 import ScreenContact from './features/screencontac/ScreenContac';
 import Activities from './features/activities/Activities';
