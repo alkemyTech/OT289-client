@@ -8,7 +8,7 @@
     box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
     -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-    z-index: 1;
+    z-index: 5;
 }
 
 .hidden {
@@ -51,11 +51,11 @@ nav button {
 }
 
 nav button:hover {
-    border-bottom: 3px solid #9AC9FB;
+    border-bottom: 3px solid var(--circle-color);
 }
 
 .active{
-    border-bottom: 3px solid #71b0f3;
+    border-bottom: 3px solid var(--circle-color-hover);
 }
 
 
@@ -74,24 +74,24 @@ nav button:hover {
 }
 
 .register {
-    border: 1px solid #DB5752;
-    background-color: #DB5752;
+    border: 1px solid var(--triangle-color);
+    background-color: var(--triangle-color);
     color: white;
     transition: all 0.2s ease;
 }
 
 .register:hover {
-    background-color: #ca0000;
-    border: 1px solid #ca0000 !important;
+    background-color: var(--triangle-color-hover);
+    border: 1px solid var(--triangle-color-hover) !important;
 }
 
 .login {
-    border: 1px solid #9AC9FB;
+    border: 1px solid var(--circle-color);
     transition: all 0.2s ease
 }
 
 .login:hover {
-    background-color: #9AC9FB;
+    background-color: var(--circle-color-hover);
     color: white;
     border-bottom: none !important;
 }
@@ -122,14 +122,20 @@ nav button:hover {
     cursor: pointer;
     padding: 10px;
     border-bottom: 1px solid black;
+    transition: all .2s ease-in-out;
+}
+
+.burguer-list li:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .burguer-register {
-    color: #DB5752;
+    color: var(--triangle-color);
 }
 
 .burguer-login {
-    color: #9AC9FB;
+    color: var(--circle-color);
 }
 
 .burguer-list a {

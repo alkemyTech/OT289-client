@@ -6,11 +6,11 @@
 }
 
 .container a {
-    color: #9AC9FB;
+    color: var(--circle-color);
 }
 
 .container a:hover {
-    color: #FAFA88;
+    color: var(--square-color);
 }
 
 .container h3 {
@@ -25,7 +25,7 @@
     justify-content: center;
     flex-direction: column;
     flex-grow: 1;
-    color: white;
+    color: var(--secondary-color);
     padding: 16px;
 }
 
