@@ -57,7 +57,7 @@ const Main = ({ text = defaultText, title = defaultTitle, img = defaultImg, news
         </div>
       </div>
       <div className={s.newsletter_title_container}>
-        <h2 className={s.newsletter_title}>Ùltimas Novedades</h2>
+        <h2 className={s.newsletter_title}>Últimas Novedades</h2>
       </div>
       <div className={s.news}>
         {
