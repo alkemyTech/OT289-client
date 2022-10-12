@@ -1,58 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import "./ScreenContac.css";
-
-const members = [
-  {
-    id: 1,
-    name: 'Maria Irola',
-    job: 'Economista para desarrollo',
-    description:'Presidenta María estudió economía y se especializó en economía para el desarrollo. Comenzó como voluntaria en la fundación y fue quien promovió el crecimiento y la organización de la institución acompañando la transformación de un simple comedor barrial al centro comunitario de atención integral que es hoy en día', 
-  },
-  {
-    id: 2,
-    name: 'Marita Gomez',
-    job: 'Nutricionista infantil',
-    description:'Fundadora Marita estudió la carrera de nutrición y se especializó en nutrición infantil. Toda la vida fue voluntaria en distintos espacios en el barrio hasta que decidió abrir un comedor propio. Comenzó trabajando con 5 familias y culminó su trabajo transformando Somos Más en la organización que es hoy.', 
-  }, 
-  { 
-    id: 3,
-    name: 'Miriam Rodriguez',
-    job: 'Terapista ocupacional',
-    description: null
-  },
-  { 
-    id: 4,
-    name: 'Cecilia Mendez',
-    job: 'Psicopedagoga',
-    description: null
-  },
-  { 
-    id: 5,
-    name: 'Mario Fuentes',
-    job: 'Psicologo',
-    description: null
-  },
-  { 
-    id: 6,
-    name: 'Rodrigo Fuente',
-    job: 'Contador',
-    description: null
-  },
-  { 
-    id: 7,
-    name: 'Maria Garcia',
-    job: 'Profesora de Artes Dramaticas',
-    description: null
-  },
-  { 
-    id: 8,
-    name: 'Marco Fernandez',
-    job: 'Profesor de Educacion Fisica',
-    description: null
-  }
-]
+import Loader from "../loader/Loader";
+import { BASE_PATH } from '../../utils/constants'
+import { customFetch } from '../../services/fetch'
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormCont = () => {
   const [data] = useState({
@@ -60,6 +14,39 @@ const FormCont = () => {
     email: "",
     message: "",
   });
+
+  const [members, setMembers] = useState([])
+
+  const [loader, setLoader] = useState(false)
+
+  const url = `${BASE_PATH}/members`
+
+  const properties = {
+    method: 'get'
+  }
+
+  useEffect(() => {
+    setLoader(true)
+    customFetch(url, properties)
+      .then(members => {
+        if(!members) {
+          toast.error( 'La base de datos no se encuentra disponible actualmente' , {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+        return
+        }
+        setMembers(members.data)
+        setLoader(false)
+      })
+        .catch(error => console.log(error))
+  }, [])
+
 
   //Formik and yup
   const vDataContac = yup.object().shape({
@@ -137,57 +124,33 @@ const FormCont = () => {
           </div>
         </div>
       </div>
-      <h2>Miembros fundadores</h2>
-      <Members />                
+          <h2>Miembros Fundadores</h2>
+          {loader && <Loader />}
+          <div className='members-grid'>
+            {members.map(member => member.id < 3 ? <MembersCard key={member.name} id={member.id} image={member.image} name={member.name}/> : null)}
+          </div>
+          <h2>Otros Miembros</h2>
+          {loader && <Loader />}
+          <div className= 'other-members-grid'>
+            {members.map(member => member.id > 2 ? <MembersCard key={member.name} id={member.id} image={member.image} name={member.name}/> : null)}
+          </div>
+
+      <ToastContainer />             
     </>
   );
 };
 
-const Members = () => {
-  return (
-    <>
-      <div className='founders-div'>
-        {members.map((member, index) => index < 2 ? <FounderMembers name={member.name} job={member.job} description={member.description} /> : null)}
-      </div>
-      <h3>Otros Miembros</h3>
-      <div className='members-grid'>
-        {members.map((member, index) => index > 2 ? <OtherMembers name={member.name} job={member.job} /> : null)}
-      </div>
-    </>
-  )
-}
 
-const FounderMembers = ({ name, job, description }) => {
+const MembersCard = ({ id, image, name }) => {
   return(
-    <>
-    <div className='founders-card'>
-      <h4 className='member-name'>
-        {name}
-      </h4>
-      <h6 className='member-job'>
-        {job}
-      </h6>
-      <h6>
-        {description}
-        </h6>
+    <div className='members-card'>
+    <div className='members-image'>
+      <img src={image} alt={name}></img>
     </div>
-    </>
+    <h5 className='members-text'>{name}</h5>
+    </div>
   )
 }
 
-const OtherMembers = ({name, job}) => {
-  return(
-    <>
-      <div className='members-card'>
-        <h5 className='member-name'>
-          {name}
-        </h5>
-        <h6 className='member-job'>
-          {job}
-        </h6>
-      </div>
-    </>
-  )
-}
 
 export default FormCont;
