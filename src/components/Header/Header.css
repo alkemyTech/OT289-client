@@ -30,8 +30,8 @@
 nav{
     display: flex;
     justify-content: space-around;
-    width: 64%;
-    
+    max-width: 750px;
+    width: 100%;
 }
 
 nav button {
@@ -60,8 +60,7 @@ nav button:hover {
 
 
 .account {
-    position: relative;
-    width: 30%;
+    display: flex;
 }
 
 .register, 
@@ -97,7 +96,7 @@ nav button:hover {
 }
 
 .burguer-container {
-    position: relative;
+    display: none;
 }
 
 .burguer-menu {
@@ -142,21 +141,12 @@ nav button:hover {
     text-decoration: none;
 }
 
-@media (max-width: 1050px) {
-    .register, 
-    .login {
-        padding: 5px;
-        margin-top: 28px;
-    }
-
-    nav{
-        width: 80%;
-    }
-}
-
 @media (max-width: 767px) {
-    nav {
+    nav, .account {
         display: none;
+    }
+    .burguer-container {
+        display: block;
     }
     .burguer-menu {
         display: block;

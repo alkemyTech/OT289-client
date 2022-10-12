@@ -10,15 +10,19 @@ export default function Header() {
 
   return (
     <>
-    <div className="header">
-      <div className="logo">
-      <Link to='/'><img src="/images/logo.png" alt='SOMOS MAS' /></Link>
-      </div>
-      <NavBar />
-      <BurguerIcon />
+      <div className="header">
+        <div className="logo">
+          <Link to='/'><img src="/images/logo.png" alt='SOMOS MAS' /></Link>
+        </div>
+        <NavBar />
+        <div className='account'>
+          <Link to='Login'><button className='login'>Log in</button></Link>
+          <Link to='Registrarse'><button className='register'>Registrate</button></Link>
+        </div>
+        <BurguerIcon />
       </div>
       <div className='hidden'></div>
-      </>
+    </>
   )
 }
 
@@ -30,10 +34,6 @@ function NavBar() {
 
       <nav>
         {headerLinks.map(button => <Link to={button.link} key={button.link}><button key={button.link} className={`${location.pathname === button.link ? 'active' : '' }`}>{button.name}</button></Link> )}
-        <div className='account'>
-          <Link to='Login'><button className='login'>Log in</button></Link>
-          <Link to='Registrarse'><button className='register'>Registrate</button></Link>
-        </div>
       </nav>
 
   )
