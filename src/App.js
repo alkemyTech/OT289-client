@@ -27,7 +27,7 @@ import ActivityPage from './features/activityPage/ActivityPage';
 
 import NewsDetail from './features/newsDetail/NewsDetail'
 import NewsPanel from './features/backOffice/partials/NewsPanel'
-
+import Nosotros from './features/nosotros/Nosotros';
 
 function App() {
   return (
@@ -42,7 +42,7 @@ function App() {
         <Route path="/backoffice/users" element={<UsersTable />} />
         <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
         <Route path='/news/:id' element={<NewsDetail />} />
-        <Route path='/backoffice/newspanel' element={<NewsPanel/>} />
+        <Route path='/backoffice/newspanel' element={<NewsPanel/>} />        
       </Routes>
     </div>
     
@@ -61,6 +61,7 @@ function MainSPA() {
         <Route path="/registrarse" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contacto" element={<Contact />} />
+        <Route path="/nosotros" element={<Nosotros/>} />        
         <Route exact path='/actividades' element={<ActivityMain />} />
         <Route exact path='/actividades/:id' element={<ActivityPage />} />
       </Routes>

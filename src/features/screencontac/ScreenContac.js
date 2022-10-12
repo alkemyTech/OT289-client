@@ -4,8 +4,9 @@ import * as yup from "yup";
 import { alertConfirmation, alertError } from "../alert/Alert";
 import axios from "axios";
 import "./ScreenContac.css";
+import { BASE_PATH } from "../../utils/constants";
 
-const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
+//const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
 const FormCont = () => {
 
@@ -21,7 +22,7 @@ const FormCont = () => {
   });
 
   const handleSubmit = async (values, { resetForm }) => {
-    const url = `${SERVER_BASE_URL}/contacts`
+    const url = `${BASE_PATH}/contacts`
     const properties = {
       method: 'post',
       data: values
@@ -41,17 +42,18 @@ const FormCont = () => {
 
   return (
     <>
-      <h1>¡Contáctate con Nosotros!</h1>
-      <div className="formCont">
+       
+      <h1 className="titleContac" >¡Contáctate con Nosotros!</h1>
+      <div className="formCont" >
         <div className="divCenter">
-          <div className="with50">
+          <div className="row">
+          <div className= 'col-sm-6'>
             <h2 className="text">
               Contáctate con nostros por este medio para mas información, para
-              ser voluntario o para aportes de colaboración
+              ser voluntario o para aportes de colaboración.
             </h2>
-          </div>
-
-          <div className="with50">
+          </div>      
+          <div className= 'containerForm col-sm-6 pb-4'>
             <Formik
               initialValues={{ name: "", email: "", message: "" }}
               validationSchema={vDataContac}
@@ -94,7 +96,7 @@ const FormCont = () => {
                   </div>
 
                   <Field
-                    className="btnAzul"
+                    className="btnAzul px-2"
                     type="submit"
                     name="submit"
                     value="Enviar Consulta"
@@ -103,8 +105,9 @@ const FormCont = () => {
               )}
             </Formik>
           </div>
+          </div>
         </div>
-      </div>
+      </div>      
     </>
   );
 };
