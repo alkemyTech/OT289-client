@@ -1,7 +1,3 @@
-.body_container {
-    background-color: rgb(251 251 251);
-}
-
 .hero {
     padding: 1rem;
     margin-left: 2rem;
@@ -14,12 +10,13 @@
     flex: 0 0 40%;
     display: flex;
     flex-direction: column;
-    padding: 1rem 2rem;
+    padding: 0 2rem;
     text-align: initial;
 }
 
 .title {
     margin: 0;
+    text-align: left;
     /* font-size: 35px; */
 }
 

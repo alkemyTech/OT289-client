@@ -12,5 +12,6 @@
     min-width: 250px;
     width: 100%;
     margin: 12px 0;
-    background-color: rgb(251 251 251);
+    padding: 12px 0;
+    /* background-color: rgb(251 251 251); */
 }
