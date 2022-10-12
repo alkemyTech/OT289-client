@@ -16,8 +16,11 @@
 }
 
 .logo {
-  width: 140px;
-  height: 100%; 
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 140px;
+    height: 100%; 
 }
 
 .logo img {
@@ -61,6 +64,7 @@ nav button:hover {
 
 .account {
     display: flex;
+    flex-shrink: 0;
 }
 
 .register, 
@@ -141,7 +145,7 @@ nav button:hover {
     text-decoration: none;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 800px) {
     nav, .account {
         display: none;
     }
