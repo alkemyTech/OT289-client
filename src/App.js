@@ -5,7 +5,7 @@ import './App.css';
 
 import ScreenContact from './features/screencontac/ScreenContac';
 import Activities from './features/activities/Activities';
-import ScreenNews from './features/screenNews/screenNews';
+import ScreenNews from './features/screenNews/ScreenNews';
 import UsersTable from './features/usersTable/UsersTable';
 import Main from './features/mainScreen/Main'
 import Login from './features/loginForm/LoginForm'
@@ -27,6 +27,7 @@ import NewsPanel from './features/backOffice/partials/NewsPanel'
 
 import Layout from './components/Layout/Layout';
 
+import Nosotros from './features/nosotros/Nosotros';
 
 function App() {
   return (
@@ -34,13 +35,11 @@ function App() {
       <Routes>
         <Route path="/contact" element={<ScreenContact />} />
         <Route path="/backoffice/activities" element={<Activities />} />
-        <Route path="/news" element={<ScreenNews/>} />
         <Route path="/backoffice/users" element={<UsersTable />} />     
         <Route path="/*" element={<MainSPA />} />
         <Route path="/backOffice/*" element={<BackOffice />} />
         <Route path="/backoffice/users" element={<UsersTable />} />
         <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
-        <Route path='/news/:id' element={<NewsDetail />} />
         <Route path='/backoffice/newspanel' element={<NewsPanel/>} />
       </Routes>
     </div>
@@ -57,8 +56,11 @@ function MainSPA() {
         <Route path="/registrarse" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contacto" element={<Contact />} />
+        <Route path="/nosotros" element={<Nosotros/>} />        
         <Route exact path='/actividades' element={<ActivityMain />} />
         <Route exact path='/actividades/:id' element={<ActivityPage />} />
+        <Route path="/novedades" element={<ScreenNews />} />
+        <Route path="/novedades/:id" element={<NewsDetail />} />
       </Routes>
     </Layout>
   );
