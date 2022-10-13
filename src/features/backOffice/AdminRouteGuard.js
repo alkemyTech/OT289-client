@@ -13,7 +13,7 @@ const AdminRouteGuard = ({ element: Component, ...rest }) => {
     }
 
     return(
-        isAdmin() ? <Outlet/> : <Navigate to="/backOffice"/>
+        isAdmin() ? <Outlet/> : <Navigate to="/"/>
     )
 };
  
