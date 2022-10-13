@@ -24,6 +24,7 @@ import ActivityPage from './features/activityPage/ActivityPage';
 
 
 import NewsDetail from './features/newsDetail/NewsDetail'
+import LoginRouteGuard from './LoginRouteGuard';
 
 function App() {
   return (
@@ -34,7 +35,9 @@ function App() {
         <Route path="/news" element={<ScreenNews/>} />
         <Route path="/backoffice/users" element={<UsersTable />} />     
         <Route path="/*" element={<MainSPA />} />
-        <Route path="/backOffice/*" element={<BackOffice />} />
+        <Route element={<LoginRouteGuard/>}>
+          <Route path="/backOffice/*" element={ <BackOffice/> } />
+        </Route>
         <Route path="/backoffice/users" element={<UsersTable />} />
         <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
         <Route path='/news/:id' element={<NewsDetail />} />
