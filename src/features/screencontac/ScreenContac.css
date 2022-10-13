@@ -3,22 +3,11 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    max-width: 1200px;
 }
 
 .divCenter{
     margin: 0 auto;
 
-}
-
-.with50 {
-    width: 50%;
-    float: left;
-}
-
-.with30 {
-    width: 30%;
-    float: left;
 }
 
 .input {
@@ -28,7 +17,7 @@
     border: 0.698095px solid grey;
     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     border-radius: 4px;
-    height: 25px;
+    height: 30px;
 }
 
 .textarea {
@@ -44,11 +33,12 @@
 
 .btnAzul{
     background: #0038FF;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 4px;
-border: 0.698095px solid #0038FF;
-color: white;
-height: 25px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    border: 0.698095px solid #0038FF;
+    color: white;
+    height: 25px;
+    margin-top: 10px;
 
 }
 
@@ -58,5 +48,16 @@ font-family: Arial, Helvetica, sans-serif;
 }
 
 .text{
-    color: #FF0000;
+    color: coral;
+}
+
+h1{
+    margin-top: 35px;
+    text-align: center;
+    padding: 5px;
+}
+
+.containerForm{
+    background-color: #75a2ff;
+    border-radius: 4px;
 }
