@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export async function customFetch (url, properties) { 
+export function customFetch (url, properties) { 
     let token = localStorage.getItem('token'); // if a token exist in localStorage is going to be saved here
         const config = {
             ...properties, // properties are the axios config, like the method or the url
@@ -9,14 +9,8 @@ export async function customFetch (url, properties) {
                 ...properties?.headers, // if properties have something and is passed, is going to see if they are headers inside
                 "Authorization": `Bearer ${token}` // this line can be passed in public fetchs and nothing happens, is for authentication
             }
-        }
-        try {
-            const result = await axios(config)
-            return result
-        }
-        catch (error) {
-            console.log(error)
-        }
+        }    
+       return axios(config) 
 }
 
 
