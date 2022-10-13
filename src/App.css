@@ -32,6 +32,9 @@ h3 {
 :root {
   --primary-color: #333;
   --secondary-color: #FFF;
+  --light-color: #F1F1F1;
+  --dark-color: #222;
+
   --triangle-color: #DB5752;
   --square-color: #FAFA88;
   --circle-color: #9AC9FB;
