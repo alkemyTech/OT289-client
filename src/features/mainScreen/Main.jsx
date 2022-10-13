@@ -30,6 +30,7 @@ const defaultImg = [
 const Main = ({ text = defaultText, title = defaultTitle, img = defaultImg,}) => {
 
   const [news, setNews] = useState([])
+  const [loader, setLoader] = useState(true)
   const url = `${BASE_PATH}/news`
   const properties = {
     method:'get'
@@ -37,10 +38,11 @@ const Main = ({ text = defaultText, title = defaultTitle, img = defaultImg,}) =>
 
 
   useEffect(() => {
+    setLoader(true)
     customFetch(url, properties)
       .then(news => setNews(news.data))
         .catch(error => {
-          toast.error( error.message , {
+          toast.error( 'No se pueden obtener las noticias en este momento' , {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -50,6 +52,7 @@ const Main = ({ text = defaultText, title = defaultTitle, img = defaultImg,}) =>
             progress: undefined,
         })
         })
+    setLoader(false)
   }, [])
 
   function sortNews (a,b) {  
@@ -66,6 +69,7 @@ news.sort(sortNews) // pedis que ordene segun la key de creacion de la noticia
 const slicedNews = news.slice(0, 4) // con esto dejas las primeras 4 noticias
 
   return (
+    <>
     <div className={s.body_container}>
       <div className={s.hero}>
         <div className={s.welcome_div}>
@@ -82,12 +86,16 @@ const slicedNews = news.slice(0, 4) // con esto dejas las primeras 4 noticias
       <div className={s.newsletter_title_container}>
         <h2 className={s.newsletter_title}>Ùltimas Novedades</h2>
       </div>
+      {loader && <Loader/>}
       <div className={s.news}>
+        
         {
           slicedNews.map(notice => (<NewsletterCard key={notice.createdAt} name={notice.name} img={notice.image} text={notice.content}/>))
         }
       </div>
     </div>
+    <ToastContainer />
+    </>
   );
 };
 
