@@ -4,17 +4,14 @@ import * as yup from "yup";
 import { alertConfirmation, alertError } from "../alert/Alert";
 import axios from "axios";
 import "./ScreenContac.css";
-<<<<<<< HEAD
 import Loader from "../loader/Loader";
 import { BASE_PATH } from '../../utils/constants'
 import { customFetch } from '../../services/fetch'
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
-=======
 import { BASE_PATH } from "../../utils/constants";
 
 //const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
->>>>>>> 372273d56bf941236ec941847a8409ab87ec26ca
 
 const FormCont = () => {
 
