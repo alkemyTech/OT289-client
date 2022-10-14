@@ -1,9 +1,9 @@
-* {
+/* * {
     box-sizing: border-box;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 600;
     color: rgb(82, 82, 82)
-}
+} */
 
 form {
     margin: auto;
@@ -13,11 +13,11 @@ form {
     justify-content: center;
 }
 
-h1 {
+/* h1 {
     width: 100%;
     margin-top: 2rem;
     margin-bottom: 3rem
-}
+} */
 
 label,
 textarea,
