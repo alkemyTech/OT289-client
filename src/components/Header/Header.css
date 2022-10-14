@@ -1,5 +1,5 @@
 .header {
-    background-color: #F1F1F1;
+    background-color: var(--light-color);
     display: flex;
     position:fixed;
     justify-content: space-between;
@@ -8,7 +8,7 @@
     box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
     -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
-    z-index: 1;
+    z-index: 5;
 }
 
 .hidden {
@@ -16,8 +16,11 @@
 }
 
 .logo {
-  width: 140px;
-  height: 100%; 
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 140px;
+    height: 100%; 
 }
 
 .logo img {
@@ -30,8 +33,8 @@
 nav{
     display: flex;
     justify-content: space-around;
-    width: 64%;
-    
+    max-width: 750px;
+    width: 100%;
 }
 
 nav button {
@@ -51,17 +54,17 @@ nav button {
 }
 
 nav button:hover {
-    border-bottom: 3px solid #9AC9FB;
+    border-bottom: 3px solid var(--circle-color);
 }
 
 .active{
-    border-bottom: 3px solid #71b0f3;
+    border-bottom: 3px solid var(--circle-color-hover);
 }
 
 
 .account {
-    position: relative;
-    width: 30%;
+    display: flex;
+    flex-shrink: 0;
 }
 
 .register, 
@@ -74,30 +77,30 @@ nav button:hover {
 }
 
 .register {
-    border: 1px solid #DB5752;
-    background-color: #DB5752;
+    border: 1px solid var(--triangle-color);
+    background-color: var(--triangle-color);
     color: white;
     transition: all 0.2s ease;
 }
 
 .register:hover {
-    background-color: #ca0000;
-    border: 1px solid #ca0000 !important;
+    background-color: var(--triangle-color-hover);
+    border: 1px solid var(--triangle-color-hover) !important;
 }
 
 .login {
-    border: 1px solid #9AC9FB;
+    border: 1px solid var(--circle-color);
     transition: all 0.2s ease
 }
 
 .login:hover {
-    background-color: #9AC9FB;
+    background-color: var(--circle-color-hover);
     color: white;
     border-bottom: none !important;
 }
 
 .burguer-container {
-    position: relative;
+    display: none;
 }
 
 .burguer-menu {
@@ -106,7 +109,7 @@ nav button:hover {
 
 .burguer-list {
     position: absolute;
-    background-color: #F1F1F1;
+    background-color: var(--light-color);
     border: 0px 0px 1px 1px solid rgba(0,0,0,0.5);
     border-radius: 10px 0px 0px 10px;
     padding: 10px;
@@ -122,35 +125,32 @@ nav button:hover {
     cursor: pointer;
     padding: 10px;
     border-bottom: 1px solid black;
+    transition: all .2s ease-in-out;
+}
+
+.burguer-list li:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .burguer-register {
-    color: #DB5752;
+    color: var(--triangle-color);
 }
 
 .burguer-login {
-    color: #9AC9FB;
+    color: var(--circle-color);
 }
 
 .burguer-list a {
     text-decoration: none;
 }
 
-@media (max-width: 1050px) {
-    .register, 
-    .login {
-        padding: 5px;
-        margin-top: 28px;
-    }
-
-    nav{
-        width: 80%;
-    }
-}
-
-@media (max-width: 767px) {
-    nav {
+@media (max-width: 800px) {
+    nav, .account {
         display: none;
+    }
+    .burguer-container {
+        display: block;
     }
     .burguer-menu {
         display: block;

@@ -1,13 +1,12 @@
 import React from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
+
 
 import ScreenContact from './features/screencontac/ScreenContac';
 import Activities from './features/activities/Activities';
 import ScreenNews from './features/screenNews/ScreenNews';
 import UsersTable from './features/usersTable/UsersTable';
-import Header from './components/Header/Header';
-import Footer from './features/Footer/Footer';
 import Main from './features/mainScreen/Main'
 import Login from './features/loginForm/LoginForm'
 import Register from './features/registerForm/RegisterForm';
@@ -25,6 +24,9 @@ import ActivityPage from './features/activityPage/ActivityPage';
 
 import NewsDetail from './features/newsDetail/NewsDetail'
 import NewsPanel from './features/backOffice/partials/NewsPanel'
+
+import Layout from './components/Layout/Layout';
+
 import Nosotros from './features/nosotros/Nosotros';
 
 function App() {
@@ -48,9 +50,7 @@ function App() {
 function MainSPA() {
 
   return (
-    <>
-      <Header />
-
+    <Layout>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/registrarse" element={<Register />} />
@@ -62,9 +62,7 @@ function MainSPA() {
         <Route path="/novedades" element={<ScreenNews />} />
         <Route path="/novedades/:id" element={<NewsDetail />} />
       </Routes>
-
-      <Footer />
-    </>
+    </Layout>
   );
 }
 

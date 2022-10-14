@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
-import "./Nosotros.css";
+import React from 'react'
+// import "./Nosotros.css";
+import styles from './Nosotros.module.css'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -11,12 +12,12 @@ const Nosotros= () =>{
     return(
      <>   
      <React.Fragment>
-<h1 className='titulo'>¡Quiénes Somos!</h1>
+<h1>¡Quiénes Somos!</h1>
 
-<Container className='container' >
-<h2 className='titulo'>Nosotros</h2>
+<Container className={styles.container} >
+<h2 className={styles.titulo}>Nosotros</h2>
 
-<div className='texts'>
+<div className={styles.texts}>
 <Row>
 <Col xs={12} md={12}>
 
@@ -38,10 +39,10 @@ social.
 </Row>
 </div>
 
-<div className='texts'>
+<div className={styles.texts}>
 <Row>
         <Col xs={12} md={6}>
-        <h3 className='titulo'>Visión</h3>
+        <h3>Visión</h3>
 <p > Mejorar la calidad de vida de niños y familias en situación de
 vulnerabilidad en el barrio La Cava, otorgando un cambio de rumbo
 en cada individuo a través de la educación, salud, trabajo, deporte,
@@ -49,7 +50,7 @@ responsabilidad y compromiso.
 </p>
         </Col>
         <Col xs={12} md={6}>
-        <h3 className='titulo'>Misión</h3>
+        <h3>Misión</h3>
 <p >Trabajar articuladamente con los distintos aspectos de la vida de las
 familias, generando espacios de desarrollo personal y familiar,
 brindando herramientas que logren mejorar la calidad de vida a
@@ -58,12 +59,12 @@ través de su propio esfuerzo.</p>
       </Row>
       </div> 
     
-<h2 className='titulo'>Fundadores</h2>
+<h2 className={styles.titulo}>Fundadores</h2>
 
    
-    <CardGroup className='cards pb-4' >
-      <Card>
-        <Card.Img variant="top" src='images/Marita Gomez.jpeg'  className='fundador'/>
+    <CardGroup className={`${styles.cards} pb-4`} >
+      <Card className={styles.card}>
+        <Card.Img variant="top" src='images/Marita-Gomez.jpeg'  className={styles.fundador}/>
         <Card.Body>
           <Card.Title>Marita Gomez</Card.Title>
           <Card.Text>
@@ -76,8 +77,8 @@ su trabajo transformando Somos Más en la organización que es hoy.
       </Card>
 
 
-      <Card>
-        <Card.Img variant="top" src='images/María irola.jpg'  className='fundador' />
+      <Card className={styles.card}>
+        <Card.Img variant="top" src='images/Maria-Irola.jpg'  className={styles.fundador} />
         <Card.Body>
           <Card.Title>María Irola</Card.Title>
           <Card.Text>
