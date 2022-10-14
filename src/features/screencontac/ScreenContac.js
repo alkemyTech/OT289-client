@@ -1,14 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import { alertConfirmation, alertError } from "../alert/Alert";
 import axios from "axios";
 import "./ScreenContac.css";
+import Loader from "../loader/Loader";
+import { BASE_PATH } from '../../utils/constants'
+import { customFetch } from '../../services/fetch'
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 import { BASE_PATH } from "../../utils/constants";
 
 //const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
 const FormCont = () => {
+
+  const [members, setMembers] = useState([])
+
+  const [loader, setLoader] = useState(false)
+
+  const url = `${BASE_PATH}/members`
+
+  const properties = {
+    method: 'get'
+  }
+
+  useEffect(() => {
+    setLoader(true)
+    customFetch(url, properties)
+      .then(members => {
+        if(!members) {
+          toast.error( 'La base de datos no se encuentra disponible actualmente' , {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+        return
+        }
+        setMembers(members.data)
+        setLoader(false)
+      })
+        .catch(error => console.log(error))
+  }, [])
+
 
   //Formik and yup
   const vDataContac = yup.object().shape({
@@ -107,9 +145,34 @@ const FormCont = () => {
           </div>
           </div>
         </div>
-      </div>      
+      </div>
+          <h2>Miembros Fundadores</h2>
+          {loader && <Loader />}
+          <div className='members-grid'>
+            {members.map(member => member.id < 3 ? <MembersCard key={member.name} id={member.id} image={member.image} name={member.name}/> : null)}
+          </div>
+          <h2>Otros Miembros</h2>
+          {loader && <Loader />}
+          <div className= 'other-members-grid'>
+            {members.map(member => member.id > 2 ? <MembersCard key={member.name} id={member.id} image={member.image} name={member.name}/> : null)}
+          </div>
+
+      <ToastContainer />             
     </>
   );
 };
+
+
+const MembersCard = ({ id, image, name }) => {
+  return(
+    <div className='members-card'>
+    <div className='members-image'>
+      <img src={image} alt={name}></img>
+    </div>
+    <h5 className='members-text'>{name}</h5>
+    </div>
+  )
+}
+
 
 export default FormCont;
