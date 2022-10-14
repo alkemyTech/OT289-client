@@ -43,7 +43,7 @@ const FormCont = () => {
   return (
     <>
        
-      <h1 className="titleContac" >¡Contáctate con Nosotros!</h1>
+      <h1>¡Contáctate con Nosotros!</h1>
       <div className="formCont" >
         <div className="divCenter">
           <div className="row">

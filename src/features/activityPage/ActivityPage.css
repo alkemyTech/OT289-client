@@ -1,15 +1,19 @@
 .activity-container{
-    border: 1px solid #bfbfbf;
+    /* border: 1px solid #bfbfbf; */
     padding: 10px;
-    margin: 25px;
-    border-radius: 10px;
-    background-color: #f7f7f7;
-    text-align: left
+    /* margin: 25px; */
+    /* border-radius: 10px; */
+    background-color: var(--light-color);
+    /* text-align: left */
 }
 
 .activity-name-id {
     padding-bottom: 10px;
-    border-bottom: 1px solid #bfbfbf
+    border-bottom: 1px solid var(--primary-color)
+}
+
+.activityContent {
+    margin: 25px 15px;
 }
 
 .activity-btn-cont {
@@ -22,13 +26,14 @@
     padding: 10px;
     font-weight: bold;
     border-radius: 10px;
-    border: 1px solid #666666;
-    background-color: #E6E6E6;
+    border: 1px solid var(--circle-color);
+    background-color: var(--secondary-color);
     transition: all 0.2s
 }
 
 .activity-button-id:hover {
-    background-color: #666666;
-    color: #EDEDED;
+    background-color: var(--triangle-color);
+    color: var(--secondary-color);
+    border-color: var(--triangle-color);
     transition: all 0.2s
 }

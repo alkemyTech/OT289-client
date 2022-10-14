@@ -36,7 +36,7 @@ const ScreenNews = () => {
                     <Card.Img variant="top" src={image} className={styles.image} />
                 </Link>
 
-                <Card.Body>
+                <Card.Body className={styles.body}>
                     <h2>
                         <Link to={`/novedades/${id}`} className={styles.title}>{name}</Link>
                     </h2>
@@ -60,23 +60,23 @@ const ScreenNews = () => {
 
     if (!news) {
         return (
-            <div className={styles.container}>
+            <>
                 <h1>Listado de Novedades</h1>
                 <Loader />
                 <p>Cargando...</p>
-            </div>
+            </>
         )
     }
 
     return (
-        <div className={styles.container}>
+        <>
             <h1>Listado de Novedades</h1>
             {news.length === 0 ?
                 <p>No se encontraron novedades.</p>
             :
                 <NewsList />
             }
-        </div>
+        </>
     )
 }
 
