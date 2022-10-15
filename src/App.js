@@ -24,6 +24,7 @@ import ActivityPage from './features/activityPage/ActivityPage';
 
 
 import NewsDetail from './features/newsDetail/NewsDetail'
+import LoginRouteGuard from './LoginRouteGuard';
 import NewsPanel from './features/backOffice/partials/NewsPanel'
 
 import Layout from './components/Layout/Layout';
@@ -38,7 +39,9 @@ function App() {
         <Route path="/backoffice/activities" element={<Activities />} />
         <Route path="/backoffice/users" element={<UsersTable />} />     
         <Route path="/*" element={<MainSPA />} />
-        <Route path="/backOffice/*" element={<BackOffice />} />
+        <Route element={<LoginRouteGuard/>}>
+          <Route path="/backOffice/*" element={ <BackOffice/> } />
+        </Route>
         <Route path="/backoffice/users" element={<UsersTable />} />
         <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
         <Route path='/backoffice/newspanel' element={<NewsPanel/>} />
