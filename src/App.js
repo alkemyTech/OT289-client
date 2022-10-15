@@ -19,6 +19,7 @@ import BackOffice from './features/backOffice/BackOffice';
 import { Routes, Route } from 'react-router-dom';
 import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 import ActivityPage from './features/activityPage/ActivityPage';
+/* import UsersTable from './features/usersTable/UsersTable' */
 
 
 
