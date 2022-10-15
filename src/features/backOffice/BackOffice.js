@@ -1,7 +1,10 @@
-import React from "react"
+import React, {useState} from "react"
 import { Routes, Route } from 'react-router-dom';
 import AdminRouteGuard from "./AdminRouteGuard"
 
+import {List}  from 'react-bootstrap-icons';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import Button from 'react-bootstrap/Button';
 import SideBar from './partials/SideBar'
 import EditProfilePanel from './partials/EditProfilePanel'
 import NewsPanel from './partials/NewsPanel'
@@ -16,10 +19,26 @@ import MembersPanel from './partials/MembersPanel'
 import './BackOffice.css'
 
 const BackOffice = () => {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <main className="d-flex">
-            <SideBar/>
+            <div className="d-none d-lg-block">
+                <SideBar/>
+
+            </div>
+
+            <div className="d-lg-none position-absolute">
+                <Button onClick={handleShow}><List/></Button>
+                <Offcanvas show={show} onHide={handleClose}>
+                    <Offcanvas.Header closeButton/>
+                    <SideBar/>
+                </Offcanvas>
+
+            </div>
             <Routes>
                 <Route path="/editProfile" element={<EditProfilePanel />} />
                 <Route element={<AdminRouteGuard />}>
