@@ -1,41 +1,54 @@
-.App {
+/* BETTER STYLES: task 103*/
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@500&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* h1-h6 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+h1 {
+  font-size: 42px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h2 {
+  font-size: 36px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
+h3 {
+  font-size: 30px;
 }
 
-.App-header {
-  min-height: 100vh;
+/* Colors */
+:root {
+  --primary-color: #333;
+  --secondary-color: #FFF;
+  --light-color: #F1F1F1;
+  --dark-color: #222;
+
+  --triangle-color: #DB5752;
+  --square-color: #FAFA88;
+  --circle-color: #9AC9FB;
+
+  --triangle-color-hover: #ca0000;
+  --square-color-hover: #dada55;
+  --circle-color-hover: #71b0f3;
+}
+/* END BETTER STYLES */
+
+.App {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: rgb(112, 76, 182);
-}
-
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px)
-  }
-  100% {
-    transform: translateY(0px)
-  }
+  height: 100vh;
 }
 
 .fade-enter {

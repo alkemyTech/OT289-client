@@ -1,14 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
+import { alertConfirmation, alertError } from "../alert/Alert";
+import axios from "axios";
 import "./ScreenContac.css";
+import Loader from "../loader/Loader";
+import { BASE_PATH } from '../../utils/constants'
+import { customFetch } from '../../services/fetch'
+import { ToastContainer, toast } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
+
+
+//const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
 const FormCont = () => {
-  const [data] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+
+  const [members, setMembers] = useState([])
+
+  const [loader, setLoader] = useState(false)
+
+  const url = `${BASE_PATH}/members`
+
+  const properties = {
+    method: 'get'
+  }
+
+  useEffect(() => {
+    setLoader(true)
+    customFetch(url, properties)
+      .then(members => {
+        if(!members) {
+          toast.error( 'La base de datos no se encuentra disponible actualmente' , {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+        return
+        }
+        setMembers(members.data)
+        setLoader(false)
+      })
+        .catch(error => console.log(error))
+  }, [])
+
 
   //Formik and yup
   const vDataContac = yup.object().shape({
@@ -21,26 +59,47 @@ const FormCont = () => {
       .required("Requerido"),
   });
 
+  const handleSubmit = async (values, { resetForm }) => {
+    const url = `${BASE_PATH}/contacts`
+    const properties = {
+      method: 'post',
+      data: values
+    }
+    try {
+      await axios(url, properties)
+      
+      const alertTitle = 'Consulta Enviada'
+      const alertMessage = 'Su consulta fue enviada correctamente'
+      
+      resetForm()
+      alertConfirmation(alertTitle, alertMessage)
+    } catch (error) {
+      alertError('Ups, hubo un error', error)
+    }
+  }
+
   return (
     <>
+       
       <h1>¡Contáctate con Nosotros!</h1>
-      <div className="formCont">
+      <div className="formCont" >
         <div className="divCenter">
-          <div className="with50">
+          <div className="row">
+          <div className= 'col-sm-6'>
             <h2 className="text">
               Contáctate con nostros por este medio para mas información, para
-              ser voluntario o para aportes de colaboración
+              ser voluntario o para aportes de colaboración.
             </h2>
-          </div>
-
-          <div className="with50">
+          </div>      
+          <div className= 'containerForm col-sm-6 pb-4'>
             <Formik
               initialValues={{ name: "", email: "", message: "" }}
               validationSchema={vDataContac}
-              onSubmit={async (values) => {
-                await new Promise((resolve) => setTimeout(resolve, 500));
-                alert(JSON.stringify(values, null, 2));
-              }}
+              // onSubmit={async (values) => {
+              //   await new Promise((resolve) => setTimeout(resolve, 500));
+              //   alert(JSON.stringify(values, null, 2));
+              // }}
+              onSubmit={handleSubmit}
             >
               {({ errors, touched }) => (
                 <Form>
@@ -75,7 +134,7 @@ const FormCont = () => {
                   </div>
 
                   <Field
-                    className="btnAzul"
+                    className="btnAzul px-2"
                     type="submit"
                     name="submit"
                     value="Enviar Consulta"
@@ -84,10 +143,36 @@ const FormCont = () => {
               )}
             </Formik>
           </div>
+          </div>
         </div>
       </div>
+          <h2>Miembros Fundadores</h2>
+          {loader && <Loader />}
+          <div className='members-grid'>
+            {members.map(member => member.id < 3 ? <MembersCard key={member.name} id={member.id} image={member.image} name={member.name}/> : null)}
+          </div>
+          <h2>Otros Miembros</h2>
+          {loader && <Loader />}
+          <div className= 'other-members-grid'>
+            {members.map(member => member.id > 2 ? <MembersCard key={member.name} id={member.id} image={member.image} name={member.name}/> : null)}
+          </div>
+
+      <ToastContainer />             
     </>
   );
 };
+
+
+const MembersCard = ({ id, image, name }) => {
+  return(
+    <div className='members-card'>
+    <div className='members-image'>
+      <img src={image} alt={name}></img>
+    </div>
+    <h5 className='members-text'>{name}</h5>
+    </div>
+  )
+}
+
 
 export default FormCont;

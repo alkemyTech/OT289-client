@@ -90,6 +90,7 @@ const NewsForm = ({ data }) => {
       initialValues={currentData}
       onSubmit={handleSubmit}
       validationSchema={newSchema}
+      enableReinitialize={true}
     >
       {({ errors, touched }) => (
         <Form className={s.activityForm}>
@@ -122,7 +123,7 @@ NewsForm.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    categoryId: PropTypes.string.isRequired,
+    categoryId: PropTypes.number.isRequired,
     content: PropTypes.string.isRequired,
   }),
 };

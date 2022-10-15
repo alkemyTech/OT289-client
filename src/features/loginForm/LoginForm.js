@@ -90,7 +90,7 @@ const LoginForm = () => {
                 }
 
                 dispatch(login(user))
-                //setRedirect(true) // los redirect se estan rompiendo
+                setRedirect(true) // los redirect se estan rompiendo
             }
         } catch (err) {
             if(err.response.data.errors){
@@ -123,13 +123,13 @@ const LoginForm = () => {
                 {({ errors, touched }) => (
                     <Form className="loginForm">
 
-                        <Field type="email" name="email" placeholder="email"/>
+                        <Field type="email" name="email" placeholder="Email"/>
                         {errors.email && touched.email && <ErrorMessage message={errors.email} />}
 
-                        <Field type="password" name="password" placeholder="contraseña"/>
+                        <Field type="password" name="password" placeholder="Contraseña"/>
                         {errors.password && touched.password && <ErrorMessage message={errors.password} />}
 
-                        <Field type="submit" name="submit" value="Entrar" className="loginButton" />
+                        <Field type="submit" name="submit" value="Iniciar sesión" className="loginButton" />
 
                     </Form>
                 )}
