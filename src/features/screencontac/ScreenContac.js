@@ -5,7 +5,6 @@ import { alertConfirmation, alertError } from "../alert/Alert";
 import axios from "axios";
 import "./ScreenContac.css";
 import Loader from "../loader/Loader";
-import { BASE_PATH } from '../../utils/constants'
 import { customFetch } from '../../services/fetch'
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';

@@ -34,3 +34,16 @@
     margin-bottom: 4px;
     color: crimson;
 }
+
+.notAllowed {
+    text-align: center;
+}
+
+.backButton {
+    background-color: #db5752;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid #db5752;
+    padding: 5px 15px;
+    font-weight: bold;
+}
