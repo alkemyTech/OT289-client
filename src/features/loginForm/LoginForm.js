@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
 import { ToastContainer, toast } from "react-toastify"
@@ -7,14 +7,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import authService from '../apiServices/authService'
 import { customFetch } from '../../services/fetch'
 import { BASE_PATH } from '../../utils/constants'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../user/userSlice'
+import { Link } from 'react-router-dom'
 
 import "./LoginForm.css"
 
 const LoginForm = () => {
 
-  const [redirect, setRedirect] = useState(false)
+  const userData = useSelector(store => store.user)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
     const loginSchema = Yup.object().shape({
@@ -90,7 +92,7 @@ const LoginForm = () => {
                 }
 
                 dispatch(login(user))
-                setRedirect(true) // los redirect se estan rompiendo
+                navigate('/')
             }
         } catch (err) {
             if(err.response.data.errors){
@@ -110,6 +112,14 @@ const LoginForm = () => {
         }
     }
 
+    if (userData.id) {
+        return(
+            <div className='notAllowed'>
+            <h1>Ya estas logueado</h1>
+            <Link to='/'><button className='backButton' type='button'>volver</button></Link>
+            </div>
+        )
+    }
 
     return (
         <>
@@ -135,7 +145,6 @@ const LoginForm = () => {
                 )}
             </Formik>
             <ToastContainer/>
-            {redirect && ( <Navigate to="/" replace={true} />)}
         </>
     )
 }
