@@ -54,7 +54,7 @@ const Footer = () => {
     const Logo = () => {
         return (
             <div className={`${styles.box} ${styles.logoContainer}`}>
-                <img src='images/logo.png' alt='logo SOMOS MAS' className={styles.logo} />
+                <img src='/images/logo.png' alt='logo SOMOS MAS' className={styles.logo} />
             </div>
         )
     }

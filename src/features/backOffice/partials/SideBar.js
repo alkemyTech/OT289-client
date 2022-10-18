@@ -25,7 +25,7 @@ const Sidebar = ()=> {
 
     return (
 
-        <div className="sidebarContainer d-flex flex-column min-vh-100" >
+        <div className="sidebarContainer d-flex flex-column min-vh-100 position-sticky top-0" >
             <a href="/" className="d-flex align-items-center justify-content-center text-decoration-none">
                 <img src="/images/web/LOGO-SOMOS MAS.png" className="sidebarLogo" alt="logo"></img>
             </a>

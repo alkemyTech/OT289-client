@@ -73,7 +73,7 @@ const slicedNews = news.slice(0, 4) // con esto dejas las primeras 4 noticias
     <div className={s.body_container}>
       <div className={s.hero}>
         <div className={s.welcome_div}>
-          <h2 className={s.title}>{title}</h2>
+          <h1 className={s.title}>{title}</h1>
           <p className={s.welcome_text}>{text}</p>
           <div>
             <button className={s.main_button}>Contactanos</button>
@@ -84,7 +84,7 @@ const slicedNews = news.slice(0, 4) // con esto dejas las primeras 4 noticias
         </div>
       </div>
       <div className={s.newsletter_title_container}>
-        <h2 className={s.newsletter_title}>Ùltimas Novedades</h2>
+        <h2 className={s.newsletter_title}>Últimas Novedades</h2>
       </div>
       {loader && <Loader/>}
       <div className={s.news}>

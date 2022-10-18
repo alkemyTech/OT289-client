@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import './ActivityPage.css'
 import { BASE_PATH } from '../../utils/constants'
 import { customFetch } from '../../services/fetch'
+import { Link } from 'react-router-dom'
+import parse from 'html-react-parser'
 
 const ActivityPage = () => {
 
@@ -41,8 +43,6 @@ const ActivityPage = () => {
             })
     }, [])
 
-    console.log(activity)
-
   return (
     <>
     {nullActivity ? <ActivityNotFound /> : null}
@@ -64,8 +64,13 @@ const Activity = ({ activity }) => {
 
     return (
         <div className='activity-container'>
-        <h1>{activity.name}</h1>
-        <h5>{activity.content}</h5>
+            <h1 className='activity-name-id'>{activity.name}</h1>
+            <div className='col-md-10 col-lg-8 mx-auto activityContent'>
+                {activity.content && parse(activity.content)}
+            </div>
+            <div className='activity-btn-cont'>
+                <Link to='/actividades'><button className='activity-button-id'>Volver</button></Link>
+            </div>
         </div>
     )
 }

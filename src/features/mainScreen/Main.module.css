@@ -1,11 +1,7 @@
-.body_container {
-    background-color: rgb(251 251 251);
-}
-
 .hero {
     padding: 1rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    /* margin-left: 2rem;
+    margin-right: 2rem; */
     display: flex;
     column-gap: 1rem;
 }
@@ -14,7 +10,7 @@
     flex: 0 0 40%;
     display: flex;
     flex-direction: column;
-    padding: 1rem 2rem;
+    padding: 0 2rem;
     text-align: initial;
 }
 
@@ -46,20 +42,19 @@
     font-weight: 600;
     padding: 0.8rem 1.5rem;
     margin: 1rem 0rem;
-    border: 1px solid coral;
+    border: 1px solid var(--triangle-color);
     border-radius: 10px;
-    background-color: coral;
+    background-color: var(--triangle-color);
     cursor: pointer;
     box-shadow: 2px 2px 10px 1px rgb(0 0 0 / 30%);
-    color: rgb(251 251 251);
+    color: var(--secondary-color);
     transition: all 400ms ease;
     width: 180px
 }
 
 .main_button:hover {
-    color: coral;
-    background-color: rgb(251 251 251);
-    border: 1px solid coral;
+    background-color: var(--triangle-color-hover);
+    border: 1px solid var(--triangle-color-hover);
 }
 
 .slider_div {
@@ -68,8 +63,8 @@
 
 .newsletter_title_container {
     padding: 1rem 3rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    /* margin-left: 2rem;
+    margin-right: 2rem; */
 }
 
 .newsletter_title {
@@ -88,8 +83,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     padding: 1rem 3rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    /* margin-left: 2rem;
+    margin-right: 2rem; */
     grid-gap: 1.5rem;
 }
 
