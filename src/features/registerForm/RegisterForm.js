@@ -1,12 +1,12 @@
 import React, { useState } from "react"
-import { Navigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
 import { ToastContainer, toast } from "react-toastify"
 import authService from '../apiServices/authService'
 import { customFetch } from '../../services/fetch'
 import { BASE_PATH } from '../../utils/constants'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector} from 'react-redux'
 import { login } from '../user/userSlice'
 
 
@@ -15,8 +15,8 @@ import styles from "./RegisterForm.module.css"
 
 const RegisterForm = () => {
 
-  const [redirect, setRedirect] = useState(false)
-
+  const navigate = useNavigate()  
+  const userData = useSelector(store => store.user)
   const dispatch = useDispatch()
 
     //Formik validation schema using Yup
@@ -86,7 +86,7 @@ const RegisterForm = () => {
                     }
     
                     dispatch(login(user))
-                    setRedirect(true) // los redirect se estan rompiendo  
+                    navigate('/')
             }
         } catch (err) {
             err.response.data.errors.forEach(error =>{
@@ -101,6 +101,15 @@ const RegisterForm = () => {
                 });
             })
         }
+    }
+
+    if(userData.id) {
+        return(
+            <div className={styles.notAllowed}>
+            <h1>Ya estas logueado</h1>
+            <Link to='/'><button className={styles.backButton} type='button'>volver</button></Link>
+            </div>
+        )
     }
 
     return (
@@ -133,7 +142,6 @@ const RegisterForm = () => {
                 )}
             </Formik>
             <ToastContainer/>
-            {redirect && ( <Navigate to="/" replace={true} />)}
         </>
     )
 }

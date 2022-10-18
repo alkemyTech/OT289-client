@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { customFetch } from '../../services/fetch'
+import {BASE_PATH} from '../../utils/constants'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import Slider from "../slider/Slider";
+import Loader from '../loader/Loader'
 import NewsletterCard from "./NewsletterCard";
 import s from "./Main.module.css";
 
@@ -22,27 +27,49 @@ const defaultImg = [
   },
 ];
 
-const defaultNews = [
-  {
-    img: "images/campaign-big-item.jpg",
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci accusantium animi quasi nulla obcaecati vero id, quo voluptates necessitatibus.'
-  },
-  {
-    img: "images/campaign-tabs.jpg",
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci accusantium animi quasi nulla obcaecati vero id, quo voluptates necessitatibus.'
-  },
-  {
-    img: "images/featured-places-01.jpg",
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci accusantium animi quasi nulla obcaecati vero id, quo voluptates necessitatibus.'
-  },
-  {
-    img: "images/featured-places-02.jpg",
-    text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci accusantium animi quasi nulla obcaecati vero id, quo voluptates necessitatibus.'
-  }
-];
+const Main = ({ text = defaultText, title = defaultTitle, img = defaultImg,}) => {
 
-const Main = ({ text = defaultText, title = defaultTitle, img = defaultImg, newsletter= defaultNews }) => {
+  const [news, setNews] = useState([])
+  const [loader, setLoader] = useState(true)
+  const url = `${BASE_PATH}/news`
+  const properties = {
+    method:'get'
+  }
+
+
+  useEffect(() => {
+    setLoader(true)
+    customFetch(url, properties)
+      .then(news => setNews(news.data))
+        .catch(error => {
+          toast.error( 'No se pueden obtener las noticias en este momento' , {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        })
+        })
+    setLoader(false)
+  }, [])
+
+  function sortNews (a,b) {  
+    if(a.createdAt > b.createdAt) {
+      return -1;  
+    } else if (a.createdAt < b.createdAt)  {
+      return 1;
+    }  
+    return 0;  
+  }
+ // ordena de mayor a menor
+
+news.sort(sortNews) // pedis que ordene segun la key de creacion de la noticia
+const slicedNews = news.slice(0, 4) // con esto dejas las primeras 4 noticias
+
   return (
+    <>
     <div className={s.body_container}>
       <div className={s.hero}>
         <div className={s.welcome_div}>
@@ -59,12 +86,16 @@ const Main = ({ text = defaultText, title = defaultTitle, img = defaultImg, news
       <div className={s.newsletter_title_container}>
         <h2 className={s.newsletter_title}>Últimas Novedades</h2>
       </div>
+      {loader && <Loader/>}
       <div className={s.news}>
+        
         {
-          newsletter.map(n => (<NewsletterCard img={n.img} text={n.text}/>))
+          slicedNews.map(notice => (<NewsletterCard key={notice.createdAt} name={notice.name} img={notice.image} text={notice.content}/>))
         }
       </div>
     </div>
+    <ToastContainer />
+    </>
   );
 };
 
