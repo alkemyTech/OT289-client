@@ -21,7 +21,6 @@ export default function Header() {
     navigate('/')
   }
 
-  console.log(userData)
 
   const handleDelete = () => {
     const url = `${BASE_PATH}/users/${userData.id}`
