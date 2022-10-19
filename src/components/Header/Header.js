@@ -21,6 +21,8 @@ export default function Header() {
     navigate('/')
   }
 
+  console.log(userData)
+
   return (
     <>
       <div className="header">
@@ -29,6 +31,7 @@ export default function Header() {
         </div>
         <NavBar />
         <div className='account'>
+          {userData.role === 1 ? <Link to='backoffice'><button className='login'>Backoffice</button></Link> : null}
           {userData.id ? /*AGREGAR DESPUES MANERA DE EDITAR USUARIO*/null : <Link to='Login'><button className='login'>Log in</button></Link>}
           {userData.id ? <button className='register' onClick={handleLogout}>Cerrar Sesion</button> : <Link to='Registrarse'><button className='register'>Registrate</button></Link> }
         </div>
