@@ -20,10 +20,11 @@ import LoginRouteGuard from './LoginRouteGuard';
 import NewsPanel from './features/backOffice/partials/NewsPanel'
 import Layout from './components/Layout/Layout';
 import Nosotros from './features/nosotros/Nosotros';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { refresh } from './features/user/userSlice'
 import { BASE_PATH } from './utils/constants'
 import { customFetch } from './services/fetch'
+import ProtectedRoute from './features/protectedRoute/ProtectedRoute'
 
 function App() {
   const token = localStorage.getItem('token')
@@ -42,27 +43,29 @@ function App() {
         lastName: user.data.payload.lastName,
         email: user.data.payload.email,
         image: user.data.payload.image,
-        roleId: user.data.payload.roleId,
+        role: user.data.payload.roleId,
         token
       }
+
       dispatch(refresh(userObj))
     })
       .catch(error => console.log(error))
   }
 
+  const userData = useSelector(store => store.user)
+
   return (
     <div className="App">
       <Routes>
-        <Route path="/contact" element={<ScreenContact />} />
-        <Route path="/backoffice/activities" element={<Activities />} />
-        <Route path="/backoffice/users" element={<UsersTable />} />     
         <Route path="/*" element={<MainSPA />} />
-        <Route element={<LoginRouteGuard/>}>
+        <Route path="/contact" element={<ScreenContact />} />
+        <Route element={<ProtectedRoute isAllowed={!!userData && userData.role == 1} />}>
           <Route path="/backOffice/*" element={ <BackOffice/> } />
+          <Route path="/backoffice/users" element={<UsersTable />} />
+          <Route path="/backoffice/activities" element={<Activities />} />    
+          <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
+          <Route path='/backoffice/newspanel' element={<NewsPanel/>} />
         </Route>
-        <Route path="/backoffice/users" element={<UsersTable />} />
-        <Route exact path='/backoffice/contacts' element={<ContactsPanel />} />
-        <Route path='/backoffice/newspanel' element={<NewsPanel/>} />
       </Routes>
     </div>
     

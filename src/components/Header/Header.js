@@ -64,6 +64,7 @@ export default function Header() {
         <NavBar />
         <div className='account'>
           {userData.id ? <button className='register' onClick={handleDelete}>Eliminar cuenta</button> : null}
+          {userData.role === 1 ? <Link to='backoffice'><button className='login'>Backoffice</button></Link> : null}
           {userData.id ? /*AGREGAR DESPUES MANERA DE EDITAR USUARIO*/null : <Link to='Login'><button className='login'>Log in</button></Link>}
           {userData.id ? <button className='register' onClick={handleLogout}>Cerrar Sesion</button> : <Link to='Registrarse'><button className='register'>Registrate</button></Link> }
         </div>
