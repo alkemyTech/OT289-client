@@ -8,7 +8,7 @@ import Loader from "../loader/Loader";
 import { customFetch } from '../../services/fetch'
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
-
+import { BASE_PATH } from "../../utils/constants";
 
 //const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
