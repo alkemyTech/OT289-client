@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import ScreenContact from './features/screencontac/ScreenContac';
@@ -33,24 +33,26 @@ function App() {
   const refreshProperties = {
     method: 'get'
   }
-
-  if(token){
-  customFetch(refreshURL, refreshProperties)
-    .then(user => {
-      let userObj = {
-        id: user.data.payload.id,
-        firstName: user.data.payload.firstName,
-        lastName: user.data.payload.lastName,
-        email: user.data.payload.email,
-        image: user.data.payload.image,
-        role: user.data.payload.roleId,
-        token
+  useEffect(() => {
+    if(token){
+      customFetch(refreshURL, refreshProperties)
+        .then(user => {
+          let userObj = {
+            id: user.data.payload.id,
+            firstName: user.data.payload.firstName,
+            lastName: user.data.payload.lastName,
+            email: user.data.payload.email,
+            image: user.data.payload.image,
+            role: user.data.payload.roleId,
+            token
+          }
+    
+          dispatch(refresh(userObj))
+        })
+          .catch(error => console.log(error))
       }
+  }, [])
 
-      dispatch(refresh(userObj))
-    })
-      .catch(error => console.log(error))
-  }
 
   const userData = useSelector(store => store.user)
 
