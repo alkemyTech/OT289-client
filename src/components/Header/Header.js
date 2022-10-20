@@ -9,6 +9,7 @@ import {BASE_PATH} from '../../utils/constants'
 import {customFetch} from '../../services/fetch'
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2'
 
 export default function Header() {
   const userData = useSelector(store => store.user)
@@ -23,36 +24,51 @@ export default function Header() {
 
 
   const handleDelete = () => {
-    const url = `${BASE_PATH}/users/${userData.id}`
-    const properties = {
-      method: 'delete'
-    }
-    customFetch(url, properties)
-      .then(data => {
-        toast.success( data.data , {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-      })
-        dispatch(logout())
-        localStorage.removeItem('token')
-        navigate('/')
-      })
-      .catch(error => {
-        toast.error(error.message , {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-      })
-      })
+    Swal.fire({
+      title: 'Eliminar usuario',
+      icon: 'warning',
+      text: 'Verdaderamente desea eliminar su usuario?',
+      showDenyButton:true,
+      confirmButtonText: 'Si',
+      denyButtonText: 'Cancelar'
+    }).then(result=> {
+      if(result.isConfirmed){
+        const url = `${BASE_PATH}/users/${userData.id}`
+        const properties = {
+          method: 'delete'
+        }
+        customFetch(url, properties)
+          .then(data => {
+            toast.success( data.data , {
+              position: "top-right",
+              autoClose: 1500,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+          })
+            dispatch(logout())
+            localStorage.removeItem('token')
+            navigate('/')
+          })
+          .catch(error => {
+            toast.error(error.message , {
+              position: "top-right",
+              autoClose: 1000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+          })
+          })
+      } else if (result.isDenied){
+        Swal.fire('Se ha cancelado la eliminacion', '', 'info')
+      }
+    })
+
+
   }
 
   return (
