@@ -7,7 +7,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import PropTypes from "prop-types";
 
 //Alerts
-import { alertConfirmation, alertError } from "../alert/Alert";
+import { alertConfirmation, alertError } from "../../../services/Alert";
 
 //styles 
 import s from './NewsForm.module.css'
