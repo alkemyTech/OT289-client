@@ -11,9 +11,12 @@ import Register from './features/registerForm/RegisterForm';
 import Contact from './features/screencontac/ScreenContac'
 import ActivityMain from './features/activityMain/ActivityMain'
 import BackOffice from './features/backOffice/BackOffice';
-import { Routes, Route } from 'react-router-dom';
+
+
+import { Routes, Route, useLocation } from 'react-router-dom';
 import ContactsPanel from './features/backOffice/partials/ContactsPanel';
 import ActivityPage from './features/activityPage/ActivityPage';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 /* import UsersTable from './features/usersTable/UsersTable' */
 import NewsDetail from './features/newsDetail/NewsDetail'
 import LoginRouteGuard from './LoginRouteGuard';
@@ -27,6 +30,7 @@ import { customFetch } from './services/fetch'
 import ProtectedRoute from './features/protectedRoute/ProtectedRoute'
 
 function App() {
+  const location = useLocation();
   const token = localStorage.getItem('token')
   const dispatch = useDispatch()
   const refreshURL = `${BASE_PATH}/auth/me`
@@ -57,8 +61,20 @@ function App() {
   const userData = useSelector(store => store.user)
 
   return (
-    <div className="App">
-      <Routes>
+
+    <div className="App">    
+      
+      <TransitionGroup component={null}>
+      
+      <CSSTransition
+      key={location.key}
+      timeout={750}
+      classNames="fade"
+      >       
+      <Routes location={location}>
+        <Route path="/contac" element={<ScreenContact />} />    
+        <Route path="/backoffice/activities" element={<Activities />} />
+        <Route path="/backoffice/users" element={<UsersTable />} />     
         <Route path="/*" element={<MainSPA />} />
         <Route path="/contact" element={<ScreenContact />} />
         <Route element={<ProtectedRoute isAllowed={!!userData && userData.role == 1} />}>
@@ -69,6 +85,11 @@ function App() {
           <Route path='/backoffice/newspanel' element={<NewsPanel/>} />
         </Route>
       </Routes>
+      
+      </CSSTransition>
+      
+      </TransitionGroup>      
+     
     </div>
     
   );
