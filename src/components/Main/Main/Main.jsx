@@ -7,6 +7,7 @@ import Slider from "../Slider/Slider";
 import Loader from '../../Loader/Loader'
 import NewsletterCard from "../Newsletter/NewsletterCard";
 import s from "./Main.module.css";
+import Button from 'react-bootstrap/Button'
 
 const defaultText = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. At quas explicabo, sit animi deleniti dicta? Deleniti veritatis est temporibus voluptates nesciunt hic, deserunt facere delectus voluptatum, consequatur, quos maiores quam! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi nisi, nemo asperiores ad.";
 
@@ -76,7 +77,7 @@ const slicedNews = news.slice(0, 4) // con esto dejas las primeras 4 noticias
           <h1 className={s.title}>{title}</h1>
           <p className={s.welcome_text}>{text}</p>
           <div>
-            <button className={s.main_button}>Contactanos</button>
+            <Button href='/contacto' className={s.main_button}>Contáctanos</Button>
           </div>
         </div>
         <div className={s.slider_div}>
