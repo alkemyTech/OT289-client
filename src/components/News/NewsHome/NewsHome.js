@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Button from 'react-bootstrap/Button'
-import Card from 'react-bootstrap/Card'
-import CardGroup from 'react-bootstrap/CardGroup'
 import { customFetch } from '../../../services/fetch'
-import { Link } from 'react-router-dom'
 import Loader from '../../Loader/Loader'
-
-
-import styles from './NewsHome.module.css'
+import FlexList from '../../FlexList/FlexList'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
@@ -26,33 +20,6 @@ const NewsHome = () => {
         } catch (error) {
             console.log('Error getting news: ', error)
         }
-    }
-
-    const NewsCard = ({ item }) => {
-        const { id, name, image } = item
-
-        return (
-            <div className={styles.card}>
-                <Link to={`/novedades/${id}`}>
-                    <Card.Img variant="top" src={image} className={styles.image} />
-                </Link>
-
-                <Card.Body className={styles.body}>
-                    <h2>
-                        <Link to={`/novedades/${id}`} className={styles.title}>{name}</Link>
-                    </h2>
-                    <Button href={`/novedades/${id}`} variant="outline-primary" className={styles.button}>Ver Detalle</Button>
-                </Card.Body>
-            </div>
-        )
-    }
-
-    const NewsList = () => {
-        return (
-            <CardGroup>
-                {news.map((item, index)=> <NewsCard key={index} item={item} /> )}
-            </CardGroup>
-        )
     }
 
     useEffect(() => {
@@ -75,7 +42,7 @@ const NewsHome = () => {
             {news.length === 0 ?
                 <p>No se encontraron novedades.</p>
             :
-                <NewsList />
+                <FlexList list={news} section='novedades' />
             }
         </>
     )

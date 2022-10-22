@@ -1,63 +1,51 @@
-import React, { useEffect, useState } from 'react'
-import './ActivityHome.css'
+import React, { useState, useEffect } from 'react'
 import { customFetch } from '../../../services/fetch'
-import { BASE_PATH } from '../../../utils/constants'
-import { ToastContainer, toast } from "react-toastify"
-import { Link } from 'react-router-dom'
+import Loader from '../../Loader/Loader'
+import FlexList from '../../FlexList/FlexList'
 
-const ActivityMain = () => {
+const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
-    const [ activitiesArray, setActivitiesArray ] = useState([])
-    const url = `${BASE_PATH}/activities`
-    const fetchParams = {
-      method: 'get'
+const ActivitiesHome = () => {
+    const [ activities, setActivities ] = useState(null)
+
+    const getActivities = async () => {
+        try {
+            const url = `${SERVER_BASE_URL}/activities`
+            const properties = {
+                method: 'get'
+            }
+
+            const res = await customFetch(url, properties)
+            setActivities(res.data.reverse())
+        } catch (error) {
+            console.log('Error getting activities: ', error)
+        }
     }
 
     useEffect(() => {
-      customFetch(url, fetchParams)
-        .then(activities => {
-          if (activities === undefined) {
-            toast.error( 'La base de datos no se encuentra disponible' , {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-          });
-          return []
-          }
-          setActivitiesArray(activities.data)
-        })
-          .catch(error => console.log(error))
-    }, [])
+        getActivities()
+    },[])
 
-    console.log(activitiesArray)
+    if (!activities) {
+        return (
+            <>
+                <h1>Listado de Actividades</h1>
+                <Loader />
+                <p>Cargando...</p>
+            </>
+        )
+    }
 
-  return (
-    <>
-    <h1>Lista de actividades</h1>
-    <div className='activity-grid'>
-      {activitiesArray.map(activity => <ActivityCard key={activity.name} name={activity.name} image={activity.image} content={activity.content} id={activity.id}/>)}
-    </div>
-    <ToastContainer/>
-    </>
+    return (
+        <>
+            <h1>Listado de Actividades</h1>
+            {activities.length === 0 ?
+                <p>No se encontraron actividades.</p>
+            :
+                <FlexList list={activities} section='actividades' />
+            }
+        </>
     )
 }
 
-const ActivityCard = ({ name, image, id }) => {
-  return (
-    <>
-    <div className='activity-card'>
-      <div className='image-container'>
-        <img src={image} alt={name}></img>
-      </div>
-      <p className='activity-name'>{name}</p>
-      <Link to={`/actividades/${id}`}><button className='activity-button'>Ver mas</button></Link>
-    </div>
-    </>
-  )
-}
-
-export default ActivityMain
+export default ActivitiesHome

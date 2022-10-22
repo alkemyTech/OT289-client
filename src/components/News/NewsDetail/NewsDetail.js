@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import Button from 'react-bootstrap/Button'
 import './NewsDetail.css'
 import { customFetch } from '../../../services/fetch'
 import { useParams } from 'react-router-dom'
 import Loader from '../../Loader/Loader'
-import parse from 'html-react-parser'
+import Details from '../../Details/Details'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
@@ -28,44 +27,6 @@ const NewsDetail = () => {
         }
     }
 
-    const Header = ({ title, image, updatedAt }) => {
-        const date = new Date(updatedAt)
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    
-        return (
-            <header className="newsHeader d-flex align-items-center" style={{backgroundImage: 'url(' + image + ')'}}>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-8 col-md-10 mx-auto">
-                            <div className="newsHeadingContainer">
-                                <h1 className="newsTitle">{title}</h1>
-                                <span className="newsDate">{date.toLocaleDateString('es-AR', options)}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </header>
-        )
-    }
-
-    const Content = ({ content }) => {
-        return (
-            <div className="newsBody">
-                <div className="row">
-                    <div className="col-md-10 col-lg-8 mx-auto newsContent">
-                        {parse(content)}
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
-    const GoBackButton = () => {
-        return (
-            <Button href='/novedades' variant="outline-primary" className='button'>Ver más novedades</Button>
-        )
-    }
-
     useEffect(()=>{
         getNews()
     },[])
@@ -81,9 +42,7 @@ const NewsDetail = () => {
 
     return (
         <div className='mainContainer'>
-            <Header title={news.name} image={news.image} updatedAt={news.updatedAt} />
-            <Content content={news.content} />
-            <GoBackButton />
+            <Details item={news} section='novedades' />
         </div>
     )
 }

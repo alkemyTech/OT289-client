@@ -28,17 +28,6 @@
     color: var(--primary-color);
 }
 
-.button {
-    color: var(--primary-color);
-    border-color: var(--circle-color);
-    background-color: var(--secondary-color);
-}
-
-.button:hover {
-    border-color: var(--triangle-color) !important;
-    background-color: var(--triangle-color) !important;
-}
-
 .title:hover {
     color: var(--dark-color);
 }
