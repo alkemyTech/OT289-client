@@ -20,7 +20,7 @@
 .img_container {
   flex: 0 0 50%;
   width: 100px;
-  height: 250px;
+  height: 200px;
 }
 
 @media (max-width: 768px) {

@@ -90,7 +90,7 @@ const slicedNews = news.slice(0, 4) // con esto dejas las primeras 4 noticias
       <div className={s.news}>
         
         {
-          slicedNews.map(notice => (<NewsletterCard key={notice.createdAt} name={notice.name} img={notice.image} text={notice.content}/>))
+          slicedNews.map(notice => (<NewsletterCard key={notice.id} name={notice.name} img={notice.image} text={notice.content} url={notice.id} />))
         }
       </div>
     </div>
