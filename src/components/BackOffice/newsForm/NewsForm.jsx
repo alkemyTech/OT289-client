@@ -21,7 +21,7 @@ const MAX_NAME = 50
 const MIN_CONTENT = 50
 
 const NewsForm = ({ data }) => {
-    const action = data?.id ? 'patch' : 'post'
+    const action = data?.id ? 'put' : 'post'
     const currentData = data || {name: '', content: '', categoryId: null, image: null}
 
     //Formik validation schema using Yup
@@ -93,6 +93,7 @@ const NewsForm = ({ data }) => {
             initialValues={currentData}
             onSubmit={handleSubmit}
             validationSchema={activitySchema}
+            enableReinitialize
         >
             {({ setFieldValue, errors, touched, values }) => (
                 <Form className={styles.newsForm}>
@@ -100,11 +101,12 @@ const NewsForm = ({ data }) => {
                     <Field name='name' placeholder='Nombre de la novedad' required />
                     {errors.name && touched.name && <ErrorMessage message={errors.name} />}
 
-                    <label for='featuredImage' className={styles.uploadImage}>Selecciona una imagen (PNG, JPG)</label>
+                    <label htmlFor='featuredImage' className={styles.uploadImage}>Selecciona una imagen (PNG, JPG)</label>
                     <input name='image' id='featuredImage' type='file' accept='image/*' onChange={e => setFieldValue('image', e.target.files[0])} required />
                     {errors.image && touched.image && <ErrorMessage message={errors.image} />}
 
-                    {values.image && <img src={URL.createObjectURL(values.image)} alt='descatada' style={{width: '100%'}} />}
+                    {console.log(values.image)}
+                    {values.image && <img src={(typeof values.image === 'string') ? values.image : URL.createObjectURL(values.image)} alt='descatada' style={{width: '100%'}} />}
 
                     <Field name='categoryId' type='number' placeholder='ID Categoria' required />
                     {errors.type && touched.type && (<ErrorMessage message={errors.type} />)}

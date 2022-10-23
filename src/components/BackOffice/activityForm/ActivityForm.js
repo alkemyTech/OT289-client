@@ -21,7 +21,7 @@ const MAX_NAME = 50
 const MIN_CONTENT = 50
 
 const ActivityForm = ({ data }) => {
-    const action = data?.id ? 'patch' : 'post'
+    const action = data?.id ? 'put' : 'post'
     const currentData = data || {name: '', content: ''}
 
     //Formik validation schema using Yup
@@ -89,6 +89,7 @@ const ActivityForm = ({ data }) => {
             initialValues={currentData}
             onSubmit={handleSubmit}
             validationSchema={activitySchema}
+            enableReinitialize
         >
             {({ setFieldValue, errors, touched, values }) => (
                 <Form className={styles.activityForm}>
@@ -96,11 +97,11 @@ const ActivityForm = ({ data }) => {
                     <Field name='name' placeholder='Nombre de la actividad' required />
                     {errors.name && touched.name && <ErrorMessage message={errors.name} />}
 
-                    <label for='featuredImage' className={styles.uploadImage}>Selecciona una imagen (PNG, JPG) (PNG, JPG)</label>
+                    <label htmlFor='featuredImage' className={styles.uploadImage}>Selecciona una imagen (PNG, JPG) (PNG, JPG)</label>
                     <input name='image' id='featuredImage' type='file' accept='image/*' onChange={e => setFieldValue('image', e.target.files[0])} required />
                     {errors.image && touched.image && <ErrorMessage message={errors.image} />}
 
-                    {values.image && <img src={URL.createObjectURL(values.image)} alt='descatada' style={{width: '100%'}} />}
+                    {values.image && <img src={values.image.startsWith('https') ? values.image : URL.createObjectURL(values.image)} alt='descatada' style={{width: '100%'}} />}
 
                     <Field name='content' component={CustomCKEditorField} />
                     {errors.content && touched.content && <ErrorMessage message={errors.content} />}
