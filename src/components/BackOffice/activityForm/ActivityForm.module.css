@@ -32,3 +32,13 @@
 .ckEditor {
     font-size: 14px;
 }
+
+.uploadImage {
+    padding: 8px;
+    background-color: white;
+    cursor: pointer;
+}
+
+input[type=file] {
+    display: none;
+}

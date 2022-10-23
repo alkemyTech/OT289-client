@@ -1,5 +1,4 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button'
 import styles from './Details.module.css'
 import parse from 'html-react-parser'
 import CustomButton from '../CustomButton/CustomButton'
@@ -37,18 +36,11 @@ const Details = ({ item, section }) => {
         )
     }
 
-    // const GoBackButton = () => {
-    //     return (
-    //         <Button href='/novedades' variant="outline-primary" className='button'>Ver más novedades</Button>
-    //     )
-    // }
-
     return (
         <>
             <Header title={item.name} image={item.image} updatedAt={item.updatedAt} />
             <Content content={item.content} />
             <CustomButton href={`/${section}`} text={`Ver mas ${section}`} />
-            {/* <GoBackButton /> */}
         </>
     )
 }

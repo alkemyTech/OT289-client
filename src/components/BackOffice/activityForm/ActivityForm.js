@@ -6,8 +6,8 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import PropTypes from 'prop-types'
 
 //Components
-import { alertConfirmation, alertError } from '../alert/Alert'
-import ErrorMessage from '../partials/ErrorMessage'
+import { alertConfirmation, alertError, alertWaiting, closeCurrentAlert } from '../../../services/Alert'
+import ErrorMessage from '../../../features/errorMessage/ErrorMessage'
 
 //styles
 import styles from './ActivityForm.module.css'
@@ -21,12 +21,13 @@ const MAX_NAME = 50
 const MIN_CONTENT = 50
 
 const ActivityForm = ({ data }) => {
-    const action = data?.id ? 'patch' : 'post'
+    const action = data?.id ? 'put' : 'post'
     const currentData = data || {name: '', content: ''}
 
     //Formik validation schema using Yup
     const activitySchema = Yup.object().shape({
         name: Yup.string().min(MIN_NAME, 'Nombre muy corto').max(MAX_NAME, 'Nombre muy largo').required('Requerido'),
+        image: Yup.mixed().required('Requerido'),
         content: Yup.string().min(MIN_CONTENT, 'Contenido muy corto').required('Requerido')
     })
 
@@ -49,21 +50,35 @@ const ActivityForm = ({ data }) => {
     }
 
     const handleSubmit = async (values, { resetForm }) => {
-        const endpointUrl = SERVER_BASE_URL + '/Actividades' + (currentData?.id ? `/${currentData.id}` : '')
+        alertWaiting('Enviando actividad', 'aguarda un momento')
+        
+        const endpointUrl = SERVER_BASE_URL + '/activities' + (currentData?.id ? `/${currentData.id}` : '')
+
+        const formData = new FormData()
+        formData.append('name', values.name)
+        formData.append('image', values.image)
+        formData.append('content', values.content)
+  
+        const headers = {
+          'Content-Type': 'multipart/form-data'
+        }
 
         try {
-            await axios[action](endpointUrl, values)
+            await axios[action](endpointUrl, formData, headers)
 
             //if it's a new activity, reset form after saving it
             if (action === 'post') {
                 resetForm()
             }
 
+            closeCurrentAlert()
+
             //Show confirmation message
             const alertTitle = `Actividad ${action === 'post' ? 'creada!' : 'actualizada!'}`
             const alertMessage = `La actividad fue ${action === 'post' ? 'creada' : 'actualizada'} correctamente.`
             alertConfirmation(alertTitle, alertMessage)
         } catch (error) {
+            closeCurrentAlert()
             //Received error must be a string
             alertError('Ups, hubo un error', error)
         }
@@ -74,12 +89,19 @@ const ActivityForm = ({ data }) => {
             initialValues={currentData}
             onSubmit={handleSubmit}
             validationSchema={activitySchema}
+            enableReinitialize
         >
-            {({ errors, touched }) => (
+            {({ setFieldValue, errors, touched, values }) => (
                 <Form className={styles.activityForm}>
 
                     <Field name='name' placeholder='Nombre de la actividad' required />
                     {errors.name && touched.name && <ErrorMessage message={errors.name} />}
+
+                    <label htmlFor='featuredImage' className={styles.uploadImage}>Selecciona una imagen (PNG, JPG) (PNG, JPG)</label>
+                    <input name='image' id='featuredImage' type='file' accept='image/*' onChange={e => setFieldValue('image', e.target.files[0])} required />
+                    {errors.image && touched.image && <ErrorMessage message={errors.image} />}
+
+                    {values.image && <img src={(typeof values.image === 'string') ? values.image : URL.createObjectURL(values.image)} alt='descatada' style={{width: '100%'}} />}
 
                     <Field name='content' component={CustomCKEditorField} />
                     {errors.content && touched.content && <ErrorMessage message={errors.content} />}

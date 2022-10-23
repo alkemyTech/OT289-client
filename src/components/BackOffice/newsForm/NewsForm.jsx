@@ -1,131 +1,132 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import PropTypes from "prop-types";
+import React from 'react'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
+import { CKEditor } from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import PropTypes from 'prop-types'
 
-//Alerts
-import { alertConfirmation, alertError } from "../../../services/Alert";
+//Components
+import { alertConfirmation, alertError, alertWaiting, closeCurrentAlert } from '../../../services/Alert'
+import ErrorMessage from '../../../features/errorMessage/ErrorMessage'
 
-//styles 
-import s from './NewsForm.module.css'
+//styles
+import styles from './NewsForm.module.css'
 
-const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL;
-const MAX_NAME = 50;
-const MIN_CONTENT = 20;
+//Axios (REPLACE IT WITH 'HTTP PETITIONS SERVICES' (OT289-32) WHEN AVAILABLE?)
+import axios from 'axios'
 
-//Formik validation schema using Yup
-const newSchema = Yup.object().shape({
-  name: Yup
-    .string()
-    .max(MAX_NAME, "Nombre muy largo")
-    .required("Requerido"),
-  content: Yup
-    .string()
-    .min(MIN_CONTENT, "Contenido muy corto")
-    .required("Requerido"),
-  image: Yup
-    .string()
-    .url('El formato de URL no es valido')
-    .required("Requerido"),
-  categoryId: Yup
-    .string()
-    .required("Requerido"),
-});
-
-const ErrorMessage = ({ message }) => {
-  return <small className={s.error}>{message}</small>;
-};
-
-const CustomCKEditorField = ({ field, form }) => {
-  return (
-    <div className={s.ckEditor}>
-      <CKEditor
-        config={{ placeholder: "Escribe el contenido aquí..." }}
-        name={field.name}
-        editor={ClassicEditor}
-        data={field.value}
-        onChange={(event, editor) => {
-          const contentData = editor.getData();
-          form.setFieldValue(field.name, contentData);
-        }}
-      />
-    </div>
-  );
-};
-
+const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
+const MIN_NAME = 10
+const MAX_NAME = 50
+const MIN_CONTENT = 50
 
 const NewsForm = ({ data }) => {
-  const currentData = ( data || { name: "", content: "", image: "", categoryId: "" } );
-  const action = data?.id ? "put" : "post";
- 
-  const handleSubmit = async (values, { resetForm }) => {
-    const endpointUrl = SERVER_BASE_URL + "/news" + (currentData?.id ? `/${currentData.id}` : "");
+    const action = data?.id ? 'put' : 'post'
+    const currentData = data || {name: '', content: '', categoryId: null, image: null}
 
-    try {
-      const categoryIdAux = values.categoryId;
-      values.categoryId = 1;
-      await axios[action](endpointUrl, values);
-      values.categoryId = categoryIdAux
+    //Formik validation schema using Yup
+    const activitySchema = Yup.object().shape({
+        name: Yup.string().min(MIN_NAME, 'Nombre muy corto').max(MAX_NAME, 'Nombre muy largo').required('Requerido'),
+        image: Yup.mixed().required('Requerido'),
+        categoryId: Yup.number(),
+        content: Yup.string().min(MIN_CONTENT, 'Contenido muy corto').required('Requerido')
+    })
 
-      //if it's a new activity, reset form after saving it
-      if (action === "post") {
-        resetForm();
-      }
-
-      //Show confirmation message
-      const alertTitle = `Novedad ${action === "post" ? "creada!" : "actualizada!"}`;
-      const alertMessage = `La novedad fue ${action === "post" ? "creada" : "actualizada"} correctamente.`;
-      alertConfirmation(alertTitle, alertMessage);
-    } catch (error) {
-      //Received error must be a string
-      alertError("Ups, hubo un error", error);
+    //CKEditor5
+    const CustomCKEditorField = ({ field, form }) => {
+        return (
+            <div className={styles.ckEditor}>
+                <CKEditor
+                    config={{placeholder: 'Escribe el contenido aquí...'}}
+                    name={field.name}
+                    editor={ ClassicEditor }
+                    data={field.value}
+                    onChange={( event, editor ) => {
+                        const contentData = editor.getData()
+                        form.setFieldValue(field.name, contentData)
+                    }}
+                />
+            </div>
+        )
     }
-  };
 
-  return (
-    <Formik
-      initialValues={currentData}
-      onSubmit={handleSubmit}
-      validationSchema={newSchema}
-      enableReinitialize={true}
-    >
-      {({ errors, touched }) => (
-        <Form className={s.activityForm}>
-          <Field name="name" placeholder="Nombre de la novedad" required />
-          {errors.name && touched.name && (<ErrorMessage message={errors.name} />)}
+    const handleSubmit = async (values, { resetForm }) => {
+        alertWaiting('Enviando novedad', 'aguarda un momento')
+        
+        const endpointUrl = SERVER_BASE_URL + '/news' + (currentData?.id ? `/${currentData.id}` : '')
 
-          <Field name="image" placeholder="URL de la imagen de la novedad" required />
-          {errors.image && touched.image && (<ErrorMessage message={errors.image} />)}
+        const formData = new FormData()
+        formData.append('name', values.name)
+        formData.append('image', values.image)
+        formData.append('categoryId', values.categoryId)
+        formData.append('content', values.content)
+  
+        const headers = {
+          'Content-Type': 'multipart/form-data'
+        }
 
-          <Field name="categoryId" placeholder="Categoria" required />
-          {errors.type && touched.type && (<ErrorMessage message={errors.type} />)}
+        try {
+            await axios[action](endpointUrl, formData, headers)
 
-          <Field name="content" component={CustomCKEditorField} />
-          {errors.content && touched.content && (<ErrorMessage message={errors.content} />)}
+            //if it's a new activity, reset form after saving it
+            if (action === 'post') {
+                resetForm()
+            }
 
-          <Field
-            type="submit"
-            name="submit"
-            value={`${action === "post" ? "Crear" : "Actualizar"} Novedad`}
-            className={s.button}
-          />
-        </Form>
-      )}
-    </Formik>
-  );
-};
+            closeCurrentAlert()
+
+            //Show confirmation message
+            const alertTitle = `Novedad ${action === 'post' ? 'creada!' : 'actualizada!'}`
+            const alertMessage = `La novedad fue ${action === 'post' ? 'creada' : 'actualizada'} correctamente.`
+            
+            alertConfirmation(alertTitle, alertMessage)
+        } catch (error) {
+
+            closeCurrentAlert()
+            //Received error must be a string
+            alertError('Ups, hubo un error', error)
+        }
+    }
+
+    return (
+        <Formik
+            initialValues={currentData}
+            onSubmit={handleSubmit}
+            validationSchema={activitySchema}
+            enableReinitialize
+        >
+            {({ setFieldValue, errors, touched, values }) => (
+                <Form className={styles.newsForm}>
+
+                    <Field name='name' placeholder='Nombre de la novedad' required />
+                    {errors.name && touched.name && <ErrorMessage message={errors.name} />}
+
+                    <label htmlFor='featuredImage' className={styles.uploadImage}>Selecciona una imagen (PNG, JPG)</label>
+                    <input name='image' id='featuredImage' type='file' accept='image/*' onChange={e => setFieldValue('image', e.target.files[0])} required />
+                    {errors.image && touched.image && <ErrorMessage message={errors.image} />}
+
+                    {values.image && <img src={(typeof values.image === 'string') ? values.image : URL.createObjectURL(values.image)} alt='descatada' style={{width: '100%'}} />}
+
+                    <Field name='categoryId' type='number' placeholder='ID Categoria' required />
+                    {errors.type && touched.type && (<ErrorMessage message={errors.type} />)}
+
+                    <Field name='content' component={CustomCKEditorField} />
+                    {errors.content && touched.content && <ErrorMessage message={errors.content} />}
+
+                    <Field type='submit' name='submit' value={`${action === 'post' ? 'Crear' : 'Actualizar'} novedad`} className={styles.button} />
+
+                </Form>
+            )}
+        </Formik>
+    )
+}
 
 NewsForm.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    categoryId: PropTypes.number.isRequired,
-    content: PropTypes.string.isRequired,
-  }),
-};
+    data: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired
+    })
+}
 
-export default NewsForm;
+export default NewsForm

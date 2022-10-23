@@ -8,19 +8,21 @@ import { Facebook, Instagram, Twitter } from 'react-bootstrap-icons'
 //styles
 import styles from './Footer.module.css'
 
+const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
+
 //dummy data (replace it with data receive from public endpoint when available)
 const links = [
     {
+        name: 'Actividades',
+        url: '/actividades'
+    },
+    {
+        name: 'Novedades',
+        url: '/novedades'
+    },
+    {
         name: 'Nosotros',
         url: '/nosotros'
-    },
-    {
-        name: 'Contacto',
-        url: '/contacto'
-    },
-    {
-        name: 'Contribuye',
-        url: '/contribuye'
     }
 ]
 
@@ -44,7 +46,7 @@ const Footer = () => {
     const [socialLinks, setSocialLinks] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3001/organizations/1/public')
+        fetch(`${SERVER_BASE_URL}/organizations/1/public`)
             .then(response => response.json())
             .then(data => setSocialLinks(data.socialLinks))
     }, []);
@@ -62,7 +64,7 @@ const Footer = () => {
     const WebLinks = () => {
         return (
             <div className={`${styles.box} ${styles.webLinks}`}>
-                <h3>Secciones</h3>
+                <h3>Nuestras secciones</h3>
                 {links.length > 0 && (
                     <ul>
                         {links.map((link, index) => {
@@ -116,11 +118,17 @@ const Footer = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <Logo />
-            <SocialLinks />
-            <WebLinks />
-        </div>
+        <>
+            <div className={styles.container}>
+                <Logo />
+                <SocialLinks />
+                <WebLinks />
+            </div>
+            <div className={styles.contact}>
+                <p><Link to='/contacto'>Contáctanos</Link></p>
+                <p className={styles.siteName}>ONG SOMOS MÁS</p>
+            </div>
+        </>
     )
 }
 
