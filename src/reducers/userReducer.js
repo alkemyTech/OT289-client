@@ -12,7 +12,7 @@ export const userSlice = createSlice({
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName
             state.image = action.payload.image
-            state.role  = action.payload.role
+            state.roleId  = action.payload.role
             state.token = action.payload.token
         }, 
         logout: (state) => {
@@ -21,7 +21,7 @@ export const userSlice = createSlice({
             delete state.firstName
             delete state.lastName
             delete state.image
-            delete state.role
+            delete state.roleId
             delete state.token
         },
         refresh: (state, action) => {
@@ -30,7 +30,7 @@ export const userSlice = createSlice({
                     state.firstName = action.payload.firstName
                     state.lastName = action.payload.lastName
                     state.image = action.payload.image
-                    state.role = action.payload.role
+                    state.roleId = action.payload.role
                     state.token = action.payload.token
             }
         }

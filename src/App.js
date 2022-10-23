@@ -57,7 +57,7 @@ function App() {
       <Routes>
         <Route path="/*" element={<MainSPA />} />
         {/* <Route path="/contact" element={<ScreenContact />} /> */}
-        <Route element={<ProtectedRoute isAllowed={!!userData && userData.role == 1} />}>
+        <Route element={<ProtectedRoute isAllowed={!!userData && userData.roleId == 1} />}>
           <Route path="/backOffice/*" element={ <BackOffice/> } />
           {/* <Route path="/backoffice/users" element={<UsersTable />} /> */}
           {/* <Route path="/backoffice/activities" element={<Activities />} />     */}
