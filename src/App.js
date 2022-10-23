@@ -20,6 +20,7 @@ import { refresh } from './reducers/userReducer'
 import { BASE_PATH } from './utils/constants'
 import { customFetch } from './services/fetch'
 import ProtectedRoute from './features/protectedRoute/ProtectedRoute'
+import TestimonialsHome from './components/Testimonials/TestimonialsHome/TestimonialsHome';
 
 function App() {
   // const location = useLocation();
@@ -84,6 +85,7 @@ function MainSPA() {
         <Route path='/actividades/:id' element={<ActivityDetail />} />
         <Route path="/registrarse" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/testimonios" element={<TestimonialsHome />} />
       </Routes>
     </Layout>
   );
