@@ -10,6 +10,12 @@ const publicService = {
     },
     newsDetail: async (id) => {
         return await publicAxios.get(`/news/${id}`)
+    },
+    activitiesList: async () => {
+        return await publicAxios.get('/activities')
+    },
+    activityDetail: async (id) => {
+        return await publicAxios.get(`/activities/${id}`)
     }
 }
 

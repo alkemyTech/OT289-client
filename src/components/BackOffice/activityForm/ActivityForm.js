@@ -101,7 +101,7 @@ const ActivityForm = ({ data }) => {
                     <input name='image' id='featuredImage' type='file' accept='image/*' onChange={e => setFieldValue('image', e.target.files[0])} required />
                     {errors.image && touched.image && <ErrorMessage message={errors.image} />}
 
-                    {values.image && <img src={values.image.startsWith('https') ? values.image : URL.createObjectURL(values.image)} alt='descatada' style={{width: '100%'}} />}
+                    {values.image && <img src={(typeof values.image === 'string') ? values.image : URL.createObjectURL(values.image)} alt='descatada' style={{width: '100%'}} />}
 
                     <Field name='content' component={CustomCKEditorField} />
                     {errors.content && touched.content && <ErrorMessage message={errors.content} />}
