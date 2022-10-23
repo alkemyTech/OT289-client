@@ -11,16 +11,16 @@ import styles from './Footer.module.css'
 //dummy data (replace it with data receive from public endpoint when available)
 const links = [
     {
+        name: 'Actividades',
+        url: '/actividades'
+    },
+    {
+        name: 'Novedades',
+        url: '/novedades'
+    },
+    {
         name: 'Nosotros',
         url: '/nosotros'
-    },
-    {
-        name: 'Contacto',
-        url: '/contacto'
-    },
-    {
-        name: 'Contribuye',
-        url: '/contribuye'
     }
 ]
 
@@ -62,7 +62,7 @@ const Footer = () => {
     const WebLinks = () => {
         return (
             <div className={`${styles.box} ${styles.webLinks}`}>
-                <h3>Secciones</h3>
+                <h3>Nuestras secciones</h3>
                 {links.length > 0 && (
                     <ul>
                         {links.map((link, index) => {
@@ -116,11 +116,16 @@ const Footer = () => {
     }
 
     return (
-        <div className={styles.container}>
-            <Logo />
-            <SocialLinks />
-            <WebLinks />
-        </div>
+        <>
+            <div className={styles.container}>
+                <Logo />
+                <SocialLinks />
+                <WebLinks />
+            </div>
+            <div className={styles.contact}>
+                <Link to='/contacto'>Contáctanos</Link>
+            </div>
+        </>
     )
 }
 
