@@ -1,4 +1,4 @@
-.activityForm {
+.newsForm {
   display: flex;
   flex-direction: column;
   min-width: 200px;
@@ -8,7 +8,7 @@
   margin: 12px;
 }
 
-.activityForm input {
+.newsForm input {
   padding: 8px;
   margin: 1px 0;
   font-size: 14px;
@@ -37,4 +37,14 @@
 
 .ckEditor {
   font-size: 14px;
+}
+
+.uploadImage {
+  padding: 8px;
+  background-color: white;
+  cursor: pointer;
+}
+
+input[type=file] {
+  display: none;
 }
