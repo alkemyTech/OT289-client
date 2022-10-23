@@ -50,7 +50,7 @@ const ActivityForm = ({ data }) => {
     }
 
     const handleSubmit = async (values, { resetForm }) => {
-        alertWaiting('Enviando novedad', 'aguarda un momento')
+        alertWaiting('Enviando actividad', 'aguarda un momento')
         
         const endpointUrl = SERVER_BASE_URL + '/activities' + (currentData?.id ? `/${currentData.id}` : '')
 
