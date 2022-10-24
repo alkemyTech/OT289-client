@@ -72,10 +72,10 @@ const NewsPanel = () => {
 
         <div className={s.columnLeftContainer}>
             <div className={s.titleContainer}>
-                <h1 className={s.title}>Noticias</h1>
+                <h1 className={s.title}>Novedades</h1>
             </div>
             <div className={s.buttonsContainer}>
-                <button onClick={()=> handleCreate()} className={s.button}>Crear Noticia</button>
+                <button onClick={()=> handleCreate()} className={s.button}>Crear Novedad</button>
                 <button onClick={()=> handleRefresh()} className={s.button}>Refresh</button>
             </div>
             <div className={s.newsListContainer}>
