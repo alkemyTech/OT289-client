@@ -1,19 +1,19 @@
-* {
-    box-sizing: border-box;
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 12px auto;
 }
 
 .loginForm {
     display: flex;
     flex-direction: column;
     max-width: 400px;
-    width: 80%;
-    background-color: #9AC9FB;
+    width: 100%;
+    background-color: var(--circle-color);
     padding: 12px;
+    margin: 12px 0;
     border-radius: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 6rem;
-    margin-bottom: 6rem;
     box-shadow: 10px 10px 50px 0px rgba(11, 92, 172, 0.541);
     -webkit-box-shadow: 10px 10px 50px 0px rgba(11, 92, 172, 0.541);
     -moz-box-shadow: 10px 10px 50px 0px rgba(11, 92, 172, 0.541);
@@ -30,11 +30,11 @@
 .loginButton {
     border: 0;
     cursor: pointer;
-    background-color: #FAFA88;
+    background-color: var(--square-color);
 }
 
 .loginButton:hover {
-    background-color: #DB5752;
+    background-color: var(--triangle-color);
     color: white;
 }
 
@@ -45,7 +45,7 @@
 .errorMessage {
     font-size: 12px;
     margin-bottom: 4px;
-    color: crimson;
+    color: var(--triangle-color-hover);
 }
 
 .notAllowed {
