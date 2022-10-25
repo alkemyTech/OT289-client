@@ -44,7 +44,7 @@ const CategoriesPanel = ({ defaultCatg }) => {
                         <ListGroup.Item>{i + 1}.-{b.name}<Button variant="danger"
 
                             onClick={() => {
-                                fetch(`${SERVER_BASE_URL}/categories/delete/${b.id}`, {
+                                fetch(`${SERVER_BASE_URL}/categories/${b.id}`, {
                                     method: "DELETE"
                                 })
                                     .then(response => {
