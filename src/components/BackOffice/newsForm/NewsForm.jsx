@@ -24,8 +24,6 @@ const NewsForm = ({ data }) => {
     const action = data?.id ? 'put' : 'post'
     const currentData = data || {name: '', content: '', categoryId: 1, image: ''}
 
-    console.log('data', data)
-
     //Formik validation schema using Yup
     const activitySchema = Yup.object().shape({
         name: Yup.string().min(MIN_NAME, 'Nombre muy corto').max(MAX_NAME, 'Nombre muy largo').required('Requerido'),
