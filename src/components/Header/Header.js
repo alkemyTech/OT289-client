@@ -88,7 +88,7 @@ export default function Header() {
         <div className='account'>
           {userData.id ?
             <div>
-              {userData.roleId === 1 && <Link to='backOffice'><button className='login'><Sliders/></button></Link>}
+              {userData.roleId && <Link to='backOffice'><button className='login'><Sliders/></button></Link>}
               <button className='register' onClick={handleLogout}>Cerrar Sesion</button>
             </div>
           :
