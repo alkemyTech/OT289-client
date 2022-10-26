@@ -11,8 +11,6 @@ import { Routes, Route } from 'react-router-dom';
 import ActivityDetail from './components/Activities/ActivityDetail/ActivityDetail';
 import NewsHome from './components/News/NewsHome/NewsHome'
 import NewsDetail from './components/News/NewsDetail/NewsDetail'
-
-import LoginRouteGuard from './LoginRouteGuard';
 import Layout from './components/Layout/Layout';
 import AboutUs from './components/AboutUs/AboutUs' 
 import { useDispatch, useSelector } from 'react-redux'
@@ -41,10 +39,9 @@ function App() {
             lastName: user.data.payload.lastName,
             email: user.data.payload.email,
             image: user.data.payload.image,
-            role: user.data.payload.roleId,
+            roleId: user.data.payload.roleId,
             token
           }
-    
           dispatch(refresh(userObj))
         })
           .catch(error => console.log(error))

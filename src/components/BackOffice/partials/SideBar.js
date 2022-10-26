@@ -6,10 +6,6 @@ import { PersonLinesFill ,Newspaper, JournalText, BookmarkStar, ChatLeftHeart, E
 import { useDispatch } from 'react-redux'
 import { logout } from '../../../reducers/userReducer'
 
-
-let adminLabel = 1
-
-
 const Sidebar = ()=> {
 
     let location = useLocation();

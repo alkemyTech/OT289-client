@@ -1,13 +1,10 @@
 import './Header.css'
 import React, { useState } from 'react'
-import { List, X, Sliders, Person  } from 'react-bootstrap-icons'
+import { List, X, Sliders } from 'react-bootstrap-icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../reducers/userReducer'
-import {BASE_PATH} from '../../utils/constants'
-import {customFetch} from '../../services/fetch'
-import Swal from 'sweetalert2'
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Header() {
@@ -22,9 +19,6 @@ export default function Header() {
     dispatch(logout())
     navigate('/')
   }
-
-
-
 
   return (
     <>
@@ -41,15 +35,24 @@ export default function Header() {
         </nav>
         <div className='account'>
           {userData.id ?
-            <div>
-              <Link to='backOffice'><button className='login'>{userData.firstName}</button></Link>
+              <>
+              <Link to='backOffice' style={{ textDecoration: 'none' }}>
+                <div className='login login-flex'>
+                  <div className='account-button-image'>
+                    <img src={userData.image} alt={userData.firstName}/>
+                  </div>
+                  <div className='account-button-text'>
+                    <p>{userData.firstName}</p>
+                  </div>   
+                </div>
+              </Link>
               <button className='register' onClick={handleLogout}>Cerrar Sesion</button>
-            </div>
+              </>
           :
-            <div>
+            <>
               <Link to='Login'><button className='login'>Log in</button></Link>
               <Link to='Registrarse'><button className='register'>Registrate</button></Link>
-            </div>
+            </>
           }
         </div>
         <BurguerIcon userData={userData} handleLogout={handleLogout}/>

@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './TestimonialsCard.module.css'
 
-const TestimonialsCard = ({ img, title, content }) => {
+const TestimonialsCard = ({ img, title, content, truncate = false }) => {
   return (
     <div className={s.cardContainer}>
       <div>
@@ -9,7 +9,7 @@ const TestimonialsCard = ({ img, title, content }) => {
       </div>
       <div className={s.infoContainer}>
         <h3>{title}</h3>
-        <p className="text-wrap">{content}</p>
+        <p className={truncate ? s.truncate : null}>{content}</p>
       </div>
     </div>
   )
