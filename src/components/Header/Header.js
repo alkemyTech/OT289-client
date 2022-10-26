@@ -42,6 +42,7 @@ export default function Header() {
         <div className='account'>
           {userData.id ?
             <div>
+              <Link to={`/usuario/${userData.id}`}><button className='login'>{userData.firstName}</button></Link>
               {userData.roleId && <Link to='backOffice'><button className='login'><Sliders/></button></Link>}
               <button className='register' onClick={handleLogout}>Cerrar Sesion</button>
             </div>
