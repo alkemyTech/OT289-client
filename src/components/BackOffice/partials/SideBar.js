@@ -27,19 +27,19 @@ const Sidebar = ()=> {
 
     return (
 
-        <div className="sidebarContainer d-flex flex-column justify-content-between min-vh-100 position-sticky top-0" >
+        <div className="sidebarContainer d-flex flex-column min-vh-100 position-sticky top-0" >
             <a href="/" className="d-flex align-items-center justify-content-center text-decoration-none">
                 <img src="/images/web/LOGO-SOMOS MAS.png" className="sidebarLogo" alt="logo"></img>
             </a>
-            <hr className="m-0"></hr>
-            <ul className="nav nav-pills flex-column">
+            <hr></hr>
+            <ul className="nav nav-pills flex-column mb-auto">
                 <li className={`sidebarItem ${userState.roleId != 1 ? '' : 'd-none'}`}>
-                    <Link to="editProfile" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/editProfile' ? 'sidebarButtonSelected' : ''}`}>
+                    <Link to={`usuario/${userState.id}`} className={`sidebarButton user-select-none ${location.pathname === '/backOffice/editProfile' ? 'sidebarButtonSelected' : ''}`}>
                         <PersonLinesFill className="sidebarIcon"/><span className="sidebarText">Editar Perfil</span>
                     </Link>
                 </li>
                 <li className={`sidebarItem ${userState.roleId != 1 ? '' : 'd-none'}`}>
-                    <Link to="addTestimonial" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/news' ? 'sidebarButtonSelected' : ''}`}>
+                    <Link to="addTestimonial" className={`sidebarButton user-select-none ${location.pathname === '/backOffice/addTestimonial' ? 'sidebarButtonSelected' : ''}`}>
                         <ChatLeftHeart className="sidebarIcon"/><span className="sidebarText">Añadir Testimonio</span>
                     </Link>
                 </li>
@@ -91,7 +91,7 @@ const Sidebar = ()=> {
 
                 
             </ul>
-            <hr className="m-0"></hr>
+            <hr></hr>
             <div>
                 <button className="sidebarLogoutButton" onClick={signOff} >Cerrar Sesion</button>
             </div>

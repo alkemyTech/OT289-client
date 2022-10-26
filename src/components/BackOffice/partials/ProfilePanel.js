@@ -1,10 +1,10 @@
 import React from 'react'
-import './Profile.css'
+import './styles/ProfilePanel.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
-import { logout } from '../../reducers/userReducer'
-import {BASE_PATH} from '../../utils/constants'
-import {customFetch} from '../../services/fetch'
+import { logout } from '../../../reducers/userReducer'
+import {BASE_PATH} from '../../../utils/constants'
+import {customFetch} from '../../../services/fetch'
 import Swal from 'sweetalert2'
 import { ToastContainer, toast } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
@@ -72,21 +72,35 @@ const Profile = () => {
 
 const MyProfile = ({ handleDelete }) => {
     const userData = useSelector(store => store.user)
-    console.log(userData.image)
     return (
         <>
-        <div className='profile-container'>
-        <h1>Mi perfil</h1>
-        <div className='profile-image-container'>
-            <img src={userData.image} alt={userData.image} />
-        </div>
-        <h3>Nombre:<span className='span-profile'>{userData.firstName}</span></h3>
-        <h3>Apellido:<span className='span-profile'>{userData.lastName}</span></h3>
-        <h3>Email:<span className='span-profile'>{userData.email}</span></h3>
-        <h3>Admin:<span className='span-profile'>{userData.roleId === 1 ? 'Si' : "No"}</span></h3>
-        <div className='profile-btn-cont'>
-            <Link to={`/usuario/editar/${userData.id}`}><button className='edit-btn'>Editar perfil</button></Link>
-            <button className='delete-btn' onClick={handleDelete}>Eliminar perfil</button>
+        <div className="w-100 d-flex flex-column align-items-center justify-content-center">
+            <h2>Mi perfil</h2>
+
+        <div className="p-2 rounded shadow">
+            <div className="d-flex">
+                <div className='profile-image-container'>
+                    <img src={userData.image} alt={userData.image} />
+                </div>
+                <div>
+                    <div className="d-flex">
+                        <h3 className="mx-4 py-2">Nombre:<span className='span-profile'>{userData.firstName}</span></h3>
+                        <h3 className="mx-4 py-2">Apellido:<span className='span-profile'>{userData.lastName}</span></h3>
+                    </div>
+                    <div>
+                        <h3 className="mx-4 py-2">Email:<span className='span-profile'>{userData.email}</span></h3>
+                        <h3 className="mx-4 py-2">Admin:<span className='span-profile'>{userData.roleId === 1 ? 'Si' : "No"}</span></h3>
+                    </div>
+                </div>
+
+                
+                
+            </div>
+
+            <div className='d-flex justify-content-between'>
+                <Link to={`/backOffice/usuario/editar/${userData.id}`}><button className='edit-btn'>Editar perfil</button></Link>
+                <button className='delete-btn' onClick={handleDelete}>Eliminar perfil</button>
+            </div>
         </div>
         </div>
         <ToastContainer/>

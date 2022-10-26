@@ -9,9 +9,14 @@
 .profile-image-container {
     width: 200px;
     height: 200px;
-    margin: 0 auto;
+    object-fit:cover;
+    cursor: pointer;
     border-radius: 200px;
     overflow: hidden;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgrey
 }
 
 .profile-image-container img {
