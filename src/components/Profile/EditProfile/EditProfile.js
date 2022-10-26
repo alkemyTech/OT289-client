@@ -46,9 +46,7 @@ const Profile = () => {
     setFile(fileData)
     setFileName(fileData.name)
   }
-
-
-
+  
   const handleSubmit = (formData) => { 
     const url = `${BASE_PATH}/users/${userData.id}`
     const properties = {
@@ -106,7 +104,7 @@ const Profile = () => {
           <div className='profile-container'>
         <h1>Mi perfil</h1>
         <div className='profile-image-container'>
-            <img src='/images/default-user.jpg' alt='/images/default-user.jpg' />
+            <img src={userData.image} alt={userData.image} />
         </div>
         <form onSubmit={formik.handleSubmit} autoComplete="off">
                     <label htmlFor='profileImage' className='profile-image-button'>{fileName}</label>
