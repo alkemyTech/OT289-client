@@ -46,7 +46,7 @@ const Profile = () => {
     setFile(fileData)
     setFileName(fileData.name)
   }
-  
+
   const handleSubmit = (formData) => { 
     const url = `${BASE_PATH}/users/${userData.id}`
     const properties = {
@@ -79,7 +79,7 @@ const Profile = () => {
          
         }
         dispatch(login(updatedUser))
-        navigate('/')
+        navigate(`/usuario/${userData.id}`)
         alertConfirmation('Enhorabuena', 'su perfil ha sido modificado')
       })
       .catch(error => {

@@ -75,14 +75,13 @@ const LoginForm = () => {
                 const token = res.data.token
                 localStorage.setItem('token', JSON.stringify(token));
                 const userData = await getUserData()
-
                 const user = {
                     id: userData.id,
                     firstName: userData.firstName,
                     lastName: userData.lastName,
                     email: userData.email,
                     image: userData.image,
-                    role: userData.roleId,
+                    roleId: userData.roleId,
                     token: token
                 }
 

@@ -12,7 +12,7 @@ export const userSlice = createSlice({
             state.firstName = action.payload.firstName
             state.lastName = action.payload.lastName
             state.image = action.payload.image
-            state.roleId  = action.payload.role
+            state.roleId  = action.payload.roleId
             state.token = action.payload.token
         }, 
         logout: (state) => {
@@ -30,7 +30,7 @@ export const userSlice = createSlice({
                     state.firstName = action.payload.firstName
                     state.lastName = action.payload.lastName
                     state.image = action.payload.image
-                    state.roleId = action.payload.role
+                    state.roleId = action.payload.roleId
                     state.token = action.payload.token
             }
         }

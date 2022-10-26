@@ -42,7 +42,7 @@ function App() {
             lastName: user.data.payload.lastName,
             email: user.data.payload.email,
             image: user.data.payload.image,
-            role: user.data.payload.roleId,
+            roleId: user.data.payload.roleId,
             token
           }
     
