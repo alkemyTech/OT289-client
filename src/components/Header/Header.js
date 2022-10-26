@@ -44,6 +44,7 @@ export default function Header() {
             <div>
               {userData.roleId === 1 && <Link to='backOffice'><button className='login'><Sliders/></button></Link>}
               <Link to={`usuario/${userData.id}`}><button className='login profile-button'><Person width={30} size={28} />{userData.firstName}</button></Link>
+              {userData.roleId && <Link to='backOffice'><button className='login'><Sliders/></button></Link>}
               <button className='register' onClick={handleLogout}>Cerrar Sesion</button>
             </div>
           :

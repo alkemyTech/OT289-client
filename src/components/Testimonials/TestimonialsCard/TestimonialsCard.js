@@ -5,11 +5,11 @@ const TestimonialsCard = ({ img, title, content }) => {
   return (
     <div className={s.cardContainer}>
       <div>
-        <img className={s.image} src={`images/${img}`} alt="IMG" />
+        <img className={s.image} src={img} alt="IMG" />
       </div>
       <div className={s.infoContainer}>
         <h3>{title}</h3>
-        <p>{content}</p>
+        <p className="text-wrap">{content}</p>
       </div>
     </div>
   )

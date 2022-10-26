@@ -9,7 +9,7 @@ import NewsletterCard from "../Newsletter/NewsletterCard";
 import s from "./Main.module.css";
 import Button from 'react-bootstrap/Button'
 
-const defaultText = "Lorem ipsum dolor, sit amet consectetur adipisicing elit. At quas explicabo, sit animi deleniti dicta? Deleniti veritatis est temporibus voluptates nesciunt hic, deserunt facere delectus voluptatum, consequatur, quos maiores quam! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi nisi, nemo asperiores ad.";
+const defaultText = "¡Bienvenidos a nuestra Somos Mas! Brindamos recursos educativos y apoyo a niños necesitados. Creemos que todos los niños tienen derecho a una educación y estamos comprometidos a ayudarlos a alcanzar su máximo potencial. ¡Gracias por apoyar nuestra causa!";
 
 const defaultTitle = "Hola! Bienvenidx";
 
