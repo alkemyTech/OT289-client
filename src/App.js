@@ -21,6 +21,8 @@ import { BASE_PATH } from './utils/constants'
 import { customFetch } from './services/fetch'
 import ProtectedRoute from './features/protectedRoute/ProtectedRoute'
 import TestimonialsHome from './components/Testimonials/TestimonialsHome/TestimonialsHome';
+import EditProfile from './components/Profile/EditProfile/EditProfile';
+import Profile from './components/Profile/Profile'
 
 function App() {
   // const location = useLocation();
@@ -76,7 +78,8 @@ function MainSPA() {
     <Layout>
       <Routes>
         <Route path="/" element={<Main />} />
-
+        <Route path='/usuario/:id' element={<Profile />} />
+        <Route path='/usuario/editar/:id' element={<EditProfile/>} />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/nosotros" element={<AboutUs/>} />
         <Route path="/novedades" element={<NewsHome />} />
