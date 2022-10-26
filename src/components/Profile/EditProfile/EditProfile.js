@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { login } from '../../../reducers/userReducer'
 import { Navigate, useNavigate } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { BASE_PATH } from '../../../utils/constants'
 import { customFetch } from '../../../services/fetch'
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import { alertWaiting, alertConfirmation, alertError } from '../../../services/Alert'
 

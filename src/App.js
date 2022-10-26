@@ -11,8 +11,6 @@ import { Routes, Route } from 'react-router-dom';
 import ActivityDetail from './components/Activities/ActivityDetail/ActivityDetail';
 import NewsHome from './components/News/NewsHome/NewsHome'
 import NewsDetail from './components/News/NewsDetail/NewsDetail'
-
-import LoginRouteGuard from './LoginRouteGuard';
 import Layout from './components/Layout/Layout';
 import AboutUs from './components/AboutUs/AboutUs' 
 import { useDispatch, useSelector } from 'react-redux'
@@ -45,7 +43,6 @@ function App() {
             roleId: user.data.payload.roleId,
             token
           }
-    
           dispatch(refresh(userObj))
         })
           .catch(error => console.log(error))
@@ -60,7 +57,7 @@ function App() {
       <Routes>
         <Route path="/*" element={<MainSPA userData={userData} />} />
         {/* <Route path="/contact" element={<ScreenContact />} /> */}
-        <Route element={<ProtectedRoute isAllowed={!!userData && userData.roleId == 1} />}>
+        <Route element={<ProtectedRoute isAllowed={!!userData && userData.roleId === 1} />}>
           <Route path="/backOffice/*" element={ <BackOffice/> } />
           {/* <Route path="/backoffice/users" element={<UsersTable />} /> */}
           {/* <Route path="/backoffice/activities" element={<Activities />} />     */}

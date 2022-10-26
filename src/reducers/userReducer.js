@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from 'axios'
-import { BASE_PATH } from '../utils/constants'
 
 export const userSlice = createSlice({
     name: "user",

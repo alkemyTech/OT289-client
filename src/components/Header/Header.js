@@ -1,13 +1,10 @@
 import './Header.css'
 import React, { useState } from 'react'
-import { List, X, Sliders, Person  } from 'react-bootstrap-icons'
+import { List, X, Sliders } from 'react-bootstrap-icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../reducers/userReducer'
-import {BASE_PATH} from '../../utils/constants'
-import {customFetch} from '../../services/fetch'
-import Swal from 'sweetalert2'
-import { ToastContainer, toast } from "react-toastify"
+import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Header() {
