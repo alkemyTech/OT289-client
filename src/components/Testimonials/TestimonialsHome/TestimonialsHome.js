@@ -51,7 +51,7 @@ const TestimonialsHome = () => {
                 <div className={s.testimonialsCardContainer}>
                     {
                         testimonials.map(t => {
-                            return ( <TestimonialsCard img={t.image} title={t.name} content={t.content} /> )
+                            return ( <TestimonialsCard img={t.image} title={t.name} content={t.content} key={t.id} /> )
                         })
                     }
                 </div>

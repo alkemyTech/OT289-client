@@ -16,3 +16,9 @@
 .infoContainer {
   padding-top: 1rem;
 }
+
+.truncate {
+  max-height: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
