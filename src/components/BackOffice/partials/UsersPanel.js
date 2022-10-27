@@ -21,11 +21,20 @@ const UsersPanel = () => {
         } catch (error) {
             console.log('Error getting users: ', error)
         }
-    }
+    };
 
     useEffect(() => {
         getUsers()
-    }, [])
+    }, []);
+
+    const handleDelete = async (id) => {
+        const url = `${SERVER_BASE_URL}/users/${id}`
+        const properties = {
+            method: 'delete'
+        }
+        await customFetch(url, properties)
+        getUsers()
+    };
 
     return (
         <div className={s.container}>
@@ -45,9 +54,9 @@ const UsersPanel = () => {
                                         <h4 className={recycledStyles.newsName}> {e.firstName} {e.lastName} </h4>
                                         <h4 className={recycledStyles.newsName}>{e.email}</h4>
                                     </div>
-                                    {/* <div>
-                                    <button onClick={() => handleDelete(e.id)} className={s.button}>X</button>
-                                </div> */}
+                                    <div>
+                                        <button onClick={() => handleDelete(e.id)} className={s.button}>X</button>
+                                    </div>
                                 </li>
                             </div>
                         ))
