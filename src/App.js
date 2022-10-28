@@ -15,6 +15,7 @@ import Layout from './components/Layout/Layout';
 import AboutUs from './components/AboutUs/AboutUs' 
 import { useDispatch, useSelector } from 'react-redux'
 import { refresh } from './reducers/userReducer'
+import { fetchOrganization } from './reducers/organizationReducer';
 import { BASE_PATH } from './utils/constants'
 import { customFetch } from './services/fetch'
 import ProtectedRoute from './features/protectedRoute/ProtectedRoute'
@@ -29,6 +30,7 @@ function App() {
   const refreshProperties = {
     method: 'get'
   }
+
   useEffect(() => {
     if(token){
       customFetch(refreshURL, refreshProperties)
@@ -46,6 +48,8 @@ function App() {
         })
           .catch(error => console.log(error))
       }
+    //get organization data
+    dispatch(fetchOrganization())
   }, [])
 
 

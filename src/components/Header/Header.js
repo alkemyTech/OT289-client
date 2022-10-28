@@ -1,6 +1,6 @@
 import './Header.css'
 import React, { useState } from 'react'
-import { List, X, Sliders } from 'react-bootstrap-icons'
+import { List, X } from 'react-bootstrap-icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../reducers/userReducer'
@@ -8,6 +8,9 @@ import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Header() {
+
+  //Organization data (redux)
+	const organization = useSelector(store => store.organization)
 
   let location = useLocation()
   const userData = useSelector(store => store.user)
@@ -24,7 +27,9 @@ export default function Header() {
     <>
       <div className="header">
         <div className="logo">
-          <Link to='/'><img src="/images/logo.png" alt='SOMOS MAS' /></Link>
+          {!organization.loading && 
+            <Link to='/'><img src={organization.data?.image ? organization.data.image : '/images/logo.png'} alt={organization.data?.name ? organization.data.name : 'logo'} /></Link>
+          }
         </div>
         <nav>
           <Link to="/nosotros"><button className={`${location.pathname === "/nosotros" ? 'active' : '' }`}>Nosotros</button></Link>

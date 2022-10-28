@@ -8,12 +8,17 @@ import NewsletterCard from '../Newsletter/NewsletterCard'
 import TestimonialsCard from '../../Testimonials/TestimonialsCard/TestimonialsCard'
 import s from './Main.module.css'
 import Button from 'react-bootstrap/Button'
+import parse from 'html-react-parser'
+import { useSelector } from 'react-redux'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
 const Main = () => {
-	const [news, setNews] = useState(null)
-	const [testimonials, setTestimonials] = useState(null)
+	const [ news, setNews ] = useState(null)
+	const [ testimonials, setTestimonials ] = useState(null)
+
+	//Organization data (redux)
+	const organization = useSelector(store => store.organization)
 
 	const title = 'Hola! Bienvenidx'
 
@@ -125,16 +130,7 @@ const Main = () => {
 				<div className={s.hero}>
 					<div className={s.welcome_div}>
 						<h1 className={s.title}>{title}</h1>
-						<p>
-							¡Bienvenidos a nuestra ONG <strong>Somos Mas</strong>.
-						</p>
-						<p>Brindamos recursos educativos y apoyo a niños necesitados.</p>
-						<p>
-							Creemos que todos los niños tienen derecho a una <strong>educación de calidad</strong> y estamos comprometidos a ayudarlos a alcanzar su máximo potencial.
-						</p>
-						<p>
-							¡Gracias por apoyar nuestra causa! 
-						</p>
+						{organization.data && parse(organization.data.welcomeText)}
 						<Button href="/contacto" className={s.main_button}>
 							Contáctanos
 						</Button>
