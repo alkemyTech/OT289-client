@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux'
 
 //Social Icons
 import { Facebook, Instagram, Twitter } from 'react-bootstrap-icons'
@@ -26,35 +27,14 @@ const links = [
     }
 ]
 
-/* const socialLinks = [
-    {
-        name: 'Instagram',
-        url: 'https://instagram.com'
-    },
-    {
-        name: 'Facebook',
-        url: 'https://facebook.com'
-    },
-    {
-        name: 'Twitter',
-        url: 'https://twitter.com'
-    }
-] */
-
 const Footer = () => {
-
-    const [socialLinks, setSocialLinks] = useState([])
-
-    useEffect(() => {
-        fetch(`${SERVER_BASE_URL}/organizations/1/public`)
-            .then(response => response.json())
-            .then(data => setSocialLinks(data.socialLinks))
-    }, []);
+    //Organization data (redux)
+    const organization = useSelector(store => store.organization)
 
     const Logo = () => {
         return (
             <div className={`${styles.box} ${styles.logoContainer}`}>
-                <img src='/images/logo.png' alt='logo SOMOS MAS' className={styles.logo} />
+                <img src={organization.data?.image ? organization.data.image : '/images/logo.png'} alt={organization.data?.name ? organization.data.name : 'logo'} className={styles.logo} />
             </div>
         )
     }
@@ -97,9 +77,9 @@ const Footer = () => {
         return (
             <div className={`${styles.box} ${styles.socialLinks}`}>
                 <h3>Nuestras redes</h3>
-                {socialLinks.length > 0 && (
+                {organization.data.socialLinks.length > 0 && (
                     <ul>
-                        {socialLinks.map((social, index) => {
+                        {organization.data.socialLinks.map((social, index) => {
                             return (
                                 <li key={`social-${index}`}>
                                     <a href={social.url} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
@@ -118,13 +98,13 @@ const Footer = () => {
     return (
         <>
             <div className={styles.container}>
-                <Logo />
-                <SocialLinks />
+                {!organization.loading && <Logo />}
+                {organization.data && <SocialLinks />}
                 <WebLinks />
             </div>
             <div className={styles.contact}>
                 <p><Link to='/contacto'>Contáctanos</Link></p>
-                <p className={styles.siteName}>ONG SOMOS MÁS</p>
+                {organization.data && <p className={styles.siteName}>{organization.data.name}</p>}
             </div>
         </>
     )

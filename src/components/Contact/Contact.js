@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import ContactForm from './ContactForm'
 import styles from './Contact.module.css'
 import parse from 'html-react-parser'
+import { useSelector } from 'react-redux'
 
 //Social Icons
 import { Facebook, Instagram, Twitter } from 'react-bootstrap-icons'
 
-const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
-
 const Contact = () => {
-	const [socialLinks, setSocialLinks] = useState([])
+    //Organization data (redux)
+	const organization = useSelector(store => store.organization)
 
 	const text = [
 		'<p>En <strong>SOMOS MÁS</strong> necesitamos el apoyo de todos.</p>',
@@ -18,12 +18,6 @@ const Contact = () => {
 	]
 
 	const thanksMessage = '<p>Desde ya, muchas gracias por ayudarnos ❤️</p>'
-
-	useEffect(() => {
-        fetch(`${SERVER_BASE_URL}/organizations/1/public`)
-            .then(response => response.json())
-            .then(data => setSocialLinks(data.socialLinks))
-    }, [])
 
 	//Social media icon
     //Add more if needed (first import it from 'react-bootstrap-icons')
@@ -44,9 +38,9 @@ const Contact = () => {
         return (
             <div>
                 <h3>Nuestras redes</h3>
-                {socialLinks.length > 0 && (
+                {organization.data.socialLinks.length > 0 && (
                     <ul>
-                        {socialLinks.map((social, index) => {
+                        {organization.data.socialLinks.map((social, index) => {
                             return (
                                 <li key={`social-${index}`}>
                                     <a href={social.url} target="_blank" rel="noopener noreferrer">
@@ -68,7 +62,7 @@ const Contact = () => {
 			<div className={styles.row}>
 				<div className={styles.column}>
 					{text.map(text => parse(text))}
-					<SocialLinks />
+					{organization.data && <SocialLinks />}
 					{parse(thanksMessage)}
 				</div>
 				<h3 className={styles.formText}>Formulario de contacto</h3>
