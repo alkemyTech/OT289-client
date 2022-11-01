@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 import { customFetch } from '../../../services/fetch'
 import recycledStyles from './styles/NewsPanel.module.css'
-import s from './styles/TestimonialsPanel.module.css'
+import s from './styles/UsersPanel.module.css'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
 const UsersPanel = () => {
 
     const [users, setUsers] = useState([])
+    const loggedUser = useSelector((state) => state.user)
 
     const getUsers = async () => {
         try {
@@ -36,13 +38,22 @@ const UsersPanel = () => {
         getUsers()
     };
 
+    const handleChangeRole = async (id) => {
+        const url = `${SERVER_BASE_URL}/users/changeRole/${id}`
+        const properties = {
+            method: 'put'
+        }
+        await customFetch(url, properties)
+        getUsers()
+    };
+
     return (
         <div className={s.container}>
             <div className={recycledStyles.titleContainer}>
                 <h1 className={recycledStyles.title}>Usuarios</h1>
             </div>
             <div className={recycledStyles.newsListContainer}>
-                <ul className={recycledStyles.newsList}>
+                <ul className={s.usersList}>
                     {
                         users && users.map((e) => (
                             <div key={e.id} className={recycledStyles.listItemContainer}>
@@ -53,9 +64,11 @@ const UsersPanel = () => {
                                     <div className={recycledStyles.dataContainer}>
                                         <h4 className={recycledStyles.newsName}> {e.firstName} {e.lastName} </h4>
                                         <h4 className={recycledStyles.newsName}>{e.email}</h4>
+                                        <h4 className={recycledStyles.newsName}>Admin: { e.roleId === 1 ? 'Si' : 'No' }</h4>
                                     </div>
-                                    <div>
-                                        <button onClick={() => handleDelete(e.id)} className={s.button}>X</button>
+                                    <div className={s.buttons}>
+                                        <button onClick={() => handleChangeRole(e.id)} className={e.email === loggedUser.email ? s.disabledButton : s.RoleButton} disabled={e.email === loggedUser.email ? true : false} >Cambiar Rol</button>
+                                        <button onClick={() => handleDelete(e.id)} className={s.DeleteButton}>Eliminar</button>
                                     </div>
                                 </li>
                             </div>
