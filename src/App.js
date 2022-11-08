@@ -20,6 +20,7 @@ import { BASE_PATH } from './utils/constants'
 import { customFetch } from './services/fetch'
 import ProtectedRoute from './features/protectedRoute/ProtectedRoute'
 import TestimonialsHome from './components/Testimonials/TestimonialsHome/TestimonialsHome';
+import axios from 'axios'
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
 
 
   const userData = useSelector(store => store.user)
+
 
   return (
     <div className="App">

@@ -3,14 +3,13 @@ import {  useSelector } from 'react-redux'
 
 import '../BackOffice.css'
 import custom  from './styles/ContactsPanel.module.css'
+import panel  from './styles/Panels.module.css'
 import form  from './styles/Forms.module.css'
 import { ToastContainer, toast } from "react-toastify"
 import Collapse from 'react-bootstrap/Collapse';
 import { alertConfirmation, alertError, alertWaiting, closeCurrentAlert } from '../../../services/Alert'
 import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
-import { CKEditor } from '@ckeditor/ckeditor5-react'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import {Plus, Envelope, Phone, EnvelopePaper} from 'react-bootstrap-icons'
 import axios from 'axios'
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
@@ -53,18 +52,18 @@ const ContactsPanel = () => {
     }, [])
 
     return (
-    <div className="container">
+    <div className={panel.simpleContainer}>
         <h1>Contactos a la pagina</h1>
-        <div className="row px-1">
-            <div className="col-md-6 px-1">    
+        <div className={panel.doubleContainer}>
+            <div className={panel.columnLeftContainer}>    
             {contactsMessages.map(contact => {
                 return (
                     <Contact contact={contact} setSelectedMessage={setSelectedMessage} key={contact.id} />
                 )
             })}
             </div>
-            <div className="col-md-6 px-1">
-               { selectedMessage ? <ContactForm data={selectedMessage} setSelectedMessage={setSelectedMessage}/> : <div className="pt-5 d-flex justify-content-center "><div className="bg-light p-5 rounded-circle"><EnvelopePaper className="h1"/></div></div>}
+            <div className={panel.columnRightContainer}>
+               { selectedMessage ? <ContactForm data={selectedMessage} setSelectedMessage={setSelectedMessage}/> : <div className="pt-5 w-100 d-flex justify-content-center "><div className="bg-light p-5 rounded-circle"><EnvelopePaper className="h1"/></div></div>}
             </div>
         </div>
         <ToastContainer />
@@ -126,8 +125,7 @@ const ContactForm = ({ data, setSelectedMessage }) => {
     const handleSubmit = async (values, { resetForm }) => {
         alertWaiting('Enviando email', 'Aguarde un momento')
         try {
-            let response = await axiosContact.post('/respond', values)
-            console.log(response)
+            await axiosContact.post('/respond', values)
             resetForm()
             closeCurrentAlert()
             alertConfirmation("Email enviado!", "El email se envio correctamente")

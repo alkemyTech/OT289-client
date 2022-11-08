@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { customFetch } from '../../../services/fetch'
-import recycledStyles from './styles/NewsPanel.module.css'
-import s from './styles/UsersPanel.module.css'
+import panel  from './styles/Panels.module.css'
+import grid  from './styles/Grids.module.css'
+import axios from 'axios'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
+
+const axiosUsers = axios.create({
+    baseURL: `${SERVER_BASE_URL}/users`,
+    headers: {
+        'authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        'Content-Type': 'multipart/form-data'
+    }
+});
+
 
 const UsersPanel = () => {
 
@@ -13,12 +22,7 @@ const UsersPanel = () => {
 
     const getUsers = async () => {
         try {
-            const url = `${SERVER_BASE_URL}/users`
-            const properties = {
-                method: 'get'
-            }
-
-            const res = await customFetch(url, properties)
+            const res = await axiosUsers.get()
             setUsers(res.data)
         } catch (error) {
             console.log('Error getting users: ', error)
@@ -30,51 +34,43 @@ const UsersPanel = () => {
     }, []);
 
     const handleDelete = async (id) => {
-        const url = `${SERVER_BASE_URL}/users/${id}`
-        const properties = {
-            method: 'delete'
-        }
-        await customFetch(url, properties)
+        await axiosUsers.delete(`/${id}`)
         getUsers()
     };
 
     const handleChangeRole = async (id) => {
-        const url = `${SERVER_BASE_URL}/users/changeRole/${id}`
-        const properties = {
-            method: 'put'
-        }
-        await customFetch(url, properties)
+        await axiosUsers.put(`/changeRole/${id}`)
         getUsers()
     };
 
     return (
-        <div className={s.container}>
-            <div className={recycledStyles.titleContainer}>
-                <h1 className={recycledStyles.title}>Usuarios</h1>
+        <div className={panel.simpleContainer}>
+            <div className={panel.titleContainer}>
+                <h1 className={panel.title}>Usuarios</h1>
             </div>
-            <div className={recycledStyles.newsListContainer}>
-                <ul className={s.usersList}>
+            <div className={grid.gridContainer}>
+                <div className={grid.grid}>
                     {
                         users && users.map((e) => (
-                            <div key={e.id} className={recycledStyles.listItemContainer}>
-                                <li className={s.listItem}>
-                                    <div className={recycledStyles.imageContainer}>
-                                        <img className={recycledStyles.image} src={e.image} alt="Image" />
+                            <div key={e.id} className={grid.gridCardContainer}>
+                                <li className={grid.listItem}>
+                                    <div className={grid.imageContainer}>
+                                        <img className={grid.image} src={e.image} alt="Image" />
                                     </div>
-                                    <div className={recycledStyles.dataContainer}>
-                                        <h4 className={recycledStyles.newsName}> {e.firstName} {e.lastName} </h4>
-                                        <h4 className={recycledStyles.newsName}>{e.email}</h4>
-                                        <h4 className={recycledStyles.newsName}>Admin: { e.roleId === 1 ? 'Si' : 'No' }</h4>
+                                    <div className={grid.dataContainer}>
+                                        <h4> {e.firstName} {e.lastName} </h4>
+                                        <h4>{e.email}</h4>
+                                        <h4>Admin: { e.roleId === 1 ? 'Si' : 'No' }</h4>
                                     </div>
-                                    <div className={s.buttons}>
-                                        <button onClick={() => handleChangeRole(e.id)} className={e.email === loggedUser.email ? s.disabledButton : s.RoleButton} disabled={e.email === loggedUser.email ? true : false} >Cambiar Rol</button>
-                                        <button onClick={() => handleDelete(e.id)} className={s.DeleteButton}>Eliminar</button>
+                                    <div className={grid.buttons}>
+                                        <button onClick={() => handleChangeRole(e.id)} className={e.email === loggedUser.email ? grid.disabledButton : grid.roleButton} disabled={e.email === loggedUser.email ? true : false} >Cambiar Rol</button>
+                                        <button onClick={() => handleDelete(e.id)} className={grid.deleteButton}>Eliminar</button>
                                     </div>
                                 </li>
                             </div>
                         ))
                     }
-                </ul>
+                </div>
             </div>
         </div>
     );

@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react"
-import { customFetch } from '../../../services/fetch'
-import recycledStyles from './styles/NewsPanel.module.css'
-import s from './styles/TestimonialsPanel.module.css'
+import row  from './styles/Rows.module.css'
+import axios from 'axios'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
+
+const axiosTestimonials = axios.create({
+    baseURL: `${SERVER_BASE_URL}/testimonials`,
+    headers: {
+        'authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        'Content-Type': 'multipart/form-data'
+    }
+});
 
 const TestimonialsPanel = ()=> {
     const [ testimonials, setTestimonials ] = useState(null)
     
     const getTestimonials = async () => {
         try {
-            const url = `${SERVER_BASE_URL}/testimonials`
-            const properties = {
-                method: 'get'
-            }
-
-            const res = await customFetch(url, properties)
+            const res = await axiosTestimonials.get()
             setTestimonials(res.data)
         } catch (error) {
             console.log('Error getting news: ', error)
@@ -27,33 +29,30 @@ const TestimonialsPanel = ()=> {
     },[])
 
     const handleDelete = async (id) => {
-        const url = `${SERVER_BASE_URL}/testimonials/delete/${id}`
-        const properties = {
-            method: 'delete'
-        }
-        await customFetch(url, properties)
+        await axiosTestimonials.delete(`/${id}`)
         getTestimonials()
     }
+
     return (
-        <div className={s.container}>
-            <div className={recycledStyles.titleContainer}>
-                <h1 className={recycledStyles.title}>Testimonios</h1>
+        <div className={row.container}>
+            <div className={row.titleContainer}>
+                <h1 className={row.title}>Testimonios</h1>
             </div>
-            <div className={recycledStyles.newsListContainer}>
-                <ul className={recycledStyles.newsList}>
+            <div className={row.rowContainer}>
+                <ul className={row.row}>
                     {
                         testimonials && testimonials.map((e) => (
-                            <div key={e.id} className={recycledStyles.listItemContainer}>
-                                <li className={s.listItem}>
-                                    <div className={recycledStyles.imageContainer}>
-                                        <img className={recycledStyles.image} src={e.image} alt="Image" />
+                            <div key={e.id} className={row.rowItemContainer}>
+                                <li className="d-flex">
+                                    <div className={row.imageContainer}>
+                                        <img className={row.image} src={e.image} alt="Image" />
                                     </div>
-                                    <div className={recycledStyles.dataContainer}>
-                                        <h5 className={recycledStyles.newsName}> {e.name} </h5>
-                                        <p>{e.content}</p>
+                                    <div className={row.dataContainer}>
+                                        <h5 className={row.name}> {e.name} </h5>
+                                        <p className>{e.content}</p>
                                     </div>
                                     <div>
-                                        <button onClick={() => handleDelete(e.id)} className={s.button}>X</button>
+                                        <button onClick={() => handleDelete(e.id)} className={row.deleteButton}>✖</button>
                                     </div>
                                 </li>
                             </div>

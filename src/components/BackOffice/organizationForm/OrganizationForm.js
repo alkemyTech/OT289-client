@@ -136,21 +136,21 @@ const OrganizationForm = () => {
 
                     <legend className={styles.legend}>Nombre</legend>
                     <Field name='name' placeholder='Nombre' required />
-                    {errors.name && touched.name && <ErrorMessage message={errors.name} />}
+                    {errors.name && touched.name && <p>{errors.name}</p>}
 
                     <legend className={styles.legend}>Teléfono</legend>
                     <Field name='phone' placeholder='Teléfono' />
-                    {errors.phone && touched.phone && <ErrorMessage message={errors.phone} />}
+                    {errors.phone && touched.phone && <p>{errors.phone}</p>}
 
                     <legend className={styles.legend}>Dirección</legend>
                     <Field name='address' placeholder='Dirección' />
-                    {errors.address && touched.address && <ErrorMessage message={errors.address} />}
+                    {errors.address && touched.address && <p>{errors.address}</p>}
 
                     <h2 className={styles.sectionTitle}>Logo:</h2>
 
                     <label htmlFor='featuredImage' className={styles.uploadImage}>{values.image ? 'Cambiar' : 'Selecciona un'} logo (PNG, JPG)</label>
                     <input name='image' id='featuredImage' type='file' accept='image/*' onChange={e => setFieldValue('image', e.target.files[0])} />
-                    {errors.image && touched.image && <ErrorMessage message={errors.image} />}
+                    {errors.image && touched.image && <p>{errors.image}</p>}
 
                     {values.image ?
                         <img src={(typeof values.image === 'string') ? values.image : URL.createObjectURL(values.image)} alt='descatada' className={styles.image} />
@@ -162,20 +162,20 @@ const OrganizationForm = () => {
 
                     <legend className={styles.legend}>Facebook</legend>
                     <Field name='facebook' placeholder='Facebook (URL)' />
-                    {errors.facebook && touched.facebook && <ErrorMessage message={errors.facebook} />}
+                    {errors.facebook && touched.facebook && <p>{errors.facebook}</p>}
 
                     <legend className={styles.legend}>Instagram</legend>
                     <Field name='instagram' placeholder='Instagram (URL)' />
-                    {errors.instagram && touched.instagram && <ErrorMessage message={errors.instagram} />}
+                    {errors.instagram && touched.instagram && <p>{errors.instagram}</p>}
 
                     <legend className={styles.legend}>Twitter</legend>
                     <Field name='twitter' placeholder='Twitter (URL)' />
-                    {errors.twitter && touched.twitter && <ErrorMessage message={errors.twitter} />}
+                    {errors.twitter && touched.twitter && <p>{errors.twitter}</p>}
 
                     <h2 className={styles.sectionTitle}>Texto de bienvenida:</h2>
 
                     <Field name='welcomeText' component={CustomCKEditorField} />
-                    {errors.welcomeText && touched.welcomeText && <ErrorMessage message={errors.welcomeText} required />}
+                    {errors.welcomeText && touched.welcomeText && <p>{errors.welcomeText}</p>}
 
                     <Field type='submit' name='submit' value='Actualizar' className={styles.button} />
 
