@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { login } from '../../../reducers/userReducer'
+import { login, logout } from '../../../reducers/userReducer'
 import { Link ,Navigate, useNavigate } from 'react-router-dom'
 import './styles/EditProfilePanel.css'
 import { useFormik } from 'formik'
@@ -80,9 +80,10 @@ const Profile = () => {
                 roleId: data.roleId,
                 image: data.image,
             }
+            dispatch(logout())
             dispatch(login(updatedUser))
-            navigate('/')
             alertConfirmation('Enhorabuena', 'su perfil ha sido modificado')
+            navigate('/')
         } catch (error) {
             alertError('Hubo un error', "Algo salio mal")   
         }

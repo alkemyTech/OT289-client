@@ -12,6 +12,7 @@ export const userSlice = createSlice({
             state.image = action.payload.image
             state.roleId  = action.payload.roleId
             state.token = action.payload.token
+            state.isConfirmed = action.payload.isConfirmed
         }, 
         logout: (state) => {
             delete state.id
@@ -21,6 +22,7 @@ export const userSlice = createSlice({
             delete state.image
             delete state.roleId
             delete state.token
+            delete state.isConfirmed
         },
         refresh: (state, action) => {
                     state.id = action.payload.id
@@ -30,6 +32,7 @@ export const userSlice = createSlice({
                     state.image = action.payload.image
                     state.roleId = action.payload.roleId
                     state.token = action.payload.token
+                    state.isConfirmed = action.payload.isConfirmed
             }
         }
         

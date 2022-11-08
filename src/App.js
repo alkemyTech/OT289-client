@@ -20,7 +20,10 @@ import { BASE_PATH } from './utils/constants'
 import { customFetch } from './services/fetch'
 import ProtectedRoute from './features/protectedRoute/ProtectedRoute'
 import TestimonialsHome from './components/Testimonials/TestimonialsHome/TestimonialsHome';
-import axios from 'axios'
+import Profile from './components/Profile/Profile'
+import EditProfile from './components/Profile/EditProfile/EditProfile';
+import ConfirmEmail from './components/ConfirmEmail/ConfirmEmail';
+import EmailConfirmed from './components/EmailConfirmed/EmailConfirmed';
 
 
 function App() {
@@ -43,6 +46,7 @@ function App() {
             email: user.data.payload.email,
             image: user.data.payload.image,
             roleId: user.data.payload.roleId,
+            isConfirmed: user.data.payload.isConfirmed,
             token
           }
           dispatch(refresh(userObj))
@@ -76,6 +80,10 @@ function MainSPA({ userData }) {
     <Layout>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route exact path='/usuario/:id' element={<Profile />} />
+        <Route exact path='/usuario/editar/:id' element={<EditProfile/>} /> 
+        <Route exact path='/usuario/confirmaremail/' element={<ConfirmEmail />} />
+        <Route exact path='/confirmacion/:token' element={<EmailConfirmed />} />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/nosotros" element={<AboutUs/>} />
         <Route path="/novedades" element={<NewsHome />} />
