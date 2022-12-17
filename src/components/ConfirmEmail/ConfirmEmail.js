@@ -30,7 +30,11 @@ const ConfirmEmail = () => {
     }
     customFetch(url, properties)
       .then(data => {
-        Swal.fire('Exito!', `El correo fue enviado al email de ${userData.email}`, 'success')
+        Swal.fire({
+          title: 'Exito!', 
+          text: `El correo fue enviado al email de ${userData.email}`, 
+          icon: 'success', 
+          confirmButtonText: 'Volver a la home'})
           .then(result => {
             navigate('/')
           })

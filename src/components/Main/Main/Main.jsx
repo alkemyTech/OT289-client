@@ -10,6 +10,7 @@ import s from './Main.module.css'
 import Button from 'react-bootstrap/Button'
 import parse from 'html-react-parser'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
 
@@ -131,9 +132,11 @@ const Main = () => {
 					<div className={s.welcome_div}>
 						<h1 className={s.title}>{title}</h1>
 						{organization.data && parse(organization.data.welcomeText)}
-						<Button href="/contacto" className={s.main_button}>
-							Contáctanos
+						
+						<Button href="/donaciones" className={s.main_button}>
+							Colabora!
 						</Button>
+						
 					</div>
 					<div className={s.slider_div}>
 						<Slider images={img} />
