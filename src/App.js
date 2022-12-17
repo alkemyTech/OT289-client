@@ -24,6 +24,7 @@ import Profile from './components/Profile/Profile'
 import EditProfile from './components/Profile/EditProfile/EditProfile';
 import ConfirmEmail from './components/ConfirmEmail/ConfirmEmail';
 import EmailConfirmed from './components/EmailConfirmed/EmailConfirmed';
+import Donations from './components/Donations/Donations';
 
 
 function App() {
@@ -60,7 +61,6 @@ function App() {
 
   const userData = useSelector(store => store.user)
 
-
   return (
     <div className="App">
       <Routes>
@@ -84,6 +84,7 @@ function MainSPA({ userData }) {
         <Route exact path='/usuario/editar/:id' element={<EditProfile/>} /> 
         <Route exact path='/usuario/confirmaremail/' element={<ConfirmEmail />} />
         <Route exact path='/confirmacion/:token' element={<EmailConfirmed />} />
+        <Route exact path='/donaciones' element={<Donations />} />
         <Route path="/contacto" element={<Contact />} />
         <Route path="/nosotros" element={<AboutUs/>} />
         <Route path="/novedades" element={<NewsHome />} />
