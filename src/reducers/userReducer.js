@@ -34,6 +34,9 @@ export const userSlice = createSlice({
                     state.token = action.payload.token
                     state.isConfirmed = action.payload.isConfirmed
             }
+        },
+        isConfirmedEmail: (state, action) => {
+            state.isConfirmed = 1
         }
         
     }

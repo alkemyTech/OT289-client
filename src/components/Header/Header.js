@@ -84,7 +84,6 @@ export default function Header() {
 }
 
 function AccountVerification() {
-  const userData = useSelector(store => store.user)
   return (
     <Link to={`/usuario/confirmaremail`} style={{ textDecoration: 'none', margin:0 }}>
     <div className='account-verification'>

@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react'
 import './EmailConfirmed.css'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { BASE_PATH } from '../../utils/constants'
 import axios from 'axios'
 import { alertWaiting, alertConfirmation, alertError } from '../../services/Alert'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { refresh } from '../../reducers/userReducer'
 import { customFetch } from '../../services/fetch'
 
 
 
 const EmailConfirmed = () => {
-
-    const userData = useSelector(store => store.user)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const params = useParams()
     const {token} = params
@@ -37,9 +36,9 @@ const EmailConfirmed = () => {
     useEffect(() => { 
         alertWaiting('Estamos confirmando su email', 'Espere un momento')
        getConfirmEmail()
-        .then(token => {   
+        .then(token => {
             newToken = JSON.stringify(token.data)
-            localStorage.removeItem('token')
+            localStorage.removeItem('token') // token viejo
             localStorage.setItem('token', newToken)
         })
         .then(data => {
@@ -58,6 +57,9 @@ const EmailConfirmed = () => {
                   }
                   dispatch(refresh(userObj))
                   alertConfirmation('Enhorabuena', 'Su email ha sido confirmado')
+                    .then(result => {
+                      navigate('/')
+                    })
                 })
                   .catch(error => alertError('Oops', 'Ha habido un problema'))
             } else {

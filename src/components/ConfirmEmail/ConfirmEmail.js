@@ -22,7 +22,6 @@ const ConfirmEmail = () => {
     confirmButtonColor: '#9ac9fb',
     denyButtonText: 'Volver a la Home'
   }).then(result=> {
-
     if(result.isConfirmed){
       const url = `${BASE_PATH}/users/auth/confirmemail/`
       const properties = {
