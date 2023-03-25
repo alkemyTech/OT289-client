@@ -38,7 +38,7 @@ const Contact = () => {
         return (
             <div>
                 <h3>Nuestras redes</h3>
-                {organization.data.socialLinks.length > 0 && (
+                {organization.data?.socialLinks?.length > 0 && (
                     <ul>
                         {organization.data.socialLinks.map((social, index) => {
                             return (
