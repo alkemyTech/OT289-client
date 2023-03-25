@@ -82,7 +82,7 @@ const Footer = () => {
                         {organization.data.socialLinks.map((social, index) => {
                             return (
                                 <li key={`social-${index}`}>
-                                    <a href={social.url} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>
+                                    <a href={'/'} rel="noopener noreferrer" className={styles.socialLink}>
                                         <SocialIcon socialName={social.name} size={18} />
                                         {social.name}
                                     </a>
