@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { customFetch } from '../../../services/fetch';
-import recycledStyles from './styles/NewsPanel.module.css';
-import s from './styles/TestimonialsPanel.module.css';
+import panel  from './styles/Panels.module.css'
+import grid  from './styles/Grids.module.css'
+import axios from 'axios'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL;
+
+const axiosMembers = axios.create({
+    baseURL: `${SERVER_BASE_URL}/members`,
+    headers: {
+        'authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
+        'Content-Type': 'multipart/form-data'
+    }
+});
+
 
 const MembersPanel = () => {
 
@@ -11,11 +20,7 @@ const MembersPanel = () => {
 
     const getMembers = async () => {
         try {
-            const url = `${SERVER_BASE_URL}/members`;
-            const properties = {
-                method: 'get'
-            };
-            const res = await customFetch(url, properties);
+            const res = await axiosMembers.get()
             setMembers(res.data);
         } catch (error) {
             console.error(`Error getting members, ${error}`)
@@ -27,42 +32,55 @@ const MembersPanel = () => {
     }, []);
 
     const handleDelete = async (id) => {
-        const url = `${SERVER_BASE_URL}/members/${id}`
-        const properties = {
-            method: 'delete'
-        }
-        await customFetch(url, properties)
-        getMembers()
+        try {
+            await axiosMembers.delete(`/${id}`)
+            getMembers()
+        } catch (error) {
+            console.error(`Error getting members, ${error}`)
+        };
     };
 
+    const MembersCard = ({data}) => {
+
+        const [edit, setEdit] = useState(false)
+
+        return(
+        <div className={grid.gridCardContainer}>
+            <li className={grid.listItem}>
+                <div className={grid.imageContainer}>
+                    <img className={grid.image} src={data.image} alt="Image" />
+                </div>
+                <div className={grid.dataContainer}>
+                    <h4>{ data.name }</h4>
+                </div>
+                <div className={grid.buttons}>
+                    <button onClick={() => handleDelete(data.id)} className={grid.deleteButton}>Eliminar</button>
+                </div>
+            </li>
+        </div>
+        );
+    }
+
     return (
-        <div className={s.container}>
-            <div className={recycledStyles.titleContainer}>
-                <h1 className={recycledStyles.title}>Miembros</h1>
+        <div className={panel.simpleContainer}>
+            <div className={panel.titleContainer}>
+                <h1 className={panel.title}>Miembros</h1>
             </div>
-            <div className={recycledStyles.newsListContainer}>
-                <ul className={recycledStyles.newsList}>
+            <div className={grid.gridContainer}>
+                <div className={grid.grid}>
                     {
-                        members && members.map((e) => (
-                            <div key={e.id} className={recycledStyles.listItemContainer}>
-                                <li className={s.listItem}>
-                                    <div className={recycledStyles.imageContainer}>
-                                        <img className={recycledStyles.image} src={e.image} alt="Image" />
-                                    </div>
-                                    <div className={recycledStyles.dataContainer}>
-                                        <h4 className={recycledStyles.newsName}> {e.name} </h4>
-                                    </div>
-                                    <div>
-                                        <button onClick={() => handleDelete(e.id)} className={s.button}>X</button>
-                                    </div>
-                                </li>
-                            </div>
+                        members && members.map((data) => (
+                            <MembersCard data={data} key={data.id}/>
                         ))
                     }
-                </ul>
+                </div>
             </div>
         </div>
     );
+
+
 }
+
+
 
 export default MembersPanel

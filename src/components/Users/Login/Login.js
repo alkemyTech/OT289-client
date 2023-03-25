@@ -82,6 +82,7 @@ const LoginForm = () => {
                     email: userData.email,
                     image: userData.image,
                     roleId: userData.roleId,
+                    isConfirmed: userData.isConfirmed,
                     token: token
                 }
 

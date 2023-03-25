@@ -1,6 +1,6 @@
 import './Header.css'
 import React, { useState } from 'react'
-import { List, X } from 'react-bootstrap-icons'
+import { List, X, Tools } from 'react-bootstrap-icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../reducers/userReducer'
@@ -25,6 +25,7 @@ export default function Header() {
 
   return (
     <>
+
       <div className="header">
         <div className="logo">
           {!organization.loading && 
@@ -39,9 +40,22 @@ export default function Header() {
           <Link to="/contacto"><button className={`${location.pathname === "/contacto" ? 'active' : '' }`}>Contacto</button></Link>
         </nav>
         <div className='account'>
+          {userData.id && userData.roleId === 1 ?
+                          <>
+                          <Link to='/backoffice' style={{ textDecoration: 'none' }}>
+                            <div className='login login-flex'>
+                              <div className='account-button-image'>
+                              <Tools size={36}/>
+                              </div>
+                            </div>
+                          </Link>
+                          </> 
+                          :
+                          null
+                          }
           {userData.id ?
               <>
-              <Link to='backOffice' style={{ textDecoration: 'none' }}>
+              <Link to={`/usuario/${userData.id}`} style={{ textDecoration: 'none' }}>
                 <div className='login login-flex'>
                   <div className='account-button-image'>
                     <img src={userData.image} alt={userData.firstName}/>
@@ -63,11 +77,21 @@ export default function Header() {
         <BurguerIcon userData={userData} handleLogout={handleLogout}/>
       </div>
       <div className='hidden'></div>
+      {userData.id && userData.isConfirmed !== 1 ? <AccountVerification /> : null}    
       <ToastContainer/>
     </>
   )
 }
 
+function AccountVerification() {
+  return (
+    <Link to={`/usuario/confirmaremail`} style={{ textDecoration: 'none', margin:0 }}>
+    <div className='account-verification'>
+    <h6>Tenes que Verificar tu cuenta para acceder a algunas funcionalidades</h6>
+    </div>
+  </Link>
+  )
+}
 
 function BurguerIcon({ userData, handleLogout, }) {
 

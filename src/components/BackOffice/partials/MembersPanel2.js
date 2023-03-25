@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import publicService from '../../../services/publicService'
+import { customFetch } from '../../../services/fetch'
 import panel  from './styles/Panels.module.css'
 import form  from './styles/Forms.module.css'
 import list  from './styles/Lists.module.css'
@@ -6,37 +8,41 @@ import { Formik, Form, Field } from 'formik'
 import * as Yup from 'yup'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import { alertConfirmation, alertWarning ,alertError, alertWaiting, closeCurrentAlert } from '../../../services/Alert'
+import PropTypes from 'prop-types'
 import axios from 'axios'
+//Components
+import { alertConfirmation,alertWarning ,alertError, alertWaiting, closeCurrentAlert } from '../../../services/Alert'
+
 import Loader from '../../Loader/Loader'
 
 const SERVER_BASE_URL = process.env.REACT_APP_SERVER_BASE_URL
-const MIN_NAME = 10
-const MAX_NAME = 50
-const MIN_CONTENT = 50
 
-const axiosNews = axios.create({
-    baseURL: `${SERVER_BASE_URL}/news`,
+const axiosMembers = axios.create({
+    baseURL: `${SERVER_BASE_URL}/members`,
     headers: {
         'authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`,
         'Content-Type': 'multipart/form-data'
     }
 });
 
+const MembersPanel = () => {
+    const [members, setMembers] = useState(null)
+    const [memberData, setMemberData] = useState({})
 
-const NewsPanel = () => {
-    const [news, setNews] = useState(null)
-    const [newsData, setNewsData] = useState({})
-
-    const [ newsSearch, setNewsSearch ] = useState([])
+    const [ membersSearch, setMembersSearch ] = useState([])
     const [ search, setSearch ] = useState('')
 
     useEffect(() => {
-        getNews()
+        async function getData() {
+            const data = await axiosMembers.get()
+            setMembers(data.data.reverse())
+        }
+        getData()
     }, [])
 
     const handleUpdate = async (data) => {
-        setNewsData(data)
+        data.categoryId = 'members';
+        setMemberData(data)
         const a = document.getElementById("formDiv");
         if(document.documentElement.scrollWidth < 1000) {
             a.scrollIntoView({
@@ -52,7 +58,7 @@ const NewsPanel = () => {
                 behavior: "smooth"
             })
         }
-        setNewsData({})
+        setMemberData({})
     }
 
     const handleDelete = async ({id, name}) => {
@@ -60,40 +66,39 @@ const NewsPanel = () => {
 
         if (deleteConfirmation) {
             try {
-                await axiosNews.delete(`/${id}`)
-                
-                getNews()
-                setNewsData({})
+                await axiosMembers.delete(`/${id}`)
+                handleRefresh()
+                setMemberData({})
             } catch (error) {
                 alertError('Error al borrar', 'Por favor, prueba nuevamente')
             }
         }
     }
 
-    const getNews = async () => {
-        const data = await axiosNews.get()
-        setNews(data.data.reverse())
+    const handleRefresh = async () => {
+        const data = await publicService.membersList()
+        setMembers(data.data.reverse())
         setSearch('')
-        setNewsSearch([])
+        setMembersSearch([])
     }
 
-    const searchNews = (e) => {
+    const searchMembers = (e) => {
         setSearch(e.target.value)
-        setNewsSearch(news.filter(news => news.name.toLowerCase().includes(e.target.value)))
+        setMembersSearch(members.filter(member => member.name.toLowerCase().includes(e.target.value)))
     }
 
-    const Item = ({ currentNews }) => {
+    const Item = ({ currentMember }) => {
         return (
-            <div className={list.listItemContainer}>
+            <div className={list.ItemContainer}>
                 <li className={list.listItem}>
                     <div className={list.imageContainer}>
-                        <img src={currentNews.image} alt={currentNews.name} className={list.image}/>
+                        <img src={currentMember.image} alt={currentMember.name} className={list.image}/>
                     </div>
                     
-                    <div className={list.dataContainer}>
-                        <h5>{currentNews.name}</h5>  
-                        <button onClick={() => handleUpdate(currentNews)} className={list.button}>Modificar</button>
-                        <button onClick={() => handleDelete(currentNews)} className={list.button}>Eliminar</button>
+                    <div className="d-flex flex-column text-center">
+                        <h5>{currentMember.name}</h5>  
+                        <button onClick={() => handleUpdate(currentMember)} className={list.button}>Modificar</button>
+                        <button onClick={() => handleDelete(currentMember)} className={list.button}>Eliminar</button>
                     </div>
                 </li>
             </div>
@@ -103,31 +108,29 @@ const NewsPanel = () => {
   return (
     <div className={panel.doubleContainer}>
 
-
         <div className={panel.columnLeftContainer}>
             <div className={panel.titleContainer}>
-                <h1 className={panel.title}>Novedades</h1>
+                <h1 className={panel.title}>Actividades</h1>
             </div>
             <div className={list.buttonsContainer}>
-                <button onClick={()=> handleCreate()} className={list.button}>Crear Novedad</button>
-                <button onClick={()=> getNews()} className={list.button}>Refresh</button>
-                <input onChange={searchNews} value={search} className={list.search} placeholder='Buscar novedad...' />
+                <button onClick={()=> handleCreate()} className={list.button}>Crear Actividad</button>
+                <button onClick={()=> handleRefresh()} className={list.button}>Refresh</button>
+                <input onChange={searchMembers} value={search} className={list.search} placeholder='Buscar actividad...' />
             </div>
-
             <div className={list.listContainer}>
-                <ul className={list.list}>
-                    {!news ?
+            <ul className={list.list}>
+                    {!members ?
                         <Loader />
                     :
                         search ? 
-                            newsSearch.length > 0 ?
-                                newsSearch.map((currentNews) => <Item key={currentNews.id} currentNews={currentNews} />)
+                            membersSearch.length > 0 ?
+                                membersSearch.map((currentMember) => <Item key={currentMember.id} currentMember={currentMember} />)
                             :
                                 <p className='text-center'>No se encontraron novedades</p>
                             
                         :
-                            news.length > 0 ? 
-                                news.map((currentNews) => <Item key={currentNews.id} currentNews={currentNews} />)
+                            members.length > 0 ? 
+                                members.map((currentMember) => <Item key={currentMember.id} currentMember={currentMember} />)
                             :
                                 <p className='text-center'>No se encontraron novedades</p>
                     }
@@ -141,7 +144,7 @@ const NewsPanel = () => {
             </div>
             <div id='formDiv' className={form.formContainer}>
             {
-                newsData.id ? (<NewsForm data={newsData} getNews={getNews}/>) : ( <NewsForm getNews={getNews}/>) 
+                memberData.id ? (<MemberForm data={memberData}/>) : ( <MemberForm/>) 
             }
             </div>
         </div>
@@ -150,13 +153,16 @@ const NewsPanel = () => {
   )
 }
 
-const NewsForm = ({ data, getNews}) => {
+const MIN_NAME = 10
+const MAX_NAME = 50
+const MIN_CONTENT = 50
+
+const MemberForm = ({ data }) => {
 
     //Formik validation schema using Yup
-    const newsSchema = Yup.object().shape({
+    const memberSchema = Yup.object().shape({
         name: Yup.string().min(MIN_NAME, 'Nombre muy corto').max(MAX_NAME, 'Nombre muy largo').required('Requerido'),
         image: Yup.mixed().required('Requerido'),
-        categoryId: Yup.number(),
         content: Yup.string().min(MIN_CONTENT, 'Contenido muy corto').required('Requerido')
     })
 
@@ -183,21 +189,18 @@ const NewsForm = ({ data, getNews}) => {
 
         try {
             if (data.id){
-                await axiosNews.put(`/${data.id}`, values)
+                await axiosMembers.put(`/${data.id}`, values)
             }else{
-                await axiosNews.post('/', values)
+                await axiosMembers.post('/', values)
                 resetForm()
             }
             closeCurrentAlert()
 
-            //Show confirmation message
-            const alertTitle = `Novedad ${ data.id ? 'actualizada!' : 'creada!'}`
-            const alertMessage = `La novedad fue ${ data.id ? 'actualizada' : 'creada'} correctamente.`
-            
-            alertConfirmation(alertTitle, alertMessage)
-            getNews()
-        } catch (error) {
+            const alertTitle = `Actividad ${ data.id ? 'actualizada!' : 'creada!'}`
+            const alertMessage = `La actividad fue ${ data.id ? 'actualizada' : 'creada' } correctamente.`
 
+            alertConfirmation(alertTitle, alertMessage)
+        } catch (error) {
             closeCurrentAlert()
             //Received error must be a string
             alertError('Ups, hubo un error', error)
@@ -208,13 +211,13 @@ const NewsForm = ({ data, getNews}) => {
         <Formik
             initialValues={data}
             onSubmit={handleSubmit}
-            validationSchema={newsSchema}
+            validationSchema={memberSchema}
             enableReinitialize
         >
             {({ setFieldValue, errors, touched, values }) => (
-                <Form className={form.form}>
+                <Form className={form.memberForm}>
 
-                    <Field name='name' className={form.input} placeholder='Nombre de la novedad' required />
+                    <Field name='name' className={form.input} placeholder='Nombre de la actividad' required />
                     {errors.name && touched.name && <p>{errors.name}</p>}
 
                     <label htmlFor='featuredImage' className={form.uploadImage}>{values.image ? 'Cambiar' : 'Selecciona una'} imagen (PNG, JPG)</label>
@@ -223,13 +226,10 @@ const NewsForm = ({ data, getNews}) => {
 
                     {values.image && <img src={(typeof values.image === 'string') ? values.image : URL.createObjectURL(values.image)} alt='descatada' className={form.image} />}
 
-                    <Field name='categoryId' type='number' className={form.input} placeholder='ID Categoria' required />
-                    {errors.type && touched.type && <p>{errors.type}</p>}
-
                     <Field name='content' component={CustomCKEditorField} />
                     {errors.content && touched.content && <p>{errors.content}</p>}
 
-                    <Field type='submit' name='submit' value={`${data.id ? 'Actualizar' : 'Crear' } novedad`} className={form.button} />
+                    <Field type='submit' name='submit' value={`${data.id ? 'Actualizar' : 'Crear'} actividad`} className={form.button} />
 
                 </Form>
             )}
@@ -237,7 +237,8 @@ const NewsForm = ({ data, getNews}) => {
     )
 }
 
-NewsForm.defaultProps = {data: {name: '', content: '', categoryId: 1, image: ''}}
+MemberForm.defaultProps = {data: {name: '', content: '', image: ''}}
 
 
-export default NewsPanel
+
+export default MembersPanel
