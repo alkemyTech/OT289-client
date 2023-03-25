@@ -1,5 +1,9 @@
 .donations-container {
-    display:flex
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%
 }
 
 .donations-form {
@@ -27,4 +31,8 @@
 .lastest-donations {
     width: 50%;
     text-align: center;
+}
+
+.text {
+
 }

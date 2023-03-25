@@ -55,7 +55,7 @@ const Donations = () => {
 
   return (
     <div className='donations-container'>
-        <form className='donations-form' onSubmit={formik.handleSubmit}>
+        {/* <form className='donations-form' onSubmit={formik.handleSubmit}>
             <label for='donation'>Ingresa el valor que quieres donar:</label>
             <input type='text' name='donation' className='donation-input' onChange={formik.handleChange}/>
             <label for='currency'>Tipo de moneda</label>
@@ -69,7 +69,10 @@ const Donations = () => {
         </form>
         <div className='lastest-donations'>
         
-        </div>
+        </div> */}
+        <h1>
+            ¡MUY PRONTO!
+        </h1>
        
     </div>
   )
